@@ -14,6 +14,15 @@
 		FDD71FC31BBB360A00E076EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD71FC11BBB360A00E076EE /* LaunchScreen.storyboard */; };
 		FDD71FCE1BBB360A00E076EE /* CardAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FCD1BBB360A00E076EE /* CardAnimationTests.swift */; };
 		FDD71FD91BBB360A00E076EE /* CardAnimationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FD81BBB360A00E076EE /* CardAnimationUITests.swift */; };
+		FDD720211BBBF36700E076EE /* aqualad_young_justice_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201A1BBBF36700E076EE /* aqualad_young_justice_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
+		FDD720221BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
+		FDD720231BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
+		FDD720241BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
+		FDD720251BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
+		FDD720261BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
+		FDD720271BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
+		FDEDBBFD1BBFE9E1009654BD /* JLAFRICA.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFB1BBFE9E1009654BD /* JLAFRICA.jpeg */; settings = {ASSET_TAGS = (); }; };
+		FDEDBBFE1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +56,15 @@
 		FDD71FD41BBB360A00E076EE /* CardAnimationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardAnimationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD71FD81BBB360A00E076EE /* CardAnimationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnimationUITests.swift; sourceTree = "<group>"; };
 		FDD71FDA1BBB360A00E076EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDD7201A1BBBF36700E076EE /* aqualad_young_justice_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = aqualad_young_justice_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
+		FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = batman_tim_burton_style_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
+		FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = classic_captain_marvel_jr_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
+		FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = green_lantern_corps_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
+		FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = superman_kingdom_come_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
+		FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = flash_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
+		FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wonder_woman_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
+		FDEDBBFB1BBFE9E1009654BD /* JLAFRICA.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = JLAFRICA.jpeg; sourceTree = "<group>"; };
+		FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = batman_begins_poster_style_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +115,15 @@
 		FDD71FB71BBB360A00E076EE /* CardAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				FDD7201A1BBBF36700E076EE /* aqualad_young_justice_logo_by_kalangozilla.jpg */,
+				FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */,
+				FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */,
+				FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */,
+				FDEDBBFB1BBFE9E1009654BD /* JLAFRICA.jpeg */,
+				FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */,
+				FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */,
+				FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */,
+				FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */,
 				FDD71FB81BBB360A00E076EE /* AppDelegate.swift */,
 				FDD71FBA1BBB360A00E076EE /* ViewController.swift */,
 				FDD71FBC1BBB360A00E076EE /* Main.storyboard */,
@@ -228,9 +255,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDEDBBFE1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg in Resources */,
+				FDD720231BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg in Resources */,
 				FDD71FC31BBB360A00E076EE /* LaunchScreen.storyboard in Resources */,
+				FDD720251BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg in Resources */,
+				FDD720271BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg in Resources */,
+				FDEDBBFD1BBFE9E1009654BD /* JLAFRICA.jpeg in Resources */,
+				FDD720211BBBF36700E076EE /* aqualad_young_justice_logo_by_kalangozilla.jpg in Resources */,
 				FDD71FC01BBB360A00E076EE /* Assets.xcassets in Resources */,
+				FDD720241BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg in Resources */,
+				FDD720221BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg in Resources */,
 				FDD71FBE1BBB360A00E076EE /* Main.storyboard in Resources */,
+				FDD720261BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +435,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CardAnimation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = seedante.CardAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -410,6 +447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CardAnimation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = seedante.CardAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -483,6 +521,7 @@
 				FDD71FDF1BBB360A00E076EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FDD71FE01BBB360A00E076EE /* Build configuration list for PBXNativeTarget "CardAnimationTests" */ = {
 			isa = XCConfigurationList;
@@ -491,6 +530,7 @@
 				FDD71FE21BBB360A00E076EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FDD71FE31BBB360A00E076EE /* Build configuration list for PBXNativeTarget "CardAnimationUITests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +539,7 @@
 				FDD71FE51BBB360A00E076EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

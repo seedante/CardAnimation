@@ -1,25 +1,261 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CardAnimation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6u-vc-eCu">
+                                <rect key="frame" x="262" y="494" width="77" height="42"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="DOWN"/>
+                                <connections>
+                                    <action selector="flipDown:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rGs-jJ-Oyw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dX0-CZ-EP9">
+                                <rect key="frame" x="284" y="20" width="33" height="42"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="UP"/>
+                                <connections>
+                                    <action selector="flipUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eUT-AE-z1T"/>
+                                </connections>
+                            </button>
+                            <view clipsSubviews="YES" tag="8" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="9zs-Dp-7l2">
+                                <rect key="frame" x="100" y="150" width="400" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JLAFRICA.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="eJ7-5L-ZrZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.1334631741" green="0.1823148429" blue="0.25190103050000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="eJ7-5L-ZrZ" firstAttribute="centerX" secondItem="9zs-Dp-7l2" secondAttribute="centerX" id="K5n-ix-gte"/>
+                                    <constraint firstItem="eJ7-5L-ZrZ" firstAttribute="centerY" secondItem="9zs-Dp-7l2" secondAttribute="centerY" id="RWr-yF-EWN"/>
+                                    <constraint firstAttribute="width" constant="400" id="RjO-mG-5UW"/>
+                                    <constraint firstItem="eJ7-5L-ZrZ" firstAttribute="height" secondItem="9zs-Dp-7l2" secondAttribute="height" id="pMN-EQ-eJP"/>
+                                    <constraint firstItem="eJ7-5L-ZrZ" firstAttribute="width" secondItem="9zs-Dp-7l2" secondAttribute="width" id="th1-Vn-cRv"/>
+                                    <constraint firstAttribute="height" constant="300" id="w3c-1q-dqo"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" tag="7" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="MuV-cw-abK">
+                                <rect key="frame" x="100" y="150" width="400" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="classic_captain_marvel_jr_logo_by_kalangozilla.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="87z-6f-pVd">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.1334631741" green="0.1823148429" blue="0.25190103050000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="87z-6f-pVd" firstAttribute="height" secondItem="MuV-cw-abK" secondAttribute="height" id="5Af-31-jPF"/>
+                                    <constraint firstAttribute="height" constant="300" id="996-gU-WRO"/>
+                                    <constraint firstItem="87z-6f-pVd" firstAttribute="centerY" secondItem="MuV-cw-abK" secondAttribute="centerY" id="JIi-5a-D5L"/>
+                                    <constraint firstItem="87z-6f-pVd" firstAttribute="width" secondItem="MuV-cw-abK" secondAttribute="width" id="Xx8-Vk-mrH"/>
+                                    <constraint firstItem="87z-6f-pVd" firstAttribute="centerX" secondItem="MuV-cw-abK" secondAttribute="centerX" id="pUX-dl-lXi"/>
+                                    <constraint firstAttribute="width" constant="400" id="yGP-sW-co1"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" tag="6" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Jow-ar-45l">
+                                <rect key="frame" x="100" y="150" width="400" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aqualad_young_justice_logo_by_kalangozilla.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="isR-89-wYo">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.1334631741" green="0.1823148429" blue="0.25190103050000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="400" id="ETE-zu-2Uf"/>
+                                    <constraint firstItem="isR-89-wYo" firstAttribute="centerY" secondItem="Jow-ar-45l" secondAttribute="centerY" id="EoG-hv-IQU"/>
+                                    <constraint firstItem="isR-89-wYo" firstAttribute="height" secondItem="Jow-ar-45l" secondAttribute="height" id="F9k-jS-Xo3"/>
+                                    <constraint firstItem="isR-89-wYo" firstAttribute="centerX" secondItem="Jow-ar-45l" secondAttribute="centerX" id="OZI-mM-eMM"/>
+                                    <constraint firstAttribute="height" constant="300" id="hK5-MG-06p"/>
+                                    <constraint firstItem="isR-89-wYo" firstAttribute="width" secondItem="Jow-ar-45l" secondAttribute="width" id="mBD-h8-Pps"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" tag="5" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Ykr-Sk-NIz">
+                                <rect key="frame" x="100" y="150" width="400" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flash_logo_by_kalangozilla.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Gtx-WI-Aul">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.1334631741" green="0.1823148429" blue="0.25190103050000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Gtx-WI-Aul" firstAttribute="centerX" secondItem="Ykr-Sk-NIz" secondAttribute="centerX" id="2L5-14-qJv"/>
+                                    <constraint firstAttribute="width" constant="400" id="Nf5-gw-EQb"/>
+                                    <constraint firstItem="Gtx-WI-Aul" firstAttribute="height" secondItem="Ykr-Sk-NIz" secondAttribute="height" id="NwA-0W-Y7Z"/>
+                                    <constraint firstItem="Gtx-WI-Aul" firstAttribute="centerY" secondItem="Ykr-Sk-NIz" secondAttribute="centerY" id="aGX-gE-eSy"/>
+                                    <constraint firstAttribute="height" constant="300" id="cni-Mp-lpl"/>
+                                    <constraint firstItem="Gtx-WI-Aul" firstAttribute="width" secondItem="Ykr-Sk-NIz" secondAttribute="width" id="zWz-MQ-HU7"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" tag="4" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="7JI-KU-ITn">
+                                <rect key="frame" x="100" y="150" width="400" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="green_lantern_corps_logo_by_kalangozilla.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="pWh-3Y-M8z">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.1334631741" green="0.1823148429" blue="0.25190103050000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="pWh-3Y-M8z" secondAttribute="trailing" id="304-I6-TQS"/>
+                                    <constraint firstAttribute="height" constant="300" id="CsY-Pr-8mJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="pWh-3Y-M8z" secondAttribute="bottom" id="IKZ-7j-s2Y"/>
+                                    <constraint firstAttribute="width" constant="400" id="VLX-e1-hM7"/>
+                                    <constraint firstItem="pWh-3Y-M8z" firstAttribute="leading" secondItem="7JI-KU-ITn" secondAttribute="leading" id="gab-Uy-eVT"/>
+                                    <constraint firstItem="pWh-3Y-M8z" firstAttribute="top" secondItem="7JI-KU-ITn" secondAttribute="top" id="sr7-Xh-xHX"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" tag="3" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="N84-kZ-jyt">
+                                <rect key="frame" x="100" y="150" width="400" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="batman_begins_poster_style_logo_by_kalangozilla.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ikB-6j-BrC">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.1334631741" green="0.1823148429" blue="0.25190103050000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ikB-6j-BrC" secondAttribute="bottom" id="6OE-ia-oRA"/>
+                                    <constraint firstAttribute="trailing" secondItem="ikB-6j-BrC" secondAttribute="trailing" id="C1P-wb-Lpf"/>
+                                    <constraint firstItem="ikB-6j-BrC" firstAttribute="top" secondItem="N84-kZ-jyt" secondAttribute="top" id="H2I-q5-2cX"/>
+                                    <constraint firstAttribute="height" constant="300" id="cqm-xp-Q4j"/>
+                                    <constraint firstAttribute="width" constant="400" id="tT8-SI-hly"/>
+                                    <constraint firstItem="ikB-6j-BrC" firstAttribute="leading" secondItem="N84-kZ-jyt" secondAttribute="leading" id="yrp-Qy-ixe"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" tag="2" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="J1P-xO-9u7">
+                                <rect key="frame" x="100" y="150" width="400" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wonder_woman_logo_by_kalangozilla.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="AZg-JS-y9S">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.1334631741" green="0.1823148429" blue="0.25190103050000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="AZg-JS-y9S" firstAttribute="top" secondItem="J1P-xO-9u7" secondAttribute="top" id="4WY-FO-5L5"/>
+                                    <constraint firstAttribute="trailing" secondItem="AZg-JS-y9S" secondAttribute="trailing" id="5Sj-4h-qXL"/>
+                                    <constraint firstAttribute="bottom" secondItem="AZg-JS-y9S" secondAttribute="bottom" id="6Gl-ft-4z6"/>
+                                    <constraint firstAttribute="width" constant="400" id="O2j-eS-efL"/>
+                                    <constraint firstAttribute="height" constant="300" id="eiI-EW-JNe"/>
+                                    <constraint firstItem="AZg-JS-y9S" firstAttribute="leading" secondItem="J1P-xO-9u7" secondAttribute="leading" id="zIM-xG-paS"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="fCC-bM-0gK">
+                                <rect key="frame" x="100" y="150" width="400" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="superman_kingdom_come_logo_by_kalangozilla.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="SeX-lF-DBH">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.1334631741" green="0.1823148429" blue="0.25190103050000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="SeX-lF-DBH" firstAttribute="leading" secondItem="fCC-bM-0gK" secondAttribute="leading" id="8HE-Wy-zBc"/>
+                                    <constraint firstItem="SeX-lF-DBH" firstAttribute="top" secondItem="fCC-bM-0gK" secondAttribute="top" id="L1e-9Y-cD6"/>
+                                    <constraint firstAttribute="width" constant="400" id="VBM-cj-w7R"/>
+                                    <constraint firstAttribute="height" constant="300" id="VLf-h8-zas"/>
+                                    <constraint firstAttribute="trailing" secondItem="SeX-lF-DBH" secondAttribute="trailing" id="dXc-om-S9q"/>
+                                    <constraint firstAttribute="bottom" secondItem="SeX-lF-DBH" secondAttribute="bottom" id="fYi-uh-djf"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <constraints>
+                            <constraint firstItem="7JI-KU-ITn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="37F-IQ-UDK"/>
+                            <constraint firstItem="MuV-cw-abK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9rs-dW-L8U"/>
+                            <constraint firstItem="9zs-Dp-7l2" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="B45-k1-bcf"/>
+                            <constraint firstItem="fCC-bM-0gK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="E7E-Qb-Vsn"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="t6u-vc-eCu" secondAttribute="bottom" constant="20" id="Kia-Qh-Z5X">
+                                <variation key="heightClass=compact" constant="8"/>
+                                <variation key="heightClass=compact-widthClass=regular" constant="176"/>
+                            </constraint>
+                            <constraint firstItem="Jow-ar-45l" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KrY-4W-ADy"/>
+                            <constraint firstItem="dX0-CZ-EP9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NIY-b6-73S">
+                                <variation key="heightClass=compact-widthClass=regular" constant="-360"/>
+                            </constraint>
+                            <constraint firstItem="J1P-xO-9u7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="OVw-iN-sbD"/>
+                            <constraint firstItem="N84-kZ-jyt" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="RFJ-dS-YmM"/>
+                            <constraint firstItem="Ykr-Sk-NIz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ryo-rN-0lc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="t6u-vc-eCu" secondAttribute="bottom" constant="20" id="Tu3-Sq-dYq"/>
+                            <constraint firstItem="t6u-vc-eCu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aR4-LG-UiK">
+                                <variation key="heightClass=compact-widthClass=regular" constant="334"/>
+                            </constraint>
+                            <constraint firstItem="MuV-cw-abK" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="bUx-3H-CjW"/>
+                            <constraint firstItem="Jow-ar-45l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cvb-r4-aND"/>
+                            <constraint firstItem="dX0-CZ-EP9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="d7k-oM-53w"/>
+                            <constraint firstItem="9zs-Dp-7l2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jpx-TM-Vwl"/>
+                            <constraint firstItem="7JI-KU-ITn" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="kGh-jH-2kk"/>
+                            <constraint firstItem="N84-kZ-jyt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="n53-Ib-5X0"/>
+                            <constraint firstItem="Ykr-Sk-NIz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="pIR-fj-TJR"/>
+                            <constraint firstItem="dX0-CZ-EP9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pSj-6z-cTn">
+                                <variation key="heightClass=compact" constant="-26"/>
+                                <variation key="heightClass=compact-widthClass=regular" constant="156"/>
+                            </constraint>
+                            <constraint firstItem="dX0-CZ-EP9" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="qOm-Zd-h17"/>
+                            <constraint firstItem="fCC-bM-0gK" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="tKk-ep-hC3"/>
+                            <constraint firstItem="J1P-xO-9u7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tNr-4W-t24"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="d7k-oM-53w"/>
+                                <exclude reference="qOm-Zd-h17"/>
+                                <exclude reference="Tu3-Sq-dYq"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="558" y="462"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="JLAFRICA.jpeg" width="840" height="328"/>
+        <image name="aqualad_young_justice_logo_by_kalangozilla.jpg" width="900" height="563"/>
+        <image name="batman_begins_poster_style_logo_by_kalangozilla.jpg" width="900" height="563"/>
+        <image name="classic_captain_marvel_jr_logo_by_kalangozilla.jpg" width="900" height="563"/>
+        <image name="flash_logo_by_kalangozilla.jpg" width="900" height="563"/>
+        <image name="green_lantern_corps_logo_by_kalangozilla.jpg" width="900" height="563"/>
+        <image name="superman_kingdom_come_logo_by_kalangozilla.jpg" width="900" height="563"/>
+        <image name="wonder_woman_logo_by_kalangozilla.jpg" width="900" height="563"/>
+    </resources>
 </document>
