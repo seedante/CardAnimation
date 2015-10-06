@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     var originFrame = CGRectZero
     var gestureDirection:panScrollDirection = .Up
 
+    @IBOutlet weak var frontCenterYConstraint: NSLayoutConstraint!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,10 +29,10 @@ class ViewController: UIViewController {
         gradientBackgroundLayer.colors = [UIColor.blackColor().CGColor, UIColor.darkGrayColor().CGColor, UIColor.lightGrayColor().CGColor]
         view.layer.insertSublayer(gradientBackgroundLayer, atIndex: 0)
 
-        self.performSelector("resetViewLayout:", withObject: nil, afterDelay: 0.1)
-
         let scrollGesture = UIPanGestureRecognizer(target: self, action: "scrollOnView:")
         view.addGestureRecognizer(scrollGesture)
+
+        relayoutSubViews()
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,8 +54,12 @@ class ViewController: UIViewController {
         flipUpTransform3D.m34 = -1.0 / 1000.0
         flipUpTransform3D = CATransform3DRotate(flipUpTransform3D, 0, 1, 0, 0)
 
-        UIView.animateWithDuration(0.3, animations: {
-            previousFrontView.hidden = false
+        previousFrontView.hidden = false
+        if let subView = previousFrontView.viewWithTag(10){
+            subView.hidden = false
+        }
+
+        UIView.animateWithDuration(0.2, animations: {
             previousFrontView.layer.transform = flipUpTransform3D
             }, completion: {
                 _ in
@@ -70,10 +76,14 @@ class ViewController: UIViewController {
             return
         }
 
+        if let subView = frontView.viewWithTag(10){
+            subView.hidden = true
+        }
+
         var flipDownTransform3D = CATransform3DIdentity
         flipDownTransform3D.m34 = -1.0 / 1000.0
         //此处有个很大的问题，折磨了我几个小时。原来官方的实现有个临界问题，旋转180度不会执行，其他的角度则没有问题
-        flipDownTransform3D = CATransform3DRotate(flipDownTransform3D, CGFloat(-M_PI) * 0.99, 1, 0, 0)
+        flipDownTransform3D = CATransform3DRotate(flipDownTransform3D, CGFloat(-M_PI)*0.99, 1, 0, 0)
         UIView.animateWithDuration(0.3, animations: {
             frontView.layer.transform = flipDownTransform3D
             }, completion: {
@@ -192,6 +202,7 @@ class ViewController: UIViewController {
                         frontView?.layer.transform = flipTransform3D
                         }, completion: {
                             _ in
+
                             frontView?.hidden = true
                             if frontView != nil{
                                 self.adjustDownViewLayout()
@@ -202,6 +213,7 @@ class ViewController: UIViewController {
                     UIView.animateWithDuration(0.2, animations: {
                         frontView?.layer.transform = CATransform3DIdentity
                     })
+
                 }
 
             case .Up:
@@ -231,36 +243,58 @@ class ViewController: UIViewController {
     }
 
     //MARK: Handle Layout
+    func relayoutSubViewWith(viewTag: Int, relativeIndex:Int, delay: NSTimeInterval, haveBorderWidth: Bool){
+        let width = view.bounds.size.width
+        if let subView = view.viewWithTag(viewTag){
+            let alpha = calculateAlphaForIndex(relativeIndex)
+            subView.alpha = alpha
+
+            var borderWidth: CGFloat = 0
+            let filterSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Width && $0.secondItem == nil})
+            if filterSubViewConstraints.count > 0{
+                let widthConstraint = filterSubViewConstraints[0]
+                let widthScale = calculateWidthScaleForIndex(relativeIndex)
+                widthConstraint.constant = widthScale * width
+                borderWidth = width * widthScale / 100
+            }
+
+            let filteredViewConstraints = view.constraints.filter({$0.firstItem as? UIView == subView && $0.secondItem as? UIView == view && $0.firstAttribute == .CenterY})
+            if filteredViewConstraints.count > 0{
+                let centerYConstraint = filteredViewConstraints[0]
+                let subViewHeight = calculateWidthScaleForIndex(relativeIndex) * width * 3 / 4
+                let YOffset = calculusYOffsetForIndex(relativeIndex)
+                centerYConstraint.constant = subViewHeight/2 - YOffset
+            }
+
+            if haveBorderWidth{
+                subView.layer.borderWidth = borderWidth
+            }else{
+                subView.layer.borderWidth = 0
+            }
+
+
+            UIView.animateWithDuration(0.2, delay: delay, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
+                self.view.layoutIfNeeded()
+                }, completion: nil)
+        }
+    }
+
     func adjustUpViewLayout(){
         if frontCardTag >= 2{
-
             let feed: UInt32 = 2
             let randomRoll = arc4random_uniform(feed)
             switch randomRoll{
             case 0:
                 for var viewTag = frontCardTag; viewTag <= cardCount; ++viewTag{
-                    if let subView = view.viewWithTag(viewTag){
-                        let relativeIndex = viewTag - self.frontCardTag + 1
-                        let delay: NSTimeInterval = Double(viewTag - frontCardTag) * 0.1
-                        UIView.animateWithDuration(0.2, delay: delay, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
-                            let (frame, borderWidth) = self.calculateFrameAndBorderWidth(relativeIndex, initialBorderWidth: 5)
-                            subView.frame = frame
-                            subView.layer.borderWidth = borderWidth
-                            }, completion: nil)
-                    }
+                    let delay: NSTimeInterval = Double(viewTag - frontCardTag)*0.1
+                    let relativeIndex = viewTag - frontCardTag + 1
+                    relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
                 }
             case 1:
                 for var viewTag = cardCount; viewTag >= frontCardTag; --viewTag{
-                    if let subView = view.viewWithTag(viewTag){
-                        let relativeIndex = viewTag - self.frontCardTag + 1
-                        let delay: NSTimeInterval = Double(cardCount - viewTag) * 0.1
-                        UIView.animateWithDuration(0.2, delay: delay, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
-                            let (frame, borderWidth) = self.calculateFrameAndBorderWidth(relativeIndex, initialBorderWidth: 5)
-                            subView.frame = frame
-                            subView.layer.borderWidth = borderWidth
-                            }, completion: nil)
-                    }
-                    
+                    let delay: NSTimeInterval = Double(cardCount - viewTag) * 0.1
+                    let relativeIndex = viewTag - frontCardTag + 1
+                    relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
                 }
             default:
                 print("NOT YET")
@@ -275,50 +309,23 @@ class ViewController: UIViewController {
 
         if frontCardTag <= cardCount{
             for viewTag in frontCardTag...cardCount{
-                if let subView = view.viewWithTag(viewTag){
-
-                    let delay: NSTimeInterval = 0.1 * Double(viewTag - frontCardTag)
-                    UIView.animateWithDuration(0.3, delay: delay, options: UIViewAnimationOptions.CurveEaseIn, animations: {
-                        let (frame, borderWidth) = self.calculateFrameAndBorderWidth(viewTag - self.frontCardTag, initialBorderWidth: 5)
-                        subView.frame = frame
-                        subView.layer.borderWidth = borderWidth
-                        }, completion: nil)
-                }
+                let delay: NSTimeInterval = 0.1 * Double(viewTag - frontCardTag)
+                let relativeIndex = viewTag - frontCardTag
+                relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
             }
         }
     }
 
-    func resetViewLayout(originFrameValue: NSValue?){
-
-        var baseFrame = CGRectZero
-        if originFrameValue != nil{
-            baseFrame = (originFrameValue?.CGRectValue())!
-        }else{
-            let frontView = view.viewWithTag(frontCardTag)!
-            originFrame = frontView.frame
-            baseFrame = originFrame
-        }
-
-        //adjust visible views
+    func relayoutSubViews(){
         if frontCardTag <= cardCount{
             for viewTag in frontCardTag...cardCount{
                 if let subView = view.viewWithTag(viewTag){
-
+                    subView.layer.anchorPoint = CGPointMake(0.5, 1)
                     let relativeIndex = viewTag - frontCardTag
-                    let delay: NSTimeInterval = Double(relativeIndex) * 0.05
-                    UIView.animateWithDuration(0.3, delay: delay, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                        subView.hidden = false
+                    let delay: NSTimeInterval = 0
 
-                        let (frame, borderWidth) = self.calculateFrameAndBorderWidth(relativeIndex, initialBorderWidth: 5)
-                        subView.frame = frame
-                        subView.layer.anchorPoint = CGPointMake(0.5, 1)
-                        subView.frame = frame
-
-                        subView.layer.zPosition = CGFloat(1000-viewTag)
-
-                        subView.layer.borderWidth = borderWidth
-                        subView.layer.borderColor = UIColor.whiteColor().CGColor
-                        }, completion: nil)
+                    subView.layer.borderColor = UIColor.whiteColor().CGColor
+                    relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
 
                 }
             }
@@ -327,14 +334,36 @@ class ViewController: UIViewController {
         //adjust hiddened views
         if frontCardTag > 1{
             for viewTag in 1..<frontCardTag{
-                if let subView = view.viewWithTag(viewTag){
-                    subView.frame = baseFrame
-                }
+                relayoutSubViewWith(viewTag, relativeIndex: 0, delay: 0, haveBorderWidth: false)
             }
         }
+
+        UIView.animateWithDuration(0.1, animations: {
+            self.view.layoutIfNeeded()
+        })
+
     }
 
     //MARK: Helper Method
+    func setAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
+        var newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y)
+        var oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x, view.bounds.size.height * view.layer.anchorPoint.y)
+
+        newPoint = CGPointApplyAffineTransform(newPoint, view.transform)
+        oldPoint = CGPointApplyAffineTransform(oldPoint, view.transform)
+
+        var position = view.layer.position
+        position.x -= oldPoint.x
+        position.x += newPoint.x
+
+        position.y -= oldPoint.y
+        position.y += newPoint.y
+
+        view.layer.position = position
+        view.layer.anchorPoint = anchorPoint
+    }
+
+
     //f(x) = k * x + m
     func calculateFactorOfFunction(x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat) -> (CGFloat, CGFloat){
 
@@ -355,80 +384,71 @@ class ViewController: UIViewController {
 
     //I set the gap between 0Card and 1st Card is 30, gap between the last two card is 10.
     //设定头两个卡片的距离为30，最后两张卡片之间的举例为10。不设定成等距才符合视觉效果。
-    func calculusYOffset(indexInQueue: Int) -> CGFloat{
+    func calculusYOffsetForIndex(indexInQueue: Int) -> CGFloat{
         if indexInQueue < 1{
             return CGFloat(0)
         }
 
-        if indexInQueue >= cardCount{
-            fatalError("CAN'T INPUT MORE THAN CARDCOUNT")
-        }
-
         var sum: CGFloat = 0.0
         for i in 1...indexInQueue{
-            sum += calcuteResultWith(1, x2: CGFloat(cardCount-1), y1: 30, y2: 10, argument: i)
+            var result = calcuteResultWith(1, x2: 8, y1: 35, y2: 15, argument: i)
+            if result < 5{
+                result = 5.0
+            }
+            sum += result
         }
 
         return sum
     }
 
+    func calculateWidthScaleForIndex(indexInQueue: Int) -> CGFloat{
+        let widthBaseScale:CGFloat = 0.5
+
+        var factor: CGFloat = 1
+        if indexInQueue == 0{
+            factor = 1
+        }else{
+            factor = calculateScaleFactorForIndex(indexInQueue)
+        }
+
+        return widthBaseScale * factor
+    }
+
     //Zoom out card one by one.
     //为符合视觉以及营造景深效果，卡片依次缩小
-    func calculateScaleFactor(indexInQueue: Int) -> CGFloat{
+    func calculateScaleFactorForIndex(indexInQueue: Int) -> CGFloat{
         if indexInQueue < 1{
             return CGFloat(1)
         }
 
-        if indexInQueue >= cardCount{
-            fatalError("CAN'T INPUT MORE THAN CARDCOUNT")
+        var scale = calcuteResultWith(1, x2: 8, y1: 0.95, y2: 0.5, argument: indexInQueue)
+        if scale < 0.1{
+            scale = 0.1
         }
 
-        return calcuteResultWith(1, x2: CGFloat(cardCount-1), y1: 0.95, y2: 0.5, argument: indexInQueue)
+        return scale
     }
 
-    func calculateAlpha(indexInQueue: Int) -> CGFloat{
+    func calculateAlphaForIndex(indexInQueue: Int) -> CGFloat{
         if indexInQueue < 1{
             return CGFloat(1)
         }
 
-        if indexInQueue >= cardCount{
-            fatalError("CAN'T INPUT MORE THAN CARDCOUNT")
+        var alpha = calcuteResultWith(6, x2: 9, y1: 1, y2: 0.4, argument: indexInQueue)
+        if alpha < 0.1{
+            alpha = 0.1
+        }else if alpha > 1{
+            alpha = 1
         }
 
-        return calcuteResultWith(1, x2: CGFloat(cardCount-1), y1: 1, y2: 0.8, argument: indexInQueue)
+        return alpha
     }
 
-    func calculateFrame(indexInQueue: Int) -> CGRect{
-        let baseFrame = originFrame
-
-        let YOffset = calculusYOffset(indexInQueue)
-        let scaleFactor = calculateScaleFactor(indexInQueue)
-
-        var realFrame = CGRectZero
-        realFrame.origin.y = baseFrame.origin.y - YOffset
-        realFrame.origin.x = baseFrame.origin.x + baseFrame.size.width * (1 - scaleFactor)/2
-        realFrame.size.width = baseFrame.size.width * scaleFactor
-        realFrame.size.height = baseFrame.size.height * scaleFactor
-
-        return realFrame
+    func calculateBorderWidthForIndex(indexInQueue: Int, initialBorderWidth: CGFloat) -> CGFloat{
+        let scaleFactor = calculateScaleFactorForIndex(indexInQueue)
+        return scaleFactor * initialBorderWidth
     }
 
-    func calculateFrameAndBorderWidth(indexInQueue: Int, initialBorderWidth: CGFloat) -> (CGRect, CGFloat){
-        let baseFrame = originFrame
-
-        let YOffset = calculusYOffset(indexInQueue)
-        let scaleFactor = calculateScaleFactor(indexInQueue)
-
-        var realFrame = CGRectZero
-        realFrame.origin.y = baseFrame.origin.y - YOffset
-        realFrame.origin.x = baseFrame.origin.x + baseFrame.size.width * (1 - scaleFactor)/2
-        realFrame.size.width = baseFrame.size.width * scaleFactor
-        realFrame.size.height = baseFrame.size.height * scaleFactor
-
-        let realBorderWidth = initialBorderWidth * scaleFactor
-
-        return (realFrame, realBorderWidth)
-    }
 
     //MARK: Handle Screen Rotation
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -436,11 +456,7 @@ class ViewController: UIViewController {
         coordinator.animateAlongsideTransition({
             _ in
             self.gradientBackgroundLayer.frame = self.view.bounds
-            let screenRect = UIScreen.mainScreen().bounds
-            let originX = (screenRect.size.width - 400)/2
-            let originY = (screenRect.size.height - 300)/2
-            self.originFrame = CGRectMake(originX, originY, 400, 300)
-            self.resetViewLayout(NSValue.init(CGRect: self.originFrame))
+            self.relayoutSubViews()
             }, completion: nil)
     }
 }
