@@ -14,7 +14,7 @@
 		FDD71FC31BBB360A00E076EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD71FC11BBB360A00E076EE /* LaunchScreen.storyboard */; };
 		FDD71FCE1BBB360A00E076EE /* CardAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FCD1BBB360A00E076EE /* CardAnimationTests.swift */; };
 		FDD71FD91BBB360A00E076EE /* CardAnimationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FD81BBB360A00E076EE /* CardAnimationUITests.swift */; };
-		FDD720211BBBF36700E076EE /* aqualad_young_justice_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201A1BBBF36700E076EE /* aqualad_young_justice_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
+		FDD720211BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
 		FDD720221BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
 		FDD720231BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
 		FDD720241BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
@@ -56,7 +56,7 @@
 		FDD71FD41BBB360A00E076EE /* CardAnimationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardAnimationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD71FD81BBB360A00E076EE /* CardAnimationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnimationUITests.swift; sourceTree = "<group>"; };
 		FDD71FDA1BBB360A00E076EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FDD7201A1BBBF36700E076EE /* aqualad_young_justice_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = aqualad_young_justice_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
+		FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = aquaman_young_justice_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 		FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = batman_tim_burton_style_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 		FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = classic_captain_marvel_jr_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 		FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = green_lantern_corps_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		FDD71FB71BBB360A00E076EE /* CardAnimation */ = {
 			isa = PBXGroup;
 			children = (
-				FDD7201A1BBBF36700E076EE /* aqualad_young_justice_logo_by_kalangozilla.jpg */,
+				FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */,
 				FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */,
 				FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */,
 				FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */,
@@ -261,7 +261,7 @@
 				FDD720251BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg in Resources */,
 				FDD720271BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg in Resources */,
 				FDEDBBFD1BBFE9E1009654BD /* JLAFRICA.jpeg in Resources */,
-				FDD720211BBBF36700E076EE /* aqualad_young_justice_logo_by_kalangozilla.jpg in Resources */,
+				FDD720211BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg in Resources */,
 				FDD71FC01BBB360A00E076EE /* Assets.xcassets in Resources */,
 				FDD720241BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg in Resources */,
 				FDD720221BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg in Resources */,

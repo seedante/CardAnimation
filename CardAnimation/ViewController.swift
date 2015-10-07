@@ -8,20 +8,44 @@
 
 import UIKit
 
+protocol SDECardSource{
+    var cardCount: Int {get set}
+    func cardImageAtIndex(index:Int) -> UIImage?
+}
+
 enum panScrollDirection{
     case Up, Down
 }
 
+enum JusticeLeagueHeroLogo: String{
+    case WonderWoman = "wonder_woman_logo_by_kalangozilla.jpg"
+    case Superman = "superman_kingdom_come_logo_by_kalangozilla.jpg"
+    case Batman = "batman_begins_poster_style_logo_by_kalangozilla.jpg"
+    case GreenLantern = "green_lantern_corps_logo_by_kalangozilla.jpg"
+    case Flash = "flash_logo_by_kalangozilla.jpg"
+    case Aquaman = "aquaman_young_justice_logo_by_kalangozilla.jpg"
+    case CaptainMarvel = "classic_captain_marvel_jr_logo_by_kalangozilla.jpg"
+    //can't find Cybord's Logo.
+    case AllMembers = "JLAFRICA.jpeg"
+}
+
+
 class ViewController: UIViewController {
 
     var frontCardTag = 1
-    var cardCount = 8
+    var cardCount = 0
+    let maxVisibleCardCount = 8
     let gradientBackgroundLayer = CAGradientLayer()
-    var originFrame = CGRectZero
     var gestureDirection:panScrollDirection = .Up
+    var logoArray: [JusticeLeagueHeroLogo] = [.Superman, .WonderWoman, .Batman, .GreenLantern, .Flash, .Aquaman, .CaptainMarvel, .AllMembers]{
+        didSet{
+            cardCount = logoArray.count
+        }
+    }
 
     @IBOutlet weak var frontCenterYConstraint: NSLayoutConstraint!
 
+    //MARK: View Life Management
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +56,7 @@ class ViewController: UIViewController {
         let scrollGesture = UIPanGestureRecognizer(target: self, action: "scrollOnView:")
         view.addGestureRecognizer(scrollGesture)
 
+        cardCount = logoArray.count
         relayoutSubViews()
     }
 
@@ -40,7 +65,56 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    //MARK: Data Source
+    func cardImageAtIndex(index: Int) -> UIImage?{
+        return UIImage(named: logoArray[index].rawValue)!
+    }
+
     //MARK: Action Method
+    @IBAction func addCard(sender: AnyObject) {
+        let newCardView = createNewCardViewWith(UIImage(named: JusticeLeagueHeroLogo.Batman.rawValue))
+        view.addSubview(newCardView)
+
+        logoArray.append(.Batman)
+        let YOffset = 0 - calculusYOffsetForIndex(logoArray.count)
+        let widthConstraint = calculateWidthScaleForIndex(logoArray.count) * view.bounds.size.width
+        let borderWidth = widthConstraint/100
+        newCardView.layer.borderColor = UIColor.whiteColor().CGColor
+        newCardView.layer.borderWidth = borderWidth
+        //添加layout constraint 必须在 addSubView() 后执行
+        NSLayoutConstraint(item: newCardView, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: newCardView, attribute: .CenterY, relatedBy: .Equal, toItem: view, attribute: .CenterY, multiplier: 1, constant: YOffset).active = true
+        NSLayoutConstraint(item: newCardView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: widthConstraint).active = true
+        NSLayoutConstraint(item: newCardView, attribute: .Width, relatedBy: .Equal, toItem: newCardView, attribute: .Height, multiplier: 4.0/3.0, constant: 0).active = true
+
+    }
+
+    func createNewCardViewWith(image: UIImage?) -> UIView{
+        let newCardView = UIView()
+        newCardView.translatesAutoresizingMaskIntoConstraints = false
+        newCardView.backgroundColor = UIColor.brownColor()
+        newCardView.tag = logoArray.count + 1
+        newCardView.clipsToBounds = true
+        newCardView.alpha = calculateAlphaForIndex(logoArray.count + 1 - frontCardTag)
+        newCardView.layer.zPosition = CGFloat(1000 - logoArray.count - 1 + frontCardTag)
+
+
+        let subImageView = UIImageView(image: image)
+        subImageView.translatesAutoresizingMaskIntoConstraints = false
+        subImageView.contentMode = .ScaleAspectFill
+        subImageView.clipsToBounds = true
+        subImageView.tag = 10
+
+        newCardView.addSubview(subImageView)
+        NSLayoutConstraint(item: subImageView, attribute: .CenterX, relatedBy: .Equal, toItem: newCardView, attribute: .CenterX, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: subImageView, attribute: .CenterY, relatedBy: .Equal, toItem: newCardView, attribute: .CenterY, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: subImageView, attribute: .Width, relatedBy: .Equal, toItem: newCardView, attribute: .Width, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: subImageView, attribute: .Height, relatedBy: .Equal, toItem: newCardView, attribute: .Height, multiplier: 1, constant: 0).active = true
+
+        return newCardView
+    }
+
+
     @IBAction func flipUp(sender: AnyObject) {
         if frontCardTag == 1{
             return
@@ -246,8 +320,13 @@ class ViewController: UIViewController {
     func relayoutSubViewWith(viewTag: Int, relativeIndex:Int, delay: NSTimeInterval, haveBorderWidth: Bool){
         let width = view.bounds.size.width
         if let subView = view.viewWithTag(viewTag){
-            let alpha = calculateAlphaForIndex(relativeIndex)
-            subView.alpha = alpha
+
+            if let nestedImageView = subView.viewWithTag(10) as? UIImageView{
+                nestedImageView.image = cardImageAtIndex(viewTag - 1)
+            }
+
+            subView.layer.zPosition = CGFloat(1000 - relativeIndex)
+            subView.alpha = calculateAlphaForIndex(relativeIndex)
 
             var borderWidth: CGFloat = 0
             let filterSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Width && $0.secondItem == nil})
@@ -281,17 +360,18 @@ class ViewController: UIViewController {
 
     func adjustUpViewLayout(){
         if frontCardTag >= 2{
+            let endCardTag = cardCount - frontCardTag > maxVisibleCardCount - 1 ? (frontCardTag + maxVisibleCardCount - 1) : cardCount
             let feed: UInt32 = 2
             let randomRoll = arc4random_uniform(feed)
             switch randomRoll{
             case 0:
-                for var viewTag = frontCardTag; viewTag <= cardCount; ++viewTag{
+                for var viewTag = frontCardTag; viewTag <= endCardTag; ++viewTag{
                     let delay: NSTimeInterval = Double(viewTag - frontCardTag)*0.1
                     let relativeIndex = viewTag - frontCardTag + 1
                     relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
                 }
             case 1:
-                for var viewTag = cardCount; viewTag >= frontCardTag; --viewTag{
+                for var viewTag = endCardTag; viewTag >= frontCardTag; --viewTag{
                     let delay: NSTimeInterval = Double(cardCount - viewTag) * 0.1
                     let relativeIndex = viewTag - frontCardTag + 1
                     relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
@@ -306,9 +386,9 @@ class ViewController: UIViewController {
 
     func adjustDownViewLayout(){
         frontCardTag += 1
-
-        if frontCardTag <= cardCount{
-            for viewTag in frontCardTag...cardCount{
+        let endCardTag = cardCount - frontCardTag > maxVisibleCardCount - 1 ? (frontCardTag + maxVisibleCardCount - 1) : cardCount
+        if frontCardTag <= endCardTag{
+            for viewTag in frontCardTag...endCardTag{
                 let delay: NSTimeInterval = 0.1 * Double(viewTag - frontCardTag)
                 let relativeIndex = viewTag - frontCardTag
                 relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
@@ -317,8 +397,9 @@ class ViewController: UIViewController {
     }
 
     func relayoutSubViews(){
-        if frontCardTag <= cardCount{
-            for viewTag in frontCardTag...cardCount{
+        let endCardTag = cardCount - frontCardTag > maxVisibleCardCount - 1 ? (frontCardTag + maxVisibleCardCount - 1) : cardCount
+        if frontCardTag <= endCardTag{
+            for viewTag in frontCardTag...endCardTag{
                 if let subView = view.viewWithTag(viewTag){
                     subView.layer.anchorPoint = CGPointMake(0.5, 1)
                     let relativeIndex = viewTag - frontCardTag
@@ -345,25 +426,6 @@ class ViewController: UIViewController {
     }
 
     //MARK: Helper Method
-    func setAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
-        var newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y)
-        var oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x, view.bounds.size.height * view.layer.anchorPoint.y)
-
-        newPoint = CGPointApplyAffineTransform(newPoint, view.transform)
-        oldPoint = CGPointApplyAffineTransform(oldPoint, view.transform)
-
-        var position = view.layer.position
-        position.x -= oldPoint.x
-        position.x += newPoint.x
-
-        position.y -= oldPoint.y
-        position.y += newPoint.y
-
-        view.layer.position = position
-        view.layer.anchorPoint = anchorPoint
-    }
-
-
     //f(x) = k * x + m
     func calculateFactorOfFunction(x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat) -> (CGFloat, CGFloat){
 

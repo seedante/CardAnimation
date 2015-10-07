@@ -84,7 +84,7 @@
                             <view clipsSubviews="YES" tag="6" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="oJ8-qS-ALn" userLabel="View6">
                                 <rect key="frame" x="100" y="150" width="400" height="300"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aqualad_young_justice_logo_by_kalangozilla.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="0q7-di-Sa3">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aquaman_young_justice_logo_by_kalangozilla.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="0q7-di-Sa3">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -183,7 +183,7 @@
                                     </imageView>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="0.1334631741" green="0.1823148429" blue="0.25190103050000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.13346317410469055" green="0.18231484293937683" blue="0.25190103054046631" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7aX-YZ-5Oq" secondAttribute="height" multiplier="4:3" id="49m-ls-CCI"/>
                                     <constraint firstItem="sF4-x4-7Rg" firstAttribute="centerX" secondItem="7aX-YZ-5Oq" secondAttribute="centerX" id="Ecb-4N-mzD"/>
@@ -259,12 +259,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="558" y="462"/>
+            <point key="canvasLocation" x="369" y="269"/>
         </scene>
     </scenes>
     <resources>
         <image name="JLAFRICA.jpeg" width="840" height="328"/>
-        <image name="aqualad_young_justice_logo_by_kalangozilla.jpg" width="900" height="563"/>
+        <image name="aquaman_young_justice_logo_by_kalangozilla.jpg" width="900" height="563"/>
         <image name="batman_begins_poster_style_logo_by_kalangozilla.jpg" width="900" height="563"/>
         <image name="classic_captain_marvel_jr_logo_by_kalangozilla.jpg" width="900" height="563"/>
         <image name="flash_logo_by_kalangozilla.jpg" width="900" height="563"/>
