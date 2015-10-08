@@ -1,6 +1,5 @@
 # CardAnimation
-[Design from Dribble](https://dribbble.com/shots/1265487-First-shot-in-Chapps-Animation)
-
+[Design from Dribble](https://dribbble.com/shots/1265487-First-shot-in-Chapps-Animation)，[blog](http://www.jianshu.com/p/286222d4edf8) for this, only chinese.
 ![Design from Dribble](https://d13yacurqjgara.cloudfront.net/users/32399/screenshots/1265487/attachments/173545/secret-project-animation_2x.gif)
 
 
