@@ -71,50 +71,6 @@ class ViewController: UIViewController {
     }
 
     //MARK: Action Method
-    @IBAction func addCard(sender: AnyObject) {
-        let newCardView = createNewCardViewWith(UIImage(named: JusticeLeagueHeroLogo.Batman.rawValue))
-        view.addSubview(newCardView)
-
-        logoArray.append(.Batman)
-        let YOffset = 0 - calculusYOffsetForIndex(logoArray.count)
-        let widthConstraint = calculateWidthScaleForIndex(logoArray.count) * view.bounds.size.width
-        let borderWidth = widthConstraint/100
-        newCardView.layer.borderColor = UIColor.whiteColor().CGColor
-        newCardView.layer.borderWidth = borderWidth
-        //添加layout constraint 必须在 addSubView() 后执行
-        NSLayoutConstraint(item: newCardView, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: newCardView, attribute: .CenterY, relatedBy: .Equal, toItem: view, attribute: .CenterY, multiplier: 1, constant: YOffset).active = true
-        NSLayoutConstraint(item: newCardView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: widthConstraint).active = true
-        NSLayoutConstraint(item: newCardView, attribute: .Width, relatedBy: .Equal, toItem: newCardView, attribute: .Height, multiplier: 4.0/3.0, constant: 0).active = true
-
-    }
-
-    func createNewCardViewWith(image: UIImage?) -> UIView{
-        let newCardView = UIView()
-        newCardView.translatesAutoresizingMaskIntoConstraints = false
-        newCardView.backgroundColor = UIColor.brownColor()
-        newCardView.tag = logoArray.count + 1
-        newCardView.clipsToBounds = true
-        newCardView.alpha = calculateAlphaForIndex(logoArray.count + 1 - frontCardTag)
-        newCardView.layer.zPosition = CGFloat(1000 - logoArray.count - 1 + frontCardTag)
-
-
-        let subImageView = UIImageView(image: image)
-        subImageView.translatesAutoresizingMaskIntoConstraints = false
-        subImageView.contentMode = .ScaleAspectFill
-        subImageView.clipsToBounds = true
-        subImageView.tag = 10
-
-        newCardView.addSubview(subImageView)
-        NSLayoutConstraint(item: subImageView, attribute: .CenterX, relatedBy: .Equal, toItem: newCardView, attribute: .CenterX, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: subImageView, attribute: .CenterY, relatedBy: .Equal, toItem: newCardView, attribute: .CenterY, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: subImageView, attribute: .Width, relatedBy: .Equal, toItem: newCardView, attribute: .Width, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: subImageView, attribute: .Height, relatedBy: .Equal, toItem: newCardView, attribute: .Height, multiplier: 1, constant: 0).active = true
-
-        return newCardView
-    }
-
-
     @IBAction func flipUp(sender: AnyObject) {
         if frontCardTag == 1{
             return
@@ -168,19 +124,6 @@ class ViewController: UIViewController {
 
         })
 
-        //使用 Core Animation 也是问题多多，首先， 将 presentLayer 和 modalLayer 同步后无动画效果。次级方案：不移除动画并在 delegate 进行后续设置，但对后续卡片的动画产生了破坏
-//        let flipAnimation = CABasicAnimation(keyPath: "transform")
-//        flipAnimation.toValue = NSValue.init(CATransform3D: flipDownTransform3D)
-//        flipAnimation.duration = 0.3
-//        flipAnimation.removedOnCompletion = false
-//        flipAnimation.fillMode = kCAFillModeForwards
-//        flipAnimation.delegate = self
-//        frontView.layer.addAnimation(flipAnimation, forKey: "flip")
-//
-//        frontView.layer.transform = flipDownTransform3D
-        //下面这句和上面的 layer 动画混合产生了奇妙的缩放效果，类似早期的一些电视特效
-        //frontView.transform = CGAffineTransformMakeScale(-1.0, 1.0)
-
     }
 
     func scrollOnView(gesture: UIPanGestureRecognizer){
@@ -226,7 +169,7 @@ class ViewController: UIViewController {
                     }else{
                         if let subView = frontView?.viewWithTag(10){
                             subView.hidden = false
-                            frontView?.layer.borderWidth = 5
+                            frontView?.layer.borderWidth = subView.frame.width / 100
                         }
                     }
                 case 1.0...CGFloat(MAXFLOAT):
@@ -250,7 +193,7 @@ class ViewController: UIViewController {
                     if percent <= -0.5{
                         if let subView = previousFrontView?.viewWithTag(10){
                             subView.hidden = false
-                            previousFrontView?.layer.borderWidth = 5
+                            previousFrontView?.layer.borderWidth = subView.frame.width / 100
                         }
                     }else{
                         if let subView = previousFrontView?.viewWithTag(10){
@@ -320,6 +263,8 @@ class ViewController: UIViewController {
     func relayoutSubViewWith(viewTag: Int, relativeIndex:Int, delay: NSTimeInterval, haveBorderWidth: Bool){
         let width = view.bounds.size.width
         if let subView = view.viewWithTag(viewTag){
+
+            subView.layer.anchorPoint = CGPointMake(0.5, 1)
 
             if let nestedImageView = subView.viewWithTag(10) as? UIImageView{
                 nestedImageView.image = cardImageAtIndex(viewTag - 1)
@@ -401,7 +346,7 @@ class ViewController: UIViewController {
         if frontCardTag <= endCardTag{
             for viewTag in frontCardTag...endCardTag{
                 if let subView = view.viewWithTag(viewTag){
-                    subView.layer.anchorPoint = CGPointMake(0.5, 1)
+
                     let relativeIndex = viewTag - frontCardTag
                     let delay: NSTimeInterval = 0
 
@@ -444,8 +389,8 @@ class ViewController: UIViewController {
         return calculateResult(argument: argument, k: k, m: m)
     }
 
-    //I set the gap between 0Card and 1st Card is 30, gap between the last two card is 10.
-    //设定头两个卡片的距离为30，最后两张卡片之间的举例为10。不设定成等距才符合视觉效果。
+    //I set the gap between 0Card and 1st Card is 35, gap between the last two card is 15. These value on iPhone is a little big, you could make it less.
+    //设定头两个卡片的距离为35，最后两张卡片之间的举例为15。不设定成等距才符合视觉效果。
     func calculusYOffsetForIndex(indexInQueue: Int) -> CGFloat{
         if indexInQueue < 1{
             return CGFloat(0)
@@ -522,21 +467,4 @@ class ViewController: UIViewController {
             }, completion: nil)
     }
 }
-
-//最初的代码：通过 frame + transform 一起调整，总是会有问题。虽然最终解决了，代码太多了，果断放弃这种模式。
-//                    subView.alpha = self.calculateAlpha(relativeIndex)
-//                    subView.layer.zPosition = CGFloat(100 - viewTag)
-//
-//                    let YOffset = self.calculusYOffset(relativeIndex)
-//                    print("\(viewTag) YOffset: \(YOffset)")
-//                    let newFrame = CGRectMake(baseFrame.origin.x, baseFrame.origin.y - YOffset, baseFrame.size.width, baseFrame.size.height)
-//                    subView.frame = newFrame
-//
-//                    let scaleFactor = self.calculateScaleFactor(relativeIndex)
-//                    subView.layer.anchorPoint = CGPointMake(0.5, 0)
-//                    subView.frame = newFrame
-//
-//                    var transform3D = CATransform3DIdentity
-//                    transform3D = CATransform3DScale(transform3D, scaleFactor, scaleFactor, 0)
-//                    subView.layer.transform = transform3D
 
