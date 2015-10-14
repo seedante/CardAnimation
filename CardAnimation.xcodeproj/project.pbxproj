@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D21FB6791BCED32B0021B734 /* ComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FB6781BCED32B0021B734 /* ComponentViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		D21FB67C1BCED4C20021B734 /* AnimatedCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FB67B1BCED4C20021B734 /* AnimatedCardsView.swift */; settings = {ASSET_TAGS = (); }; };
 		FDD71FB91BBB360A00E076EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FB81BBB360A00E076EE /* AppDelegate.swift */; };
 		FDD71FBB1BBB360A00E076EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FBA1BBB360A00E076EE /* ViewController.swift */; };
 		FDD71FBE1BBB360A00E076EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD71FBC1BBB360A00E076EE /* Main.storyboard */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D21FB6781BCED32B0021B734 /* ComponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewController.swift; sourceTree = "<group>"; };
+		D21FB67B1BCED4C20021B734 /* AnimatedCardsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimatedCardsView.swift; path = AnimatedCardView/AnimatedCardsView.swift; sourceTree = "<group>"; };
 		FDD71FB51BBB360A00E076EE /* CardAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD71FB81BBB360A00E076EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDD71FBA1BBB360A00E076EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +96,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D21FB67A1BCED47C0021B734 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D21FB67B1BCED4C20021B734 /* AnimatedCardsView.swift */,
+			);
+			name = Component;
+			sourceTree = "<group>";
+		};
 		FDD71FAC1BBB360A00E076EE = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +127,7 @@
 		FDD71FB71BBB360A00E076EE /* CardAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				D21FB67A1BCED47C0021B734 /* Component */,
 				FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */,
 				FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */,
 				FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */,
@@ -126,6 +139,7 @@
 				FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */,
 				FDD71FB81BBB360A00E076EE /* AppDelegate.swift */,
 				FDD71FBA1BBB360A00E076EE /* ViewController.swift */,
+				D21FB6781BCED32B0021B734 /* ComponentViewController.swift */,
 				FDD71FBC1BBB360A00E076EE /* Main.storyboard */,
 				FDD71FBF1BBB360A00E076EE /* Assets.xcassets */,
 				FDD71FC11BBB360A00E076EE /* LaunchScreen.storyboard */,
@@ -292,7 +306,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDD71FBB1BBB360A00E076EE /* ViewController.swift in Sources */,
+				D21FB67C1BCED4C20021B734 /* AnimatedCardsView.swift in Sources */,
 				FDD71FB91BBB360A00E076EE /* AppDelegate.swift in Sources */,
+				D21FB6791BCED32B0021B734 /* ComponentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
