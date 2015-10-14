@@ -34,9 +34,11 @@ class ComponentViewController: UIViewController {
     }
     */
     @IBAction func onUpPushed(sender: UIButton) {
+        cardsView.flipUp()
     }
 
     @IBAction func onDownPushed(sender: UIButton) {
+        cardsView.flipDown()
     }
     
 }
