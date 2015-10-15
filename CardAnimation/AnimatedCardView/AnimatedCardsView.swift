@@ -16,11 +16,7 @@ public protocol AnimatedCardsViewDataSource : class {
 
 public class AnimatedCardsView: UIView {
 
-    private var cardArray : [UIView]! = []
-    private lazy var gestureRecognizer : UIPanGestureRecognizer = {
-        return UIPanGestureRecognizer(target: self, action: "scrollOnView:")
-    }()
-    
+    // MARK: Public properties
     public weak var dataSourceDelegate : AnimatedCardsViewDataSource? {
         didSet {
             if dataSourceDelegate != nil {
@@ -38,16 +34,21 @@ public class AnimatedCardsView: UIView {
         }
     }
     
+    // MARK: Private properties
+    private var cardArray : [UIView]! = []
+    private lazy var gestureRecognizer : UIPanGestureRecognizer = {
+        return UIPanGestureRecognizer(target: self, action: "scrollOnView:")
+    }()
+    
     private struct PrivateConstants {
         static let maxVisibleCardCount = 8
         static let cardCount = 8
     }
     
-    var frontCardTag = 1
-    var cardCount = PrivateConstants.cardCount
-    var maxVisibleCardCount = PrivateConstants.maxVisibleCardCount
-    let gradientBackgroundLayer = CAGradientLayer()
-    var gestureDirection:panScrollDirection = .Up
+
+    private var cardCount = PrivateConstants.cardCount
+    private var maxVisibleCardCount = PrivateConstants.maxVisibleCardCount
+    private var gestureDirection:panScrollDirection = .Up
     
     private var currentIndex = 0
 
@@ -215,7 +216,7 @@ extension AnimatedCardsView {
 // MARK: Handle Layout
 extension AnimatedCardsView {
 
-    func relayoutSubView(subView:UIView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, haveBorderWidth: Bool = true, fadeAndDelete delete: Bool = false) {
+    private func relayoutSubView(subView:UIView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, haveBorderWidth: Bool = true, fadeAndDelete delete: Bool = false) {
         let width = Constants.DefaultSize.width
         subView.layer.anchorPoint = CGPointMake(0.5, 1)
         
@@ -259,7 +260,7 @@ extension AnimatedCardsView {
         })
     }
     
-    func relayoutSubViewsAnimated(animated:Bool, removeLast remove:Bool = false){
+    private func relayoutSubViewsAnimated(animated:Bool, removeLast remove:Bool = false){
         for (index, view) in cardArray.enumerate() {
             let shouldDelete = remove && index == cardArray.count-1
             let delay = animated ? 0.1 * Double(index) : 0
@@ -270,9 +271,9 @@ extension AnimatedCardsView {
         }
     }
     
-    //MARK: Helper Method
+    //MARK: Helper Methods
     //f(x) = k * x + m
-    func calculateFactorOfFunction(x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat) -> (CGFloat, CGFloat){
+    private func calculateFactorOfFunction(x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat) -> (CGFloat, CGFloat){
         
         let k = (y1-y2)/(x1-x2)
         let m = (x1*y2 - x2*y1)/(x1-x2)
@@ -280,18 +281,18 @@ extension AnimatedCardsView {
         return (k, m)
     }
     
-    func calculateResult(argument x: Int, k: CGFloat, m: CGFloat) -> CGFloat{
+    private func calculateResult(argument x: Int, k: CGFloat, m: CGFloat) -> CGFloat{
         return k * CGFloat(x) + m
     }
     
-    func calcuteResultWith(x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat, argument: Int) -> CGFloat{
+    private func calcuteResultWith(x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat, argument: Int) -> CGFloat{
         let (k, m) = calculateFactorOfFunction(x1, x2: x2, y1: y1, y2: y2)
         return calculateResult(argument: argument, k: k, m: m)
     }
     
     //I set the gap between 0Card and 1st Card is 35, gap between the last two card is 15. These value on iPhone is a little big, you could make it less.
     //设定头两个卡片的距离为35，最后两张卡片之间的举例为15。不设定成等距才符合视觉效果。
-    func calculusYOffsetForIndex(indexInQueue: Int) -> CGFloat{
+    private func calculusYOffsetForIndex(indexInQueue: Int) -> CGFloat{
         if indexInQueue < 1{
             return CGFloat(0)
         }
@@ -308,7 +309,7 @@ extension AnimatedCardsView {
         return sum
     }
     
-    func calculateWidthScaleForIndex(indexInQueue: Int) -> CGFloat{
+    private func calculateWidthScaleForIndex(indexInQueue: Int) -> CGFloat{
         let widthBaseScale:CGFloat = 0.5
         
         var factor: CGFloat = 1
@@ -323,7 +324,7 @@ extension AnimatedCardsView {
     
     //Zoom out card one by one.
     //为符合视觉以及营造景深效果，卡片依次缩小
-    func calculateScaleFactorForIndex(indexInQueue: Int) -> CGFloat{
+    private func calculateScaleFactorForIndex(indexInQueue: Int) -> CGFloat{
         if indexInQueue < 1{
             return CGFloat(1)
         }
@@ -336,7 +337,7 @@ extension AnimatedCardsView {
         return scale
     }
     
-    func calculateAlphaForIndex(indexInQueue: Int) -> CGFloat{
+    private func calculateAlphaForIndex(indexInQueue: Int) -> CGFloat{
         if indexInQueue < 1{
             return CGFloat(1)
         }
@@ -351,7 +352,7 @@ extension AnimatedCardsView {
         return alpha
     }
     
-    func calculateBorderWidthForIndex(indexInQueue: Int, initialBorderWidth: CGFloat) -> CGFloat{
+    private func calculateBorderWidthForIndex(indexInQueue: Int, initialBorderWidth: CGFloat) -> CGFloat{
         let scaleFactor = calculateScaleFactorForIndex(indexInQueue)
         return scaleFactor * initialBorderWidth
     }
