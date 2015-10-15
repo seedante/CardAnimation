@@ -16,7 +16,7 @@ public protocol AnimatedCardsViewDataSource : class {
 
 public class AnimatedCardsView: UIView {
 
-    private var cardArray : [UIView]!
+    private var cardArray : [UIView]! = []
     private lazy var gestureRecognizer : UIPanGestureRecognizer = {
         return UIPanGestureRecognizer(target: self, action: "scrollOnView:")
     }()
@@ -28,6 +28,8 @@ public class AnimatedCardsView: UIView {
             }
         }
     }
+    
+    public var animationsSpeed = 0.2
     
     public struct Constants {
         struct DefaultSize {
@@ -47,16 +49,31 @@ public class AnimatedCardsView: UIView {
     let gradientBackgroundLayer = CAGradientLayer()
     var gestureDirection:panScrollDirection = .Up
     
+    private var currentIndex = 0
+
+    private lazy var flipUpTransform3D : CATransform3D = {
+        var transform = CATransform3DIdentity
+        transform.m34 = -1.0 / 1000.0
+        transform = CATransform3DRotate(transform, 0, 1, 0, 0)
+        return transform
+    }()
+    
+    private lazy var flipDownTransform3D : CATransform3D = {
+        var transform = CATransform3DIdentity
+        transform.m34 = -1.0 / 1000.0
+        //此处有个很大的问题，折磨了我几个小时。原来官方的实现有个临界问题，旋转180度不会执行，其他的角度则没有问题
+        transform = CATransform3DRotate(transform, CGFloat(-M_PI)*0.99, 1, 0, 0)
+        return transform
+    }()
+
     
     // MARK: Initializers
     override init(frame: CGRect) {
-        cardArray = []
         super.init(frame: frame)
         configure()
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        cardArray = []
         super.init(coder: aDecoder)
         backgroundColor = UIColor.yellowColor()
         configure()
@@ -64,10 +81,10 @@ public class AnimatedCardsView: UIView {
     
     // MARK: Config
     private func configure() {
-        generateCards()
         configureConstants()
+        generateCards()
         addGestureRecognizer(gestureRecognizer)
-        relayoutSubViews()
+        self.relayoutSubViewsAnimated(false)
     }
     
     private func configureConstants() {
@@ -82,56 +99,45 @@ public class AnimatedCardsView: UIView {
     }
     
     public func flipUp() {
-        if frontCardTag == 1{
+        guard currentIndex > 0 else {
             return
         }
         
-        guard let previousFrontView = viewWithTag(frontCardTag - 1) else{
-            return
-        }
+        currentIndex--
         
-        var flipUpTransform3D = CATransform3DIdentity
-        flipUpTransform3D.m34 = -1.0 / 1000.0
-        flipUpTransform3D = CATransform3DRotate(flipUpTransform3D, 0, 1, 0, 0)
+        let newView = addNewCardViewWithIndex(currentIndex)
+        newView.layer.transform = flipDownTransform3D
+
+        let shouldRemoveLast = cardArray.count > maxVisibleCardCount
         
-        previousFrontView.hidden = false
-        if let subView = previousFrontView.viewWithTag(10){
-            subView.hidden = false
-        }
         
-        UIView.animateWithDuration(0.2, animations: {
-            previousFrontView.layer.transform = flipUpTransform3D
-            }, completion: {
-                _ in
-                self.adjustUpViewLayout()
+        UIView.animateWithDuration(animationsSpeed, animations: {
+            newView.layer.transform = self.flipUpTransform3D
+            }, completion: { _ in
+                self.relayoutSubViewsAnimated(true, removeLast: shouldRemoveLast)
         })
     }
     
     public func flipDown() {
-        if frontCardTag > cardCount{
+        guard currentIndex < cardCount && cardArray.count > 0 else {
             return
         }
         
-        guard let frontView = viewWithTag(frontCardTag) else{
-            return
+        currentIndex++
+        
+        let frontView = cardArray.removeFirst()
+        
+        var newView : UIView? = nil
+        if currentIndex + cardArray.count < cardCount {
+            newView = addNewCardViewWithIndex(currentIndex, insertOnRear: true)
         }
         
-        if let subView = frontView.viewWithTag(10){
-            subView.hidden = true
-        }
-        
-        var flipDownTransform3D = CATransform3DIdentity
-        flipDownTransform3D.m34 = -1.0 / 1000.0
-        //此处有个很大的问题，折磨了我几个小时。原来官方的实现有个临界问题，旋转180度不会执行，其他的角度则没有问题
-        flipDownTransform3D = CATransform3DRotate(flipDownTransform3D, CGFloat(-M_PI)*0.99, 1, 0, 0)
-        UIView.animateWithDuration(0.3, animations: {
-            frontView.layer.transform = flipDownTransform3D
-            }, completion: {
-                _ in
-                
-                frontView.hidden = true
-                self.adjustDownViewLayout()
-                
+        UIView.animateWithDuration(animationsSpeed*1.5, animations: {
+            newView?.layer.transform = self.flipUpTransform3D
+            frontView.layer.transform = self.flipDownTransform3D
+            }, completion: { _ in
+                frontView.removeFromSuperview()
+                self.relayoutSubViewsAnimated(true)
         })
 
     }
@@ -153,15 +159,28 @@ extension AnimatedCardsView {
     private func generateCards() {
         // Clear previous configuration
         if cardArray.count > 0 {
-            _ = cardArray.map({ $0.removeFromSuperview() })
+            for view in cardArray {
+                view.removeFromSuperview()
+            }
         }
         
-        cardArray = (0...cardCount).map { (tagId) in
+        cardArray = (0..<maxVisibleCardCount).map { (tagId) in
             let view = generateNewCardViewWithTagId(tagId)
-            self.addSubview(view)
+            addSubview(view)
             applyConstraintsToView(view)
             return view
         }
+    }
+    
+    private func addNewCardViewWithIndex(index:Int, insertOnRear rear:Bool = false) -> UIView {
+        let newIndex = rear ? subviews.count : 0
+        let newView = generateNewCardViewWithTagId(index)
+        rear ? insertSubview(newView, atIndex: newIndex) : addSubview(newView)
+        rear ? cardArray.append(newView) : cardArray.insert(newView, atIndex: newIndex)
+        applyConstraintsToView(newView)
+        relayoutSubView(newView, relativeIndex: newIndex, animated: false)
+        newView.alpha = rear ? 0.0 : 1.0
+        return newView
     }
     
     private func generateNewCardViewWithTagId(tagId:NSInteger) -> UIView {
@@ -197,114 +216,60 @@ extension AnimatedCardsView {
 
 // MARK: Handle Layout
 extension AnimatedCardsView {
-    func relayoutSubViewWith(viewTag: Int, relativeIndex:Int, delay: NSTimeInterval, haveBorderWidth: Bool){
+
+    func relayoutSubView(subView:UIView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, haveBorderWidth: Bool = true, fadeAndDelete delete: Bool = false) {
         let width = Constants.DefaultSize.width
-        if let subView = self.viewWithTag(viewTag){
-            
-            subView.layer.anchorPoint = CGPointMake(0.5, 1)
-            
-//            if let nestedImageView = subView.viewWithTag(10) as? UIImageView{
-//                nestedImageView.image = cardImageAtIndex(viewTag - 1)
-//            }
-            
-            subView.layer.zPosition = CGFloat(1000 - relativeIndex)
-            subView.alpha = calculateAlphaForIndex(relativeIndex)
-            
-            var borderWidth: CGFloat = 0
-            let filterSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Width && $0.secondItem == nil})
-            if filterSubViewConstraints.count > 0{
-                let widthConstraint = filterSubViewConstraints[0]
-                let widthScale = calculateWidthScaleForIndex(relativeIndex)
-                widthConstraint.constant = widthScale * width
-                borderWidth = width * widthScale / 100
-            }
-            
-            let filteredViewConstraints = self.constraints.filter({$0.firstItem as? UIView == subView && $0.secondItem as? UIView == self && $0.firstAttribute == .CenterY})
-            if filteredViewConstraints.count > 0{
-                let centerYConstraint = filteredViewConstraints[0]
-                let subViewHeight = calculateWidthScaleForIndex(relativeIndex) * width * (1/Constants.DefaultSize.ratio)
-                let YOffset = calculusYOffsetForIndex(relativeIndex)
-                centerYConstraint.constant = subViewHeight/2 - YOffset
-            }
-            
-            if haveBorderWidth{
-                subView.layer.borderWidth = borderWidth
-            }else{
-                subView.layer.borderWidth = 0
-            }
-            
-            
-            UIView.animateWithDuration(0.2, delay: delay, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
-                self.layoutIfNeeded()
-                }, completion: nil)
-        }
-    }
-    
-    func adjustUpViewLayout(){
-        if frontCardTag >= 2{
-            let endCardTag = cardCount - frontCardTag > maxVisibleCardCount - 1 ? (frontCardTag + maxVisibleCardCount - 1) : cardCount
-            let feed: UInt32 = 2
-            let randomRoll = arc4random_uniform(feed)
-            switch randomRoll{
-            case 0:
-                for var viewTag = frontCardTag; viewTag <= endCardTag; ++viewTag{
-                    let delay: NSTimeInterval = Double(viewTag - frontCardTag)*0.1
-                    let relativeIndex = viewTag - frontCardTag + 1
-                    relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
-                }
-            case 1:
-                for var viewTag = endCardTag; viewTag >= frontCardTag; --viewTag{
-                    let delay: NSTimeInterval = Double(cardCount - viewTag) * 0.1
-                    let relativeIndex = viewTag - frontCardTag + 1
-                    relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
-                }
-            default:
-                print("NOT YET")
-            }
-            
-            frontCardTag -= 1
-        }
-    }
-    
-    func adjustDownViewLayout(){
-        frontCardTag += 1
-        let endCardTag = cardCount - frontCardTag > maxVisibleCardCount - 1 ? (frontCardTag + maxVisibleCardCount - 1) : cardCount
-        if frontCardTag <= endCardTag{
-            for viewTag in frontCardTag...endCardTag{
-                let delay: NSTimeInterval = 0.1 * Double(viewTag - frontCardTag)
-                let relativeIndex = viewTag - frontCardTag
-                relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
-            }
-        }
-    }
-    
-    func relayoutSubViews(){
-        let endCardTag = cardCount - frontCardTag > maxVisibleCardCount - 1 ? (frontCardTag + maxVisibleCardCount - 1) : cardCount
-        if frontCardTag <= endCardTag{
-            for viewTag in frontCardTag...endCardTag{
-                if let subView = self.viewWithTag(viewTag){
-                    
-                    let relativeIndex = viewTag - frontCardTag
-                    let delay: NSTimeInterval = 0
-                    
-                    subView.layer.borderColor = UIColor.whiteColor().CGColor
-                    relayoutSubViewWith(viewTag, relativeIndex: relativeIndex, delay: delay, haveBorderWidth: true)
-                    
-                }
-            }
+        subView.layer.anchorPoint = CGPointMake(0.5, 1)
+        
+        //            if let nestedImageView = subView.viewWithTag(10) as? UIImageView{
+        //                nestedImageView.image = cardImageAtIndex(viewTag - 1)
+        //            }
+        
+        subView.layer.zPosition = CGFloat(1000 - relativeIndex)
+
+        
+        var borderWidth: CGFloat = 0
+        let filterSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Width && $0.secondItem == nil})
+        if filterSubViewConstraints.count > 0{
+            let widthConstraint = filterSubViewConstraints[0]
+            let widthScale = calculateWidthScaleForIndex(relativeIndex)
+            widthConstraint.constant = widthScale * width
+            borderWidth = width * widthScale / 100
         }
         
-        //adjust hiddened views
-        if frontCardTag > 1{
-            for viewTag in 1..<frontCardTag{
-                relayoutSubViewWith(viewTag, relativeIndex: 0, delay: 0, haveBorderWidth: false)
-            }
+        let filteredViewConstraints = self.constraints.filter({$0.firstItem as? UIView == subView && $0.secondItem as? UIView == self && $0.firstAttribute == .CenterY})
+        if filteredViewConstraints.count > 0{
+            let centerYConstraint = filteredViewConstraints[0]
+            let subViewHeight = calculateWidthScaleForIndex(relativeIndex) * width * (1/Constants.DefaultSize.ratio)
+            let YOffset = calculusYOffsetForIndex(relativeIndex)
+            centerYConstraint.constant = subViewHeight/2 - YOffset
         }
         
-        UIView.animateWithDuration(0.1, animations: {
+        subView.layer.borderWidth = haveBorderWidth ? borderWidth : 0
+        
+        UIView.animateWithDuration(animated ? animationsSpeed : 0, delay: delay, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
+            if delete {
+                subView.alpha = 0
+            } else {
+                subView.alpha = self.calculateAlphaForIndex(relativeIndex)
+            }
             self.layoutIfNeeded()
+            }, completion: { _ in
+                if delete {
+                    subView.removeFromSuperview()
+                }
         })
-        
+    }
+    
+    func relayoutSubViewsAnimated(animated:Bool, removeLast remove:Bool = false){
+        for (index, view) in cardArray.enumerate() {
+            let shouldDelete = remove && index == cardArray.count-1
+            let delay = animated ? 0.1 * Double(index) : 0
+            relayoutSubView(view, relativeIndex: index, delay: delay, fadeAndDelete: shouldDelete)
+        }
+        if remove {
+            cardArray.removeLast()
+        }
     }
     
     //MARK: Helper Method
