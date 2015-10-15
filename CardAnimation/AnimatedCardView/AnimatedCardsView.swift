@@ -127,13 +127,11 @@ public class AnimatedCardsView: UIView {
         
         let frontView = cardArray.removeFirst()
         
-        var newView : UIView? = nil
         if currentIndex + cardArray.count < cardCount {
-            newView = addNewCardViewWithIndex(currentIndex, insertOnRear: true)
+            addNewCardViewWithIndex(currentIndex, insertOnRear: true)
         }
         
         UIView.animateWithDuration(animationsSpeed*1.5, animations: {
-            newView?.layer.transform = self.flipUpTransform3D
             frontView.layer.transform = self.flipDownTransform3D
             }, completion: { _ in
                 frontView.removeFromSuperview()
