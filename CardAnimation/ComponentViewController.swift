@@ -33,6 +33,10 @@ class ComponentViewController: UIViewController {
         cardsView.flipDown()
     }
     
+    @IBAction func onClosePushed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }
 
 // MARK: - AnimatedCardsViewDataSource

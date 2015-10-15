@@ -303,6 +303,14 @@
                                 <rect key="frame" x="20" y="78" width="560" height="445"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xoa-u0-6h5">
+                                <rect key="frame" x="550" y="20" width="30" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="X"/>
+                                <connections>
+                                    <action selector="onClosePushed:" destination="fw9-rg-tLH" eventType="touchUpInside" id="QsT-Xz-Alv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -313,8 +321,10 @@
                             <constraint firstItem="kKf-Oi-6h7" firstAttribute="top" secondItem="srb-xo-nyT" secondAttribute="bottom" constant="8" id="F9y-3Q-b2c"/>
                             <constraint firstItem="QO0-0n-sl7" firstAttribute="top" secondItem="31I-9l-4R6" secondAttribute="bottom" constant="27" id="SCM-te-fwb"/>
                             <constraint firstItem="kKf-Oi-6h7" firstAttribute="centerY" secondItem="DF4-xn-P6z" secondAttribute="centerY" id="Yos-l1-yKM"/>
+                            <constraint firstItem="xoa-u0-6h5" firstAttribute="top" secondItem="vLI-t1-AxW" secondAttribute="bottom" id="pP0-jp-HoI"/>
                             <constraint firstItem="kKf-Oi-6h7" firstAttribute="centerX" secondItem="DF4-xn-P6z" secondAttribute="centerX" id="tPw-bD-WOQ"/>
                             <constraint firstItem="srb-xo-nyT" firstAttribute="top" secondItem="vLI-t1-AxW" secondAttribute="bottom" constant="8" id="u3y-pB-szd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xoa-u0-6h5" secondAttribute="trailing" id="uQE-Vj-ltI"/>
                             <constraint firstItem="31I-9l-4R6" firstAttribute="centerX" secondItem="DF4-xn-P6z" secondAttribute="centerX" id="up0-y4-wzT"/>
                         </constraints>
                     </view>
