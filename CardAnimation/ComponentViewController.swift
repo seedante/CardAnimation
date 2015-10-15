@@ -14,7 +14,7 @@ class ComponentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        cardsView.dataSourceDelegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -24,21 +24,30 @@ class ComponentViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    // MARK: - Actions
     @IBAction func onUpPushed(sender: UIButton) {
         cardsView.flipUp()
     }
 
     @IBAction func onDownPushed(sender: UIButton) {
         cardsView.flipDown()
+    }
+    
+}
+
+// MARK: - AnimatedCardsViewDataSource
+extension ComponentViewController : AnimatedCardsViewDataSource {
+    
+    func numberOfVisibleCards() -> Int {
+        return 2
+    }
+    
+    func numberOfCards() -> Int {
+        return 8
+    }
+    
+    func contentForCardNumber(number:Int, size:(width:CGFloat, height:CGFloat)) -> UIView {
+        return UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
     }
     
 }

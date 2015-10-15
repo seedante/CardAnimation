@@ -9,29 +9,46 @@
 import UIKit
 
 public protocol AnimatedCardsViewDataSource : class {
-
+    func numberOfVisibleCards() -> Int
+    func numberOfCards() -> Int
+    func contentForCardNumber(number:Int, size:(width:CGFloat, height:CGFloat)) -> UIView
 }
 
 public class AnimatedCardsView: UIView {
 
     private var cardArray : [UIView]!
+    private lazy var gestureRecognizer : UIPanGestureRecognizer = {
+        return UIPanGestureRecognizer(target: self, action: "scrollOnView:")
+    }()
     
-    public weak var dataSource : AnimatedCardsViewDataSource?
+    public weak var dataSourceDelegate : AnimatedCardsViewDataSource? {
+        didSet {
+            if dataSourceDelegate != nil {
+                configure()
+            }
+        }
+    }
     
     public struct Constants {
         struct DefaultSize {
             static let width : CGFloat = 400.0
             static let ratio : CGFloat = 3.0 / 4.0
         }
-        static let numberOfCards = 8
+    }
+    
+    private struct PrivateConstants {
+        static let maxVisibleCardCount = 8
+        static let cardCount = 8
     }
     
     var frontCardTag = 1
-    var cardCount = 0
-    let maxVisibleCardCount = 8
+    var cardCount = PrivateConstants.cardCount
+    var maxVisibleCardCount = PrivateConstants.maxVisibleCardCount
     let gradientBackgroundLayer = CAGradientLayer()
     var gestureDirection:panScrollDirection = .Up
     
+    
+    // MARK: Initializers
     override init(frame: CGRect) {
         cardArray = []
         super.init(frame: frame)
@@ -45,53 +62,23 @@ public class AnimatedCardsView: UIView {
         configure()
     }
     
+    // MARK: Config
     private func configure() {
         generateCards()
-        let scrollGesture = UIPanGestureRecognizer(target: self, action: "scrollOnView:")
-        self.addGestureRecognizer(scrollGesture)
-        cardCount = Constants.numberOfCards
+        configureConstants()
+        addGestureRecognizer(gestureRecognizer)
         relayoutSubViews()
     }
     
-    
-    // MARK: Private stuff
-    
-    private func generateCards() {
-        cardArray = (0...Constants.numberOfCards).map { (tagId) in
-            let view = generateNewCardViewWithTagId(tagId)
-            self.addSubview(view)
-            applyConstraintsToView(view)
-            return view
-        }
+    private func configureConstants() {
+        maxVisibleCardCount = self.dataSourceDelegate?.numberOfVisibleCards() ?? PrivateConstants.maxVisibleCardCount
+        cardCount = self.dataSourceDelegate?.numberOfCards() ?? PrivateConstants.cardCount
     }
     
-    private func generateNewCardViewWithTagId(tagId:NSInteger) -> UIView {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.tag = tagId+1
-        switch tagId {
-            case 0: view.backgroundColor = UIColor.purpleColor()
-            case 1: view.backgroundColor = UIColor.redColor()
-            case 2: view.backgroundColor = UIColor.blackColor()
-            case 3: view.backgroundColor = UIColor.greenColor()
-            case 4: view.backgroundColor = UIColor.brownColor()
-            case 5: view.backgroundColor = UIColor.darkGrayColor()
-            case 6: view.backgroundColor = UIColor.blueColor()
-            case 7: view.backgroundColor = UIColor.orangeColor()
-            default: view.backgroundColor = UIColor.whiteColor()
-        }
-        return view
-    }
+    // MARK: Public
     
-    private func applyConstraintsToView(view:UIView) {
-        view.addConstraints([
-            NSLayoutConstraint(item: view, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: CGFloat(1.0), constant: Constants.DefaultSize.width),
-            NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: Constants.DefaultSize.ratio, constant: 0),
-            ])
-        view.superview!.addConstraints([
-            NSLayoutConstraint(item: view, attribute: .CenterX, relatedBy: .Equal, toItem: view.superview, attribute: .CenterX, multiplier: CGFloat(1.0), constant: 0),
-            NSLayoutConstraint(item: view, attribute: .CenterY, relatedBy: .Equal, toItem: view.superview, attribute: .CenterY, multiplier: CGFloat(1.0), constant: 0),
-            ])
+    public func reloadData() {
+        configure()
     }
     
     public func flipUp() {
@@ -159,6 +146,52 @@ public class AnimatedCardsView: UIView {
 //            }, completion: nil)
 //    }
 
+}
+
+// MARK: Card Generation
+extension AnimatedCardsView {
+    private func generateCards() {
+        // Clear previous configuration
+        if cardArray.count > 0 {
+            _ = cardArray.map({ $0.removeFromSuperview() })
+        }
+        
+        cardArray = (0...cardCount).map { (tagId) in
+            let view = generateNewCardViewWithTagId(tagId)
+            self.addSubview(view)
+            applyConstraintsToView(view)
+            return view
+        }
+    }
+    
+    private func generateNewCardViewWithTagId(tagId:NSInteger) -> UIView {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.tag = tagId+1
+        switch tagId {
+        case 0: view.backgroundColor = UIColor.purpleColor()
+        case 1: view.backgroundColor = UIColor.redColor()
+        case 2: view.backgroundColor = UIColor.blackColor()
+        case 3: view.backgroundColor = UIColor.greenColor()
+        case 4: view.backgroundColor = UIColor.brownColor()
+        case 5: view.backgroundColor = UIColor.darkGrayColor()
+        case 6: view.backgroundColor = UIColor.blueColor()
+        case 7: view.backgroundColor = UIColor.orangeColor()
+        default: view.backgroundColor = UIColor.whiteColor()
+        }
+        return view
+    }
+    
+    private func applyConstraintsToView(view:UIView) {
+        view.addConstraints([
+            NSLayoutConstraint(item: view, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: CGFloat(1.0), constant: Constants.DefaultSize.width),
+            NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: Constants.DefaultSize.ratio, constant: 0),
+            ])
+        view.superview!.addConstraints([
+            NSLayoutConstraint(item: view, attribute: .CenterX, relatedBy: .Equal, toItem: view.superview, attribute: .CenterX, multiplier: CGFloat(1.0), constant: 0),
+            NSLayoutConstraint(item: view, attribute: .CenterY, relatedBy: .Equal, toItem: view.superview, attribute: .CenterY, multiplier: CGFloat(1.0), constant: 0),
+            ])
+    }
 }
 
 
