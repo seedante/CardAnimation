@@ -18,7 +18,7 @@ public class AnimatedCardsView: UIView {
 
     // MARK: Public properties
     public weak var dataSourceDelegate : AnimatedCardsViewDataSource? {
-        didSet {
+        didSet { // Only start to work if delegate is set
             if dataSourceDelegate != nil {
                 configure()
             }
@@ -27,14 +27,22 @@ public class AnimatedCardsView: UIView {
     
     public var animationsSpeed = 0.2
     
-    public struct Constants {
-        struct DefaultSize {
-            static let width : CGFloat = 400.0
-            static let ratio : CGFloat = 3.0 / 4.0
+    public var cardSize : (width:CGFloat, height:CGFloat) {
+        didSet { // Only reset when delegate is set
+            if dataSourceDelegate != nil {
+                configure()
+            }
         }
     }
     
     // MARK: Private properties
+    private struct Constants {
+        struct CardDefaultSize {
+            static let width : CGFloat = 400.0
+            static let height : CGFloat = 300.0
+        }
+    }
+    
     private var cardArray : [BaseCardView]! = []
     private var poolCardArray : [BaseCardView]! = []
     private lazy var gestureRecognizer : UIPanGestureRecognizer = {
@@ -71,10 +79,12 @@ public class AnimatedCardsView: UIView {
     
     // MARK: Initializers
     override init(frame: CGRect) {
+        cardSize = (Constants.CardDefaultSize.width, Constants.CardDefaultSize.height)
         super.init(frame: frame)
     }
     
     required public init?(coder aDecoder: NSCoder) {
+        cardSize = (Constants.CardDefaultSize.width, Constants.CardDefaultSize.height)
         super.init(coder: aDecoder)
         backgroundColor = UIColor.yellowColor()
     }
@@ -191,8 +201,8 @@ extension AnimatedCardsView {
     
     private func applyConstraintsToView(view:UIView) {
         view.addConstraints([
-            NSLayoutConstraint(item: view, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: CGFloat(1.0), constant: Constants.DefaultSize.width),
-            NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: Constants.DefaultSize.ratio, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: CGFloat(1.0), constant:  cardSize.width),
+            NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: CGFloat(1.0), constant: cardSize.height),
             ])
         view.superview!.addConstraints([
             NSLayoutConstraint(item: view, attribute: .CenterX, relatedBy: .Equal, toItem: view.superview, attribute: .CenterX, multiplier: CGFloat(1.0), constant: 0),
@@ -206,23 +216,29 @@ extension AnimatedCardsView {
 extension AnimatedCardsView {
 
     private func relayoutSubView(subView:BaseCardView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, haveBorderWidth: Bool = true, fadeAndDelete delete: Bool = false) {
-        let width = Constants.DefaultSize.width
+        let width = cardSize.width
+        let height = cardSize.height
         subView.layer.anchorPoint = CGPointMake(0.5, 1)
         subView.layer.zPosition = CGFloat(1000 - relativeIndex)
 
-        var borderWidth: CGFloat = 0
-        let filterSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Width && $0.secondItem == nil})
-        if filterSubViewConstraints.count > 0{
-            let widthConstraint = filterSubViewConstraints[0]
-            let widthScale = calculateWidthScaleForIndex(relativeIndex)
-            widthConstraint.constant = widthScale * width
-            borderWidth = width * widthScale / 100
+        let sizeScale = calculateWidthScaleForIndex(relativeIndex)
+        let borderWidth: CGFloat = width * sizeScale / 100
+        
+        let filterWidthSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Width && $0.secondItem == nil})
+        if filterWidthSubViewConstraints.count > 0{
+            let widthConstraint = filterWidthSubViewConstraints[0]
+            widthConstraint.constant = sizeScale * width
+        }
+        let filterHeightSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Height && $0.secondItem == nil})
+        if filterHeightSubViewConstraints.count > 0{
+            let heightConstraint = filterHeightSubViewConstraints[0]
+            heightConstraint.constant = sizeScale * height
         }
         
         let filteredViewConstraints = self.constraints.filter({$0.firstItem as? UIView == subView && $0.secondItem as? UIView == self && $0.firstAttribute == .CenterY})
         if filteredViewConstraints.count > 0{
             let centerYConstraint = filteredViewConstraints[0]
-            let subViewHeight = calculateWidthScaleForIndex(relativeIndex) * width * (1/Constants.DefaultSize.ratio)
+            let subViewHeight = calculateWidthScaleForIndex(relativeIndex) * height
             let YOffset = calculusYOffsetForIndex(relativeIndex)
             centerYConstraint.constant = subViewHeight/2 - YOffset
         }

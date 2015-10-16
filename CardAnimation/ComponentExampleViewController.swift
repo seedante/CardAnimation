@@ -14,6 +14,7 @@ class ComponentExampleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        cardsView.cardSize = (300,300)
         cardsView.dataSourceDelegate = self
         // Do any additional setup after loading the view.
     }
@@ -57,12 +58,11 @@ enum JusticeLeagueLogos: String {
     }
 }
 
-
 // MARK: - AnimatedCardsViewDataSource
 extension ComponentExampleViewController : AnimatedCardsViewDataSource {
     
     func numberOfVisibleCards() -> Int {
-        return 2
+        return 6
     }
     
     func numberOfCards() -> Int {
