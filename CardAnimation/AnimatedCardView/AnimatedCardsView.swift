@@ -136,19 +136,7 @@ public class AnimatedCardsView: UIView {
                 frontView.removeFromSuperview()
                 self.relayoutSubViewsAnimated(true)
         })
-
     }
-    
-//    //MARK: Handle Screen Rotation
-//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-//        coordinator.animateAlongsideTransition({
-//            _ in
-//            self.gradientBackgroundLayer.frame = self.view.bounds
-//            self.relayoutSubViews()
-//            }, completion: nil)
-//    }
-
 }
 
 // MARK: Card Generation
@@ -205,14 +193,8 @@ extension AnimatedCardsView {
     private func relayoutSubView(subView:UIView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, haveBorderWidth: Bool = true, fadeAndDelete delete: Bool = false) {
         let width = Constants.DefaultSize.width
         subView.layer.anchorPoint = CGPointMake(0.5, 1)
-        
-        //            if let nestedImageView = subView.viewWithTag(10) as? UIImageView{
-        //                nestedImageView.image = cardImageAtIndex(viewTag - 1)
-        //            }
-        
         subView.layer.zPosition = CGFloat(1000 - relativeIndex)
 
-        
         var borderWidth: CGFloat = 0
         let filterSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Width && $0.secondItem == nil})
         if filterSubViewConstraints.count > 0{
@@ -232,12 +214,8 @@ extension AnimatedCardsView {
         
         subView.layer.borderWidth = haveBorderWidth ? borderWidth : 0
         
-        UIView.animateWithDuration(animated ? animationsSpeed : 0, delay: delay, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
-            if delete {
-                subView.alpha = 0
-            } else {
-                subView.alpha = self.calculateAlphaForIndex(relativeIndex)
-            }
+        UIView.animateWithDuration(animated ? animationsSpeed : 0, delay: delay, options: .BeginFromCurrentState, animations: {
+            subView.alpha = delete ? 0 : self.calculateAlphaForIndex(relativeIndex)
             self.layoutIfNeeded()
             }, completion: { _ in
                 if delete {
