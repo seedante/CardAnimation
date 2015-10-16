@@ -12,14 +12,14 @@ public class BaseCardView: UIView {
 
 }
 
-class ImageCardView: BaseCardView {
+public class ImageCardView: BaseCardView {
     var imageView:UIImageView!
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configure()
     }
