@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ComponentViewController: UIViewController {
+class ComponentExampleViewController: UIViewController {
 
     @IBOutlet weak var cardsView: AnimatedCardsView!
 
@@ -59,7 +59,7 @@ enum JusticeLeagueLogos: String {
 
 
 // MARK: - AnimatedCardsViewDataSource
-extension ComponentViewController : AnimatedCardsViewDataSource {
+extension ComponentExampleViewController : AnimatedCardsViewDataSource {
     
     func numberOfVisibleCards() -> Int {
         return 2

@@ -271,10 +271,10 @@
             </objects>
             <point key="canvasLocation" x="61" y="320"/>
         </scene>
-        <!--Component View Controller-->
+        <!--Component Example View Controller-->
         <scene sceneID="PBh-2T-O7K">
             <objects>
-                <viewController id="fw9-rg-tLH" customClass="ComponentViewController" customModule="CardAnimation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fw9-rg-tLH" customClass="ComponentExampleViewController" customModule="CardAnimation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vLI-t1-AxW"/>
                         <viewControllerLayoutGuide type="bottom" id="QO0-0n-sl7"/>
