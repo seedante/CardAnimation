@@ -39,6 +39,25 @@ class ComponentViewController: UIViewController {
     
 }
 
+enum JusticeLeagueLogos: String {
+    case WonderWoman = "wonder_woman_logo_by_kalangozilla.jpg"
+    case Superman = "superman_kingdom_come_logo_by_kalangozilla.jpg"
+    case Batman = "batman_begins_poster_style_logo_by_kalangozilla.jpg"
+    case GreenLantern = "green_lantern_corps_logo_by_kalangozilla.jpg"
+    case Flash = "flash_logo_by_kalangozilla.jpg"
+    case Aquaman = "aquaman_young_justice_logo_by_kalangozilla.jpg"
+    case CaptainMarvel = "classic_captain_marvel_jr_logo_by_kalangozilla.jpg"
+    //can't find Cybord's Logo.
+    case AllMembers = "JLAFRICA.jpeg"
+    
+    static var logoArray : [JusticeLeagueLogos]  {
+        get {
+            return [.Superman, .WonderWoman, .Batman, .GreenLantern, .Flash, .Aquaman, .CaptainMarvel, .AllMembers]
+        }
+    }
+}
+
+
 // MARK: - AnimatedCardsViewDataSource
 extension ComponentViewController : AnimatedCardsViewDataSource {
     
@@ -50,8 +69,11 @@ extension ComponentViewController : AnimatedCardsViewDataSource {
         return 8
     }
     
-    func contentForCardNumber(number:Int, size:(width:CGFloat, height:CGFloat)) -> UIView {
-        return UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+    func cardNumber(number:Int) -> BaseCardView {
+        print(" 🃏 Requested card number \(number)")
+        let view = ImageCardView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        view.imageView.image = UIImage.init(named: JusticeLeagueLogos.logoArray[number].rawValue)
+        return view
     }
     
 }

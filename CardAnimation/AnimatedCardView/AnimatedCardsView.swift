@@ -11,7 +11,7 @@ import UIKit
 public protocol AnimatedCardsViewDataSource : class {
     func numberOfVisibleCards() -> Int
     func numberOfCards() -> Int
-    func contentForCardNumber(number:Int, size:(width:CGFloat, height:CGFloat)) -> UIView
+    func cardNumber(number:Int) -> BaseCardView
 }
 
 public class AnimatedCardsView: UIView {
@@ -71,13 +71,11 @@ public class AnimatedCardsView: UIView {
     // MARK: Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         backgroundColor = UIColor.yellowColor()
-        configure()
     }
     
     // MARK: Config
@@ -127,9 +125,9 @@ public class AnimatedCardsView: UIView {
         currentIndex++
         
         let frontView = cardArray.removeFirst()
-        
-        if currentIndex + cardArray.count < cardCount {
-            addNewCardViewWithIndex(currentIndex, insertOnRear: true)
+        let lastIndex = currentIndex + cardArray.count
+        if lastIndex < cardCount {
+            addNewCardViewWithIndex(lastIndex, insertOnRear: true)
         }
         
         UIView.animateWithDuration(animationsSpeed*1.5, animations: {
@@ -163,8 +161,8 @@ extension AnimatedCardsView {
             }
         }
         
-        cardArray = (0..<maxVisibleCardCount).map { (tagId) in
-            let view = generateNewCardViewWithTagId(tagId)
+        cardArray = (0..<maxVisibleCardCount).map { (index) in
+            let view = generateNewCardViewWithIndex(index)
             addSubview(view)
             applyConstraintsToView(view)
             return view
@@ -173,7 +171,7 @@ extension AnimatedCardsView {
     
     private func addNewCardViewWithIndex(index:Int, insertOnRear rear:Bool = false) -> UIView {
         let newIndex = rear ? subviews.count : 0
-        let newView = generateNewCardViewWithTagId(index)
+        let newView = generateNewCardViewWithIndex(index)
         rear ? insertSubview(newView, atIndex: newIndex) : addSubview(newView)
         rear ? cardArray.append(newView) : cardArray.insert(newView, atIndex: newIndex)
         applyConstraintsToView(newView)
@@ -182,21 +180,9 @@ extension AnimatedCardsView {
         return newView
     }
     
-    private func generateNewCardViewWithTagId(tagId:NSInteger) -> UIView {
-        let view = UIView()
+    private func generateNewCardViewWithIndex(index:Int) -> UIView {
+        let view = self.dataSourceDelegate!.cardNumber(index)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.tag = tagId+1
-        switch tagId {
-        case 0: view.backgroundColor = UIColor.purpleColor()
-        case 1: view.backgroundColor = UIColor.redColor()
-        case 2: view.backgroundColor = UIColor.blackColor()
-        case 3: view.backgroundColor = UIColor.greenColor()
-        case 4: view.backgroundColor = UIColor.brownColor()
-        case 5: view.backgroundColor = UIColor.darkGrayColor()
-        case 6: view.backgroundColor = UIColor.blueColor()
-        case 7: view.backgroundColor = UIColor.orangeColor()
-        default: view.backgroundColor = UIColor.whiteColor()
-        }
         return view
     }
     
