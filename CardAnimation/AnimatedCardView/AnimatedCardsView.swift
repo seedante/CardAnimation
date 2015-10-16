@@ -11,7 +11,7 @@ import UIKit
 public protocol AnimatedCardsViewDataSource : class {
     func numberOfVisibleCards() -> Int
     func numberOfCards() -> Int
-    func cardNumber(number:Int) -> BaseCardView
+    func cardNumber(number:Int, view:BaseCardView?) -> BaseCardView
 }
 
 public class AnimatedCardsView: UIView {
@@ -35,7 +35,8 @@ public class AnimatedCardsView: UIView {
     }
     
     // MARK: Private properties
-    private var cardArray : [UIView]! = []
+    private var cardArray : [BaseCardView]! = []
+    private var poolCardArray : [BaseCardView]! = []
     private lazy var gestureRecognizer : UIPanGestureRecognizer = {
         return UIPanGestureRecognizer(target: self, action: "scrollOnView:")
     }()
@@ -133,6 +134,7 @@ public class AnimatedCardsView: UIView {
         UIView.animateWithDuration(animationsSpeed*1.5, animations: {
             frontView.layer.transform = self.flipDownTransform3D
             }, completion: { _ in
+                self.poolCardArray.append(frontView)
                 frontView.removeFromSuperview()
                 self.relayoutSubViewsAnimated(true)
         })
@@ -155,21 +157,34 @@ extension AnimatedCardsView {
             applyConstraintsToView(view)
             return view
         }
+        poolCardArray = []
     }
     
     private func addNewCardViewWithIndex(index:Int, insertOnRear rear:Bool = false) -> UIView {
         let newIndex = rear ? subviews.count : 0
-        let newView = generateNewCardViewWithIndex(index)
-        rear ? insertSubview(newView, atIndex: newIndex) : addSubview(newView)
-        rear ? cardArray.append(newView) : cardArray.insert(newView, atIndex: newIndex)
-        applyConstraintsToView(newView)
-        relayoutSubView(newView, relativeIndex: newIndex, animated: false)
-        newView.alpha = rear ? 0.0 : 1.0
-        return newView
+        var newView : BaseCardView?
+        // Reuse cards
+        if poolCardArray.count > 0 {
+            let reusedView = poolCardArray.removeFirst()
+            newView = generateNewCardViewWithIndex(index, reusingCardView: reusedView)
+        } else {
+            newView = generateNewCardViewWithIndex(index)
+        }
+        rear ? insertSubview(newView!, atIndex: newIndex) : addSubview(newView!)
+        rear ? cardArray.append(newView!) : cardArray.insert(newView!, atIndex: newIndex)
+        applyConstraintsToView(newView!)
+        relayoutSubView(newView!, relativeIndex: newIndex, animated: false)
+        newView!.alpha = rear ? 0.0 : 1.0
+        return newView!
     }
     
-    private func generateNewCardViewWithIndex(index:Int) -> UIView {
-        let view = self.dataSourceDelegate!.cardNumber(index)
+    private func generateNewCardViewWithIndex(index:Int, reusingCardView cardView:BaseCardView? = nil) -> BaseCardView {
+        // Reset card
+        if cardView != nil {
+            cardView!.layer.transform = flipUpTransform3D
+            cardView!.removeConstraints(cardView!.constraints)
+        }
+        let view = self.dataSourceDelegate!.cardNumber(index, view: cardView)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }
@@ -190,7 +205,7 @@ extension AnimatedCardsView {
 // MARK: Handle Layout
 extension AnimatedCardsView {
 
-    private func relayoutSubView(subView:UIView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, haveBorderWidth: Bool = true, fadeAndDelete delete: Bool = false) {
+    private func relayoutSubView(subView:BaseCardView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, haveBorderWidth: Bool = true, fadeAndDelete delete: Bool = false) {
         let width = Constants.DefaultSize.width
         subView.layer.anchorPoint = CGPointMake(0.5, 1)
         subView.layer.zPosition = CGFloat(1000 - relativeIndex)
@@ -219,6 +234,7 @@ extension AnimatedCardsView {
             self.layoutIfNeeded()
             }, completion: { _ in
                 if delete {
+                    self.poolCardArray.append(subView)
                     subView.removeFromSuperview()
                 }
         })

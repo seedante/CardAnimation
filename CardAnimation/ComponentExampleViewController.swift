@@ -69,11 +69,16 @@ extension ComponentExampleViewController : AnimatedCardsViewDataSource {
         return 8
     }
     
-    func cardNumber(number:Int) -> BaseCardView {
+    func cardNumber(number: Int, view: BaseCardView?) -> BaseCardView {
+        var retView : ImageCardView? = view as? ImageCardView
         print(" 🃏 Requested card number \(number)")
-        let view = ImageCardView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        view.imageView.image = UIImage.init(named: JusticeLeagueLogos.logoArray[number].rawValue)
-        return view
+        if retView == nil {
+            retView = ImageCardView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        } else {
+            print(" ✌️ View Cached ✌️ ")
+        }
+        retView!.imageView.image = UIImage.init(named: JusticeLeagueLogos.logoArray[number].rawValue)
+        return retView!
     }
     
 }
