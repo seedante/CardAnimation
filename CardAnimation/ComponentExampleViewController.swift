@@ -10,7 +10,7 @@ import UIKit
 
 class ComponentExampleViewController: UIViewController {
 
-    @IBOutlet weak var cardsView: AnimatedCardsView!
+    @IBOutlet weak var cardsView: CardAnimationView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,7 @@ enum JusticeLeagueLogos: String {
 }
 
 // MARK: - AnimatedCardsViewDataSource
-extension ComponentExampleViewController : AnimatedCardsViewDataSource {
+extension ComponentExampleViewController : CardAnimationViewDataSource {
     
     func numberOfVisibleCards() -> Int {
         return 6

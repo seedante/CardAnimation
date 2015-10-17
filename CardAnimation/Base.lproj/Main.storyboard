@@ -299,7 +299,7 @@
                                     <action selector="onDownPushed:" destination="fw9-rg-tLH" eventType="touchUpInside" id="uS1-jp-980"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKf-Oi-6h7" customClass="AnimatedCardsView" customModule="CardAnimation" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKf-Oi-6h7" customClass="CardAnimationView" customModule="CardAnimation" customModuleProvider="target">
                                 <rect key="frame" x="20" y="78" width="560" height="445"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>

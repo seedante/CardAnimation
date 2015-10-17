@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol AnimatedCardsViewDataSource : class {
+public protocol CardAnimationViewDataSource : class {
     func numberOfVisibleCards() -> Int
     func numberOfCards() -> Int
     /**
@@ -21,11 +21,11 @@ public protocol AnimatedCardsViewDataSource : class {
 }
 
 /// View to display a list of cards featuring a flipping up and down animation effect.
-public class AnimatedCardsView: UIView {
+public class CardAnimationView: UIView {
 
     // MARK: Public properties
     /// Data source delegate, class won't work until it's set.
-    public weak var dataSourceDelegate : AnimatedCardsViewDataSource? {
+    public weak var dataSourceDelegate : CardAnimationViewDataSource? {
         didSet { // Only start to work if delegate is set
             if dataSourceDelegate != nil {
                 configure()
@@ -186,7 +186,7 @@ public class AnimatedCardsView: UIView {
 }
 
 // MARK: Pan gesture
-extension AnimatedCardsView {
+extension CardAnimationView {
     @objc private func scrollOnView(gesture: UIPanGestureRecognizer) {
         let velocity = gesture.velocityInView(self)
         let percent = gesture.translationInView(self).y/150
@@ -317,7 +317,7 @@ extension AnimatedCardsView {
 }
 
 // MARK: Card Generation
-extension AnimatedCardsView {
+extension CardAnimationView {
     private func generateCards() {
         // Clear previous configuration
         if cardArray.count > 0 {
@@ -379,7 +379,7 @@ extension AnimatedCardsView {
 
 
 // MARK: Handle Layout
-extension AnimatedCardsView {
+extension CardAnimationView {
 
     private func relayoutSubView(subView:BaseCardView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, fadeAndDelete delete: Bool = false) {
         let width = cardSize.width
