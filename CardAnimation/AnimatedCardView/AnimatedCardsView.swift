@@ -171,6 +171,7 @@ public class AnimatedCardsView: UIView {
         if lastIndex < cardCount {
             addNewCardViewWithIndex(lastIndex, insertOnRear: true)
         }
+        frontView.contentVisible(false)
         
         UIView.animateWithDuration(animationsSpeed*1.5, animations: {
             frontView.layer.transform = self.flipDownTransform3D
@@ -198,26 +199,25 @@ extension AnimatedCardsView {
             gestureDirection = velocity.y > 0 ? .Down : .Up
             
         case .Changed:
-            let frontView : BaseCardView? = cardArray.count > 0 ? cardArray[0] : nil
-            
             if gestureDirection == .Down{ // Flip down
                 guard currentIndex < cardCount else {
                     gesture.enabled = false // Cancel gesture
                     return
                 }
                 
+                let frontView = cardArray[0]
                 switch percent{
                 case 0.0..<1.0:
                     flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI) * percent, 1, 0, 0)
-                    frontView?.layer.transform = flipTransform3D
+                    frontView.layer.transform = flipTransform3D
                     if percent >= 0.5{
-                        frontView?.contentVisible(false)
+                        frontView.contentVisible(false)
                     }else{
-                        frontView?.contentVisible(true)
+                        frontView.contentVisible(true)
                     }
                 case 1.0...CGFloat(MAXFLOAT):
                     flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI), 1, 0, 0)
-                    frontView?.layer.transform = flipTransform3D
+                    frontView.layer.transform = flipTransform3D
                 default:
                     print(percent)
                 }
@@ -240,10 +240,8 @@ extension AnimatedCardsView {
                 case -1.0...0:
                     if percent <= -0.5{
                         gestureTempCard!.contentVisible(true)
-                        gestureTempCard!.layer.borderWidth = gestureTempCard!.frame.width / 100
                     }else{
                         gestureTempCard!.contentVisible(false)
-                        gestureTempCard!.layer.borderWidth = 0
                     }
                     flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI) * (percent+1.0), 1, 0, 0)
                     gestureTempCard!.layer.transform = flipTransform3D
@@ -276,9 +274,9 @@ extension AnimatedCardsView {
                             
                     })
                 }else{
-                    let frontView : BaseCardView? = cardArray.count > 0 ? cardArray[0] : nil
+                    let frontView = cardArray[0]
                     UIView.animateWithDuration(0.2, animations: {
-                        frontView?.layer.transform = CATransform3DIdentity
+                        frontView.layer.transform = CATransform3DIdentity
                     })
                     
                 }
@@ -383,14 +381,13 @@ extension AnimatedCardsView {
 // MARK: Handle Layout
 extension AnimatedCardsView {
 
-    private func relayoutSubView(subView:BaseCardView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, haveBorderWidth: Bool = true, fadeAndDelete delete: Bool = false) {
+    private func relayoutSubView(subView:BaseCardView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, fadeAndDelete delete: Bool = false) {
         let width = cardSize.width
         let height = cardSize.height
         subView.layer.anchorPoint = CGPointMake(0.5, 1)
         subView.layer.zPosition = CGFloat(1000 - relativeIndex)
 
         let sizeScale = calculateWidthScaleForIndex(relativeIndex)
-        let borderWidth: CGFloat = width * sizeScale / 100
         
         let filterWidthSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Width && $0.secondItem == nil})
         if filterWidthSubViewConstraints.count > 0{
@@ -410,8 +407,6 @@ extension AnimatedCardsView {
             let YOffset = calculusYOffsetForIndex(relativeIndex)
             centerYConstraint.constant = subViewHeight/2 - YOffset
         }
-        
-        subView.layer.borderWidth = haveBorderWidth ? borderWidth : 0
         
         UIView.animateWithDuration(animated ? animationsSpeed : 0, delay: delay, options: .BeginFromCurrentState, animations: {
             subView.alpha = delete ? 0 : self.calculateAlphaForIndex(relativeIndex)
@@ -515,11 +510,5 @@ extension AnimatedCardsView {
         
         return alpha
     }
-    
-    private func calculateBorderWidthForIndex(indexInQueue: Int, initialBorderWidth: CGFloat) -> CGFloat{
-        let scaleFactor = calculateScaleFactorForIndex(indexInQueue)
-        return scaleFactor * initialBorderWidth
-    }
-    
 }
 
