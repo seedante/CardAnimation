@@ -69,8 +69,8 @@ extension ComponentExampleViewController : AnimatedCardsViewDataSource {
         return 8
     }
     
-    func cardNumber(number: Int, view: BaseCardView?) -> BaseCardView {
-        var retView : ImageCardView? = view as? ImageCardView
+    func cardNumber(number: Int, reusedView: BaseCardView?) -> BaseCardView {
+        var retView : ImageCardView? = reusedView as? ImageCardView
         print(" 🃏 Requested card number \(number)")
         if retView == nil {
             retView = ImageCardView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))

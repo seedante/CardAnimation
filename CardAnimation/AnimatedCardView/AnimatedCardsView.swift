@@ -11,12 +11,20 @@ import UIKit
 public protocol AnimatedCardsViewDataSource : class {
     func numberOfVisibleCards() -> Int
     func numberOfCards() -> Int
-    func cardNumber(number:Int, view:BaseCardView?) -> BaseCardView
+    /**
+    Ask the delegate for a new card to display in the container.
+    - parameter number: number that is needed to be displayed.
+    - parameter reusedView: the component may provide you with an unused view.
+    - returns: correctly configured card view.
+    */
+    func cardNumber(number:Int, reusedView:BaseCardView?) -> BaseCardView
 }
 
+/// View to display a list of cards featuring a flipping up and down animation effect.
 public class AnimatedCardsView: UIView {
 
     // MARK: Public properties
+    /// Data source delegate, class won't work until it's set.
     public weak var dataSourceDelegate : AnimatedCardsViewDataSource? {
         didSet { // Only start to work if delegate is set
             if dataSourceDelegate != nil {
@@ -25,8 +33,10 @@ public class AnimatedCardsView: UIView {
         }
     }
     
+    /// Animation speed for the cards animations.
     public var animationsSpeed = 0.2
     
+    /// Defines the card size that will be used. (width, height)
     public var cardSize : (width:CGFloat, height:CGFloat) {
         didSet { // Only reset when delegate is set
             if dataSourceDelegate != nil {
@@ -78,15 +88,22 @@ public class AnimatedCardsView: UIView {
 
     
     // MARK: Initializers
+    /**
+        Initializes a view object with the specified frame rectangle.
+        - parameter frame: adssad
+    */
     override init(frame: CGRect) {
         cardSize = (Constants.CardDefaultSize.width, Constants.CardDefaultSize.height)
         super.init(frame: frame)
     }
     
+    /**
+        Initializes a view object from data in a given unarchiver.
+        - parameter coder: An unarchiver object.
+    */
     required public init?(coder aDecoder: NSCoder) {
         cardSize = (Constants.CardDefaultSize.width, Constants.CardDefaultSize.height)
         super.init(coder: aDecoder)
-        backgroundColor = UIColor.yellowColor()
     }
     
     // MARK: Config
@@ -104,13 +121,19 @@ public class AnimatedCardsView: UIView {
     
     // MARK: Public
     
+    /// Reloads the cards of the animated cards view.
     public func reloadData() {
         configure()
     }
+
+    /**
+    Flips up one card with animation
     
-    public func flipUp() {
+    - returns: if the action was performed or not (out of bounds)
+    */
+    public func flipUp() -> Bool {
         guard currentIndex > 0 else {
-            return
+            return false
         }
         
         currentIndex--
@@ -126,11 +149,18 @@ public class AnimatedCardsView: UIView {
             }, completion: { _ in
                 self.relayoutSubViewsAnimated(true, removeLast: shouldRemoveLast)
         })
+        
+        return true
     }
     
-    public func flipDown() {
+    /**
+    Flips down one card with animation
+    
+    - returns: if the action was performed or not (out of bounds)
+    */
+    public func flipDown() -> Bool {
         guard currentIndex < cardCount && cardArray.count > 0 else {
-            return
+            return false
         }
         
         currentIndex++
@@ -148,6 +178,8 @@ public class AnimatedCardsView: UIView {
                 frontView.removeFromSuperview()
                 self.relayoutSubViewsAnimated(true)
         })
+        
+        return true
     }
 }
 
@@ -194,7 +226,7 @@ extension AnimatedCardsView {
             cardView!.layer.transform = flipUpTransform3D
             cardView!.removeConstraints(cardView!.constraints)
         }
-        let view = self.dataSourceDelegate!.cardNumber(index, view: cardView)
+        let view = self.dataSourceDelegate!.cardNumber(index, reusedView: cardView)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }
