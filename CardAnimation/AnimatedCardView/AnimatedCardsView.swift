@@ -68,6 +68,7 @@ public class AnimatedCardsView: UIView {
     private var cardCount = PrivateConstants.cardCount
     private var maxVisibleCardCount = PrivateConstants.maxVisibleCardCount
     private var gestureDirection:panScrollDirection = .Up
+    private var gestureTempCard: BaseCardView?
     
     private var currentIndex = 0
 
@@ -159,7 +160,7 @@ public class AnimatedCardsView: UIView {
     - returns: if the action was performed or not (out of bounds)
     */
     public func flipDown() -> Bool {
-        guard currentIndex < cardCount && cardArray.count > 0 else {
+        guard currentIndex < cardCount else {
             return false
         }
         
@@ -183,6 +184,140 @@ public class AnimatedCardsView: UIView {
     }
 }
 
+// MARK: Pan gesture
+extension AnimatedCardsView {
+    @objc private func scrollOnView(gesture: UIPanGestureRecognizer) {
+        let velocity = gesture.velocityInView(self)
+        let percent = gesture.translationInView(self).y/150
+        var flipTransform3D = CATransform3DIdentity
+        flipTransform3D.m34 = -1.0 / 1000.0
+        
+        switch gesture.state{
+        case .Began:
+            
+            gestureDirection = velocity.y > 0 ? .Down : .Up
+            
+        case .Changed:
+            let frontView : BaseCardView? = cardArray.count > 0 ? cardArray[0] : nil
+            
+            if gestureDirection == .Down{ // Flip down
+                guard currentIndex < cardCount else {
+                    gesture.enabled = false // Cancel gesture
+                    return
+                }
+                
+                switch percent{
+                case 0.0..<1.0:
+                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI) * percent, 1, 0, 0)
+                    frontView?.layer.transform = flipTransform3D
+                    if percent >= 0.5{
+                        frontView?.contentVisible(false)
+                    }else{
+                        frontView?.contentVisible(true)
+                    }
+                case 1.0...CGFloat(MAXFLOAT):
+                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI), 1, 0, 0)
+                    frontView?.layer.transform = flipTransform3D
+                default:
+                    print(percent)
+                }
+                
+            } else { // Flip up
+                guard currentIndex > 0 else {
+                    gesture.enabled = false // Cancel gesture
+                    return
+                }
+                
+                if gestureTempCard == nil {
+                    let newView = addNewCardViewWithIndex(currentIndex-1)
+                    newView.layer.transform = flipDownTransform3D
+                    gestureTempCard = newView
+                }
+                
+                switch percent{
+                case CGFloat(-MAXFLOAT)...(-1.0):
+                    gestureTempCard!.layer.transform = CATransform3DIdentity
+                case -1.0...0:
+                    if percent <= -0.5{
+                        gestureTempCard!.contentVisible(true)
+                        gestureTempCard!.layer.borderWidth = gestureTempCard!.frame.width / 100
+                    }else{
+                        gestureTempCard!.contentVisible(false)
+                        gestureTempCard!.layer.borderWidth = 0
+                    }
+                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI) * (percent+1.0), 1, 0, 0)
+                    gestureTempCard!.layer.transform = flipTransform3D
+                default:
+                    print(percent)
+                }
+            }
+            
+        case .Ended:
+            
+            switch gestureDirection{
+            case .Down:
+                if percent >= 0.5{
+                    currentIndex++
+                    
+                    let frontView = cardArray.removeFirst()
+                    let lastIndex = currentIndex + cardArray.count
+                    if lastIndex < cardCount {
+                        addNewCardViewWithIndex(lastIndex, insertOnRear: true)
+                    }
+                    
+                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(M_PI), 1, 0, 0)
+                    UIView.animateWithDuration(0.3, animations: {
+                        frontView.layer.transform = flipTransform3D
+                        }, completion: {
+                            _ in
+                            self.poolCardArray.append(frontView)
+                            frontView.removeFromSuperview()
+                            self.relayoutSubViewsAnimated(true)
+                            
+                    })
+                }else{
+                    let frontView : BaseCardView? = cardArray.count > 0 ? cardArray[0] : nil
+                    UIView.animateWithDuration(0.2, animations: {
+                        frontView?.layer.transform = CATransform3DIdentity
+                    })
+                    
+                }
+                
+            case .Up:
+                guard currentIndex > 0 else {
+                    return
+                }
+                
+                if percent <= -0.5{
+                    currentIndex--
+                    let shouldRemoveLast = cardArray.count > maxVisibleCardCount
+                    UIView.animateWithDuration(0.2, animations: {
+                        self.gestureTempCard!.layer.transform = CATransform3DIdentity
+                        }, completion: {
+                            _ in
+                            self.relayoutSubViewsAnimated(true, removeLast: shouldRemoveLast)
+                            self.gestureTempCard = nil
+                    })
+                }else{
+                    UIView.animateWithDuration(0.2, animations: {
+                        self.gestureTempCard!.layer.transform = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI), 1, 0, 0)
+                        }, completion: {
+                            _ in
+                            self.poolCardArray.append(self.gestureTempCard!)
+                            self.cardArray.removeFirst()
+                            self.gestureTempCard!.removeFromSuperview()
+                            self.gestureTempCard = nil
+                    })
+                }
+            }
+        case .Cancelled: // When cancel reenable gesture
+            gesture.enabled = true
+        default:
+            print("DEFAULT: DO NOTHING")
+        }
+    }
+}
+
 // MARK: Card Generation
 extension AnimatedCardsView {
     private func generateCards() {
@@ -202,7 +337,7 @@ extension AnimatedCardsView {
         poolCardArray = []
     }
     
-    private func addNewCardViewWithIndex(index:Int, insertOnRear rear:Bool = false) -> UIView {
+    private func addNewCardViewWithIndex(index:Int, insertOnRear rear:Bool = false) -> BaseCardView {
         let newIndex = rear ? subviews.count : 0
         var newView : BaseCardView?
         // Reuse cards
@@ -225,6 +360,7 @@ extension AnimatedCardsView {
         if cardView != nil {
             cardView!.layer.transform = flipUpTransform3D
             cardView!.removeConstraints(cardView!.constraints)
+            cardView!.prepareForReuse()
         }
         let view = self.dataSourceDelegate!.cardNumber(index, reusedView: cardView)
         view.translatesAutoresizingMaskIntoConstraints = false
