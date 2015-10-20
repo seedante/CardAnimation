@@ -67,7 +67,7 @@ like: (0.5, 0.5) ->(0.5, 1)
 
 Frame:
 
-There are many ways to do this: [link](http://stackoverflow.com/questions/1968017/changing-my-calayers-anchorpoint-moves-the-view)
+There are [many ways](http://stackoverflow.com/questions/1968017/changing-my-calayers-anchorpoint-moves-the-view) to do this:
 
     subView.frame = frame
     subView.layer.anchorPoint = CGPointMake(0.5, 1)
@@ -75,7 +75,7 @@ There are many ways to do this: [link](http://stackoverflow.com/questions/196801
 
 AutoLayout:
 
-Discussion on stackoverflow: [link](http://stackoverflow.com/questions/12943107/how-do-i-adjust-the-anchor-point-of-a-calayer-when-auto-layout-is-being-used/14105757#14105757), but I find a simple way:
+[Discussion](http://stackoverflow.com/questions/12943107/how-do-i-adjust-the-anchor-point-of-a-calayer-when-auto-layout-is-being-used/14105757#14105757) on stackoverflow, but I find a simple way:
 
     let subViewHeight = 
     let oldConstraintConstant = centerYConstraint.constant
@@ -107,8 +107,12 @@ When the container view is vertical to screen, make the subview hidden, and afte
 The animation will not execute and the view just change if you execute above code in an action method, like clip a button.
 You could use 'CGFloat(-M_PI) * 0.99' to fix this.
 
+Or, use UIView key frame animation, this transform works fine in key frame animation.
+
 **To-Do List**
 
 ~~1.reuse card view~~
+
 2.reorder card view
+
 3.delete and add card view with pan gesture
