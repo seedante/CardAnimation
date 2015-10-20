@@ -1,7 +1,65 @@
 # CardAnimation
-[Design from Dribble](https://dribbble.com/shots/1265487-First-shot-in-Chapps-Animation)，[blog](http://www.jianshu.com/p/286222d4edf8) for this, only chinese.
+[Design from Dribble](https://dribbble.com/shots/1265487-First-shot-in-Chapps-Animation). And a [blog](http://www.jianshu.com/p/286222d4edf8) for this, only chinese.
 ![Design from Dribble](https://d13yacurqjgara.cloudfront.net/users/32399/screenshots/1265487/attachments/173545/secret-project-animation_2x.gif)
 
+Thanks for [@luxorules](https://github.com/luxorules/CardAnimation/tree/Component)'s great work. Now you can use this animation in your project easily.
+
+Features:
+- Custom card View size. (New added by @luxorules)
+- Custom card view, not only image view. (New added by @luxorules)
+- Support pan gesture.
+
+**How to use it in your project**
+
+Drap class files in the "Classes" folder into your project, includes CardAnimationView.swift and ImageCardView.swift.
+
+Classes:
+
+- CardAnimationView: UIView, the view to display a list of card view.
+- BasedCardView: UIView, all custom card view must be inherited from this class. 
+- ImageCardView: BasedCardView, child class of BasedCardView, if you just want to use image, use this class.
+
+You can custom animation behavior by set the below properties.
+
+/// Animation time for a single card animation.
+
+`public var animationsSpeed = 0.2`
+    
+// Defines the card size that will be used. (width, height)
+
+`public var cardSize : (width:CGFloat, height:CGFloat)` 
+
+CardAnimationView needs a data source delegate to display the content, like UICollectionView.
+
+`public weak var dataSourceDelegate : CardAnimationViewDataSource?`
+
+    protocol CardAnimationViewDataSource : class {
+        func numberOfVisibleCards() -> Int
+        func numberOfCards() -> Int
+        /**
+        Ask the delegate for a new card to display in the container.
+        - parameter number: number that is needed to be displayed.
+        - parameter reusedView: the component may provide you with an unused view.
+        - returns: correctly configured card view.
+        */
+        func cardNumber(number:Int, reusedView:BaseCardView?) -> BaseCardView
+    }
+
+How to reuse a card view? There is an example in `ComponentExampleViewController.swift`:
+
+    func cardNumber(number: Int, reusedView: BaseCardView?) -> BaseCardView {
+        var retView : ImageCardView? = reusedView as? ImageCardView
+        print(" 🃏 Requested card number \(number)")
+        if retView == nil {
+            retView = ImageCardView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        } else {
+            print(" ✌️ View Cached ✌️ ")
+        }
+        retView!.imageView.image = UIImage.init(named: JusticeLeagueLogos.logoArray[number].rawValue)
+        return retView!
+    }
+
+**Techniques in the animation:** 
 
 **Change Anchor Point of CALayer**
 
@@ -51,7 +109,7 @@ You could use 'CGFloat(-M_PI) * 0.99' to fix this.
 
 **To-Do List**
 
-1. reuse card view
+~~1. reuse card view~~
 
 2. reorder card view
 
