@@ -21,11 +21,11 @@ Classes:
 
 You can custom animation behavior by set the below properties.
 
-/// Animation time for a single card animation.
+//Animation time for a single card animation.
 
 `public var animationsSpeed = 0.2`
     
-// Defines the card size that will be used. (width, height)
+//Defines the card size that will be used. (width, height)
 
 `public var cardSize : (width:CGFloat, height:CGFloat)` 
 
@@ -109,8 +109,6 @@ You could use 'CGFloat(-M_PI) * 0.99' to fix this.
 
 **To-Do List**
 
-~~1. reuse card view~~
-
-2. reorder card view
-
-3. delete and add card view with pan gesture
+~~1.reuse card view~~
+2.reorder card view
+3.delete and add card view with pan gesture
