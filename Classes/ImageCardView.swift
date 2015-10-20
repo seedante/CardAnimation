@@ -8,16 +8,6 @@
 
 import UIKit
 
-protocol CardView {
-    func contentVisible(visible:Bool)
-    func prepareForReuse()
-}
-
-public class BaseCardView: UIView, CardView {
-    func contentVisible(visible:Bool) { }
-    func prepareForReuse() { }
-}
-
 public class ImageCardView: BaseCardView {
     var imageView:UIImageView!
     override init(frame: CGRect) {
@@ -39,9 +29,10 @@ public class ImageCardView: BaseCardView {
         imageView.contentMode = .ScaleAspectFill
         addSubview(imageView)
     }
-    
+
+    //hidden property can't be animationable, I recommand using alpha.
     override func contentVisible(visible:Bool) {
-        imageView.hidden = !visible
+        imageView.alpha = visible ? 1.0 : 0.0
     }
     
     override func prepareForReuse() {

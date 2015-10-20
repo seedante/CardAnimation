@@ -49,7 +49,7 @@ enum JusticeLeagueLogos: String {
     case Aquaman = "aquaman_young_justice_logo_by_kalangozilla.jpg"
     case CaptainMarvel = "classic_captain_marvel_jr_logo_by_kalangozilla.jpg"
     //can't find Cybord's Logo.
-    case AllMembers = "JLAFRICA.jpeg"
+    case AllMembers = "JLA.jpeg"
     
     static var logoArray : [JusticeLeagueLogos]  {
         get {

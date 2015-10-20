@@ -8,6 +8,16 @@
 
 import UIKit
 
+protocol CardView {
+    func contentVisible(visible:Bool)
+    func prepareForReuse()
+}
+
+public class BaseCardView: UIView, CardView {
+    func contentVisible(visible:Bool) { }
+    func prepareForReuse() { }
+}
+
 public protocol CardAnimationViewDataSource : class {
     func numberOfVisibleCards() -> Int
     func numberOfCards() -> Int
@@ -82,8 +92,7 @@ public class CardAnimationView: UIView {
     private lazy var flipDownTransform3D : CATransform3D = {
         var transform = CATransform3DIdentity
         transform.m34 = -1.0 / 1000.0
-        //此处有个很大的问题，折磨了我几个小时。原来官方的实现有个临界问题，旋转180度不会执行，其他的角度则没有问题
-        transform = CATransform3DRotate(transform, CGFloat(-M_PI)*0.99, 1, 0, 0)
+        transform = CATransform3DRotate(transform, CGFloat(-M_PI), 1, 0, 0)
         return transform
     }()
 
@@ -136,21 +145,27 @@ public class CardAnimationView: UIView {
         guard currentIndex > 0 else {
             return false
         }
-        
+
         currentIndex--
-        
+
         let newView = addNewCardViewWithIndex(currentIndex)
         newView.layer.transform = flipDownTransform3D
 
         let shouldRemoveLast = cardArray.count > maxVisibleCardCount
-        
-        
-        UIView.animateWithDuration(animationsSpeed, animations: {
-            newView.layer.transform = self.flipUpTransform3D
+
+        UIView.animateKeyframesWithDuration(animationsSpeed, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
+
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1, animations: {
+                newView.layer.transform = self.flipUpTransform3D
+            })
+
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.01, animations: {
+                newView.contentVisible(true)
+            })
+
             }, completion: { _ in
                 self.relayoutSubViewsAnimated(true, removeLast: shouldRemoveLast)
         })
-        
         return true
     }
     
@@ -163,18 +178,25 @@ public class CardAnimationView: UIView {
         guard currentIndex < cardCount else {
             return false
         }
-        
+
         currentIndex++
-        
+
         let frontView = cardArray.removeFirst()
         let lastIndex = currentIndex + cardArray.count
         if lastIndex < cardCount {
             addNewCardViewWithIndex(lastIndex, insertOnRear: true)
         }
-        frontView.contentVisible(false)
-        
-        UIView.animateWithDuration(animationsSpeed*1.5, animations: {
-            frontView.layer.transform = self.flipDownTransform3D
+
+        UIView.animateKeyframesWithDuration(animationsSpeed*1.5, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
+
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1, animations: {
+                frontView.layer.transform = self.flipDownTransform3D
+            })
+
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.01, animations: {
+                frontView.contentVisible(false)
+            })
+
             }, completion: { _ in
                 self.poolCardArray.append(frontView)
                 frontView.removeFromSuperview()

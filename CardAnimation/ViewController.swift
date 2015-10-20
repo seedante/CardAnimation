@@ -26,7 +26,7 @@ enum JusticeLeagueHeroLogo: String{
     case Aquaman = "aquaman_young_justice_logo_by_kalangozilla.jpg"
     case CaptainMarvel = "classic_captain_marvel_jr_logo_by_kalangozilla.jpg"
     //can't find Cybord's Logo.
-    case AllMembers = "JLAFRICA.jpeg"
+    case AllMembers = "JLA.jpeg"
 }
 
 
@@ -82,19 +82,36 @@ class ViewController: UIViewController {
 
         var flipUpTransform3D = CATransform3DIdentity
         flipUpTransform3D.m34 = -1.0 / 1000.0
-        flipUpTransform3D = CATransform3DRotate(flipUpTransform3D, 0, 1, 0, 0)
 
         previousFrontView.hidden = false
-        if let subView = previousFrontView.viewWithTag(10){
-            subView.hidden = false
-        }
 
-        UIView.animateWithDuration(0.2, animations: {
-            previousFrontView.layer.transform = flipUpTransform3D
+        let duration: NSTimeInterval = 0.5
+        //adjust borderWidth. Because the animation of  borderWidth change in keyFrame animation can't work, so place it in dispatch_after
+        //本来 layer 的 borderWidth 是个可以动画的属性，但是在 UIView Animation 却不工作，没办法，只能用这种方式了
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC) / 2.0))
+        dispatch_after(delayTime, dispatch_get_main_queue(), {
+            previousFrontView.layer.borderWidth = previousFrontView.frame.width / 100.0
+        })
+
+        //See annotation blew in flipDown: function.
+        UIView.animateKeyframesWithDuration(duration, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
+
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1, animations: {
+                previousFrontView.layer.transform = CATransform3DIdentity
+            })
+
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.01, animations: {
+                if let subView = previousFrontView.viewWithTag(10){
+                    subView.alpha = 1
+                }
+            })
+
+
             }, completion: {
                 _ in
                 self.adjustUpViewLayout()
         })
+
     }
 
     @IBAction func flipDown(sender: AnyObject) {
@@ -106,25 +123,52 @@ class ViewController: UIViewController {
             return
         }
 
-        if let subView = frontView.viewWithTag(10){
-            subView.hidden = true
-        }
+
+        let duration: NSTimeInterval = 0.5
+        //adjust borderWidth. Because the animation of  borderWidth change in keyFrame animation can't work, so place it in dispatch_after
+        //本来 layer 的 borderWidth 是个可以动画的属性，但是在 UIView Animation 却不工作，没办法，只能用这种方式了
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC) / 2.0))
+        dispatch_after(delayTime, dispatch_get_main_queue(), {
+            frontView.layer.borderWidth = 0
+        })
 
         var flipDownTransform3D = CATransform3DIdentity
         flipDownTransform3D.m34 = -1.0 / 1000.0
-        //此处有个很大的问题，折磨了我几个小时。原来官方的实现有个临界问题，旋转180度不会执行，其他的角度则没有问题
-        flipDownTransform3D = CATransform3DRotate(flipDownTransform3D, CGFloat(-M_PI)*0.99, 1, 0, 0)
-        UIView.animateWithDuration(0.3, animations: {
-            frontView.layer.transform = flipDownTransform3D
+
+        //There is a bug when you want to rotate 180, if you use UIView blcok animation, it doesn't work as expected: 1.no animation, just jump to final value; 2.rotate wrong direction.
+        //You could use a closed value or animate it in UIView key frame animation.
+        //此处有个很大的问题，折磨了我几个小时。官方的实现有Bug，在 UIView block animation 里旋转180度时会出现两种情况，一是不会执行动画而是直接跳到终点值，二是反方向旋转。
+        //其他的角度没有问题，这里使用近似值替代不会产生这个个问题。不过, 在 key frame animation 里执行这个动画是正常的。
+//        flipDownTransform3D = CATransform3DRotate(flipDownTransform3D, CGFloat(-M_PI)*0.99, 1, 0, 0)
+//        UIView.animateWithDuration(duration, animations: {
+//            frontView.layer.transform = flipDownTransform3D
+//        })
+
+        //And in key frame animtion, we can fix another bug: a view is transparent in transform rotate. 
+        //I put the view which show the content in a container view, when the container view is vertical to screen, hide the nested content view, then we can see only the content of background color, just like the back of a card.
+        //用 key frame animation 可以方便地解决卡片在旋转过程中背面透明的问题，解决办法是将内容视图放入一个容器视图，当容器视图旋转90时，此时将内容视图隐藏，从这时候开始我们就只能看到容器视图的背景色了，这样一来就和现实接近了。
+        //而在普通的 UIView animation 里，在旋转一半的时候将内容视图隐藏比较麻烦，比如先旋转90度，在 completion block 里将内容视图隐藏，然后再添加一个动画继续旋转。用 key frame 里就比较方便，而且没有UIView animation 里旋转180有问题的 bug。
+        UIView.animateKeyframesWithDuration(duration, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
+
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1, animations: {
+                let flipDownHalfTransform3D = CATransform3DRotate(flipDownTransform3D, CGFloat(-M_PI), 1, 0, 0)
+                frontView.layer.transform = flipDownHalfTransform3D
+            })
+
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.01, animations: {
+                if let subView = frontView.viewWithTag(10){
+                    subView.alpha = 0
+                }
+            })
+
             }, completion: {
                 _ in
-
                 frontView.hidden = true
                 self.adjustDownViewLayout()
-
+                
         })
-
     }
+
 
     func scrollOnView(gesture: UIPanGestureRecognizer){
         if frontCardTag > cardCount + 1{
@@ -161,6 +205,8 @@ class ViewController: UIViewController {
                 case 0.0..<1.0:
                     flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI) * percent, 1, 0, 0)
                     frontView?.layer.transform = flipTransform3D
+                    //Here, like flipDown/Up function, is to fix transparent back bug in rotate. When rotate 90, hidden the content view, then we can see the back only.
+                    //And take care of borderWidth.
                     if percent >= 0.5{
                         if let subView = frontView?.viewWithTag(10){
                             subView.hidden = true
@@ -370,6 +416,17 @@ class ViewController: UIViewController {
 
     }
 
+    //MARK: Handle Screen Rotation
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({
+            _ in
+            self.gradientBackgroundLayer.frame = self.view.bounds
+            self.relayoutSubViews()
+            }, completion: nil)
+    }
+
+
     //MARK: Helper Method
     //f(x) = k * x + m
     func calculateFactorOfFunction(x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat) -> (CGFloat, CGFloat){
@@ -456,15 +513,5 @@ class ViewController: UIViewController {
         return scaleFactor * initialBorderWidth
     }
 
-
-    //MARK: Handle Screen Rotation
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator.animateAlongsideTransition({
-            _ in
-            self.gradientBackgroundLayer.frame = self.view.bounds
-            self.relayoutSubViews()
-            }, completion: nil)
-    }
 }
 

@@ -9,14 +9,12 @@
 /* Begin PBXBuildFile section */
 		D21FB6791BCED32B0021B734 /* ComponentExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FB6781BCED32B0021B734 /* ComponentExampleViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		D21FB67C1BCED4C20021B734 /* CardAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */; settings = {ASSET_TAGS = (); }; };
-		D21FC1301BD0730D004D033D /* CardViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FC12F1BD0730D004D033D /* CardViews.swift */; settings = {ASSET_TAGS = (); }; };
+		D21FC1301BD0730D004D033D /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FC12F1BD0730D004D033D /* ImageCardView.swift */; settings = {ASSET_TAGS = (); }; };
 		FDD71FB91BBB360A00E076EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FB81BBB360A00E076EE /* AppDelegate.swift */; };
 		FDD71FBB1BBB360A00E076EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FBA1BBB360A00E076EE /* ViewController.swift */; };
 		FDD71FBE1BBB360A00E076EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD71FBC1BBB360A00E076EE /* Main.storyboard */; };
 		FDD71FC01BBB360A00E076EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDD71FBF1BBB360A00E076EE /* Assets.xcassets */; };
 		FDD71FC31BBB360A00E076EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD71FC11BBB360A00E076EE /* LaunchScreen.storyboard */; };
-		FDD71FCE1BBB360A00E076EE /* CardAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FCD1BBB360A00E076EE /* CardAnimationTests.swift */; };
-		FDD71FD91BBB360A00E076EE /* CardAnimationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FD81BBB360A00E076EE /* CardAnimationUITests.swift */; };
 		FDD720211BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
 		FDD720221BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
 		FDD720231BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
@@ -24,31 +22,14 @@
 		FDD720251BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
 		FDD720261BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
 		FDD720271BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
-		FDEDBBFD1BBFE9E1009654BD /* JLAFRICA.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFB1BBFE9E1009654BD /* JLAFRICA.jpeg */; settings = {ASSET_TAGS = (); }; };
+		FDEDBBFD1BBFE9E1009654BD /* JLA.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFB1BBFE9E1009654BD /* JLA.jpeg */; settings = {ASSET_TAGS = (); }; };
 		FDEDBBFE1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		FDD71FCA1BBB360A00E076EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FDD71FAD1BBB360A00E076EE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FDD71FB41BBB360A00E076EE;
-			remoteInfo = CardAnimation;
-		};
-		FDD71FD51BBB360A00E076EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FDD71FAD1BBB360A00E076EE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FDD71FB41BBB360A00E076EE;
-			remoteInfo = CardAnimation;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		D21FB6781BCED32B0021B734 /* ComponentExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentExampleViewController.swift; sourceTree = "<group>"; };
-		D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardAnimationView.swift; path = CardAnimation/CardAnimationView.swift; sourceTree = "<group>"; };
-		D21FC12F1BD0730D004D033D /* CardViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardViews.swift; path = CardAnimation/CardViews.swift; sourceTree = "<group>"; };
+		D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimationView.swift; sourceTree = "<group>"; };
+		D21FC12F1BD0730D004D033D /* ImageCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
 		FDD71FB51BBB360A00E076EE /* CardAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD71FB81BBB360A00E076EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDD71FBA1BBB360A00E076EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,10 +37,8 @@
 		FDD71FBF1BBB360A00E076EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FDD71FC21BBB360A00E076EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FDD71FC41BBB360A00E076EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FDD71FC91BBB360A00E076EE /* CardAnimationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardAnimationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD71FCD1BBB360A00E076EE /* CardAnimationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnimationTests.swift; sourceTree = "<group>"; };
 		FDD71FCF1BBB360A00E076EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FDD71FD41BBB360A00E076EE /* CardAnimationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardAnimationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD71FD81BBB360A00E076EE /* CardAnimationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnimationUITests.swift; sourceTree = "<group>"; };
 		FDD71FDA1BBB360A00E076EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = aquaman_young_justice_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
@@ -69,7 +48,7 @@
 		FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = superman_kingdom_come_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 		FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = flash_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 		FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wonder_woman_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
-		FDEDBBFB1BBFE9E1009654BD /* JLAFRICA.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = JLAFRICA.jpeg; sourceTree = "<group>"; };
+		FDEDBBFB1BBFE9E1009654BD /* JLA.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = JLA.jpeg; sourceTree = "<group>"; };
 		FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = batman_begins_poster_style_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,30 +60,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FDD71FC61BBB360A00E076EE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FDD71FD11BBB360A00E076EE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D21FB67A1BCED47C0021B734 /* Component */ = {
+		D21FB67A1BCED47C0021B734 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */,
-				D21FC12F1BD0730D004D033D /* CardViews.swift */,
+				D21FC12F1BD0730D004D033D /* ImageCardView.swift */,
 			);
-			name = Component;
+			name = Classes;
+			path = ../Classes;
+			sourceTree = "<group>";
+		};
+		FD6DDDEC1BD64CEB005387E8 /* SamplePictures */ = {
+			isa = PBXGroup;
+			children = (
+				FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */,
+				FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */,
+				FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */,
+				FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */,
+				FDEDBBFB1BBFE9E1009654BD /* JLA.jpeg */,
+				FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */,
+				FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */,
+				FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */,
+				FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */,
+			);
+			path = SamplePictures;
 			sourceTree = "<group>";
 		};
 		FDD71FAC1BBB360A00E076EE = {
@@ -121,8 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				FDD71FB51BBB360A00E076EE /* CardAnimation.app */,
-				FDD71FC91BBB360A00E076EE /* CardAnimationTests.xctest */,
-				FDD71FD41BBB360A00E076EE /* CardAnimationUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,16 +110,8 @@
 		FDD71FB71BBB360A00E076EE /* CardAnimation */ = {
 			isa = PBXGroup;
 			children = (
-				D21FB67A1BCED47C0021B734 /* Component */,
-				FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */,
-				FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */,
-				FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */,
-				FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */,
-				FDEDBBFB1BBFE9E1009654BD /* JLAFRICA.jpeg */,
-				FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */,
-				FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */,
-				FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */,
-				FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */,
+				D21FB67A1BCED47C0021B734 /* Classes */,
+				FD6DDDEC1BD64CEB005387E8 /* SamplePictures */,
 				FDD71FB81BBB360A00E076EE /* AppDelegate.swift */,
 				FDD71FBA1BBB360A00E076EE /* ViewController.swift */,
 				D21FB6781BCED32B0021B734 /* ComponentExampleViewController.swift */,
@@ -189,42 +161,6 @@
 			productReference = FDD71FB51BBB360A00E076EE /* CardAnimation.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FDD71FC81BBB360A00E076EE /* CardAnimationTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FDD71FE01BBB360A00E076EE /* Build configuration list for PBXNativeTarget "CardAnimationTests" */;
-			buildPhases = (
-				FDD71FC51BBB360A00E076EE /* Sources */,
-				FDD71FC61BBB360A00E076EE /* Frameworks */,
-				FDD71FC71BBB360A00E076EE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FDD71FCB1BBB360A00E076EE /* PBXTargetDependency */,
-			);
-			name = CardAnimationTests;
-			productName = CardAnimationTests;
-			productReference = FDD71FC91BBB360A00E076EE /* CardAnimationTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		FDD71FD31BBB360A00E076EE /* CardAnimationUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FDD71FE31BBB360A00E076EE /* Build configuration list for PBXNativeTarget "CardAnimationUITests" */;
-			buildPhases = (
-				FDD71FD01BBB360A00E076EE /* Sources */,
-				FDD71FD11BBB360A00E076EE /* Frameworks */,
-				FDD71FD21BBB360A00E076EE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FDD71FD61BBB360A00E076EE /* PBXTargetDependency */,
-			);
-			name = CardAnimationUITests;
-			productName = CardAnimationUITests;
-			productReference = FDD71FD41BBB360A00E076EE /* CardAnimationUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -236,14 +172,6 @@
 				TargetAttributes = {
 					FDD71FB41BBB360A00E076EE = {
 						CreatedOnToolsVersion = 7.0.1;
-					};
-					FDD71FC81BBB360A00E076EE = {
-						CreatedOnToolsVersion = 7.0.1;
-						TestTargetID = FDD71FB41BBB360A00E076EE;
-					};
-					FDD71FD31BBB360A00E076EE = {
-						CreatedOnToolsVersion = 7.0.1;
-						TestTargetID = FDD71FB41BBB360A00E076EE;
 					};
 				};
 			};
@@ -261,8 +189,6 @@
 			projectRoot = "";
 			targets = (
 				FDD71FB41BBB360A00E076EE /* CardAnimation */,
-				FDD71FC81BBB360A00E076EE /* CardAnimationTests */,
-				FDD71FD31BBB360A00E076EE /* CardAnimationUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -277,27 +203,13 @@
 				FDD71FC31BBB360A00E076EE /* LaunchScreen.storyboard in Resources */,
 				FDD720251BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg in Resources */,
 				FDD720271BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg in Resources */,
-				FDEDBBFD1BBFE9E1009654BD /* JLAFRICA.jpeg in Resources */,
+				FDEDBBFD1BBFE9E1009654BD /* JLA.jpeg in Resources */,
 				FDD720211BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg in Resources */,
 				FDD71FC01BBB360A00E076EE /* Assets.xcassets in Resources */,
 				FDD720241BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg in Resources */,
 				FDD720221BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg in Resources */,
 				FDD71FBE1BBB360A00E076EE /* Main.storyboard in Resources */,
 				FDD720261BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FDD71FC71BBB360A00E076EE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FDD71FD21BBB360A00E076EE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,40 +224,11 @@
 				D21FB67C1BCED4C20021B734 /* CardAnimationView.swift in Sources */,
 				FDD71FB91BBB360A00E076EE /* AppDelegate.swift in Sources */,
 				D21FB6791BCED32B0021B734 /* ComponentExampleViewController.swift in Sources */,
-				D21FC1301BD0730D004D033D /* CardViews.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FDD71FC51BBB360A00E076EE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FDD71FCE1BBB360A00E076EE /* CardAnimationTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FDD71FD01BBB360A00E076EE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FDD71FD91BBB360A00E076EE /* CardAnimationUITests.swift in Sources */,
+				D21FC1301BD0730D004D033D /* ImageCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		FDD71FCB1BBB360A00E076EE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FDD71FB41BBB360A00E076EE /* CardAnimation */;
-			targetProxy = FDD71FCA1BBB360A00E076EE /* PBXContainerItemProxy */;
-		};
-		FDD71FD61BBB360A00E076EE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FDD71FB41BBB360A00E076EE /* CardAnimation */;
-			targetProxy = FDD71FD51BBB360A00E076EE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		FDD71FBC1BBB360A00E076EE /* Main.storyboard */ = {
@@ -403,7 +286,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -442,7 +325,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,7 +338,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CardAnimation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = seedante.CardAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -467,58 +350,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CardAnimation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = seedante.CardAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		FDD71FE11BBB360A00E076EE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = CardAnimationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = seedante.CardAnimationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CardAnimation.app/CardAnimation";
-			};
-			name = Debug;
-		};
-		FDD71FE21BBB360A00E076EE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = CardAnimationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = seedante.CardAnimationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CardAnimation.app/CardAnimation";
-			};
-			name = Release;
-		};
-		FDD71FE41BBB360A00E076EE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = CardAnimationUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = seedante.CardAnimationUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = CardAnimation;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		FDD71FE51BBB360A00E076EE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = CardAnimationUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = seedante.CardAnimationUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = CardAnimation;
-				USES_XCTRUNNER = YES;
 			};
 			name = Release;
 		};
@@ -539,24 +374,6 @@
 			buildConfigurations = (
 				FDD71FDE1BBB360A00E076EE /* Debug */,
 				FDD71FDF1BBB360A00E076EE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FDD71FE01BBB360A00E076EE /* Build configuration list for PBXNativeTarget "CardAnimationTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FDD71FE11BBB360A00E076EE /* Debug */,
-				FDD71FE21BBB360A00E076EE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FDD71FE31BBB360A00E076EE /* Build configuration list for PBXNativeTarget "CardAnimationUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FDD71FE41BBB360A00E076EE /* Debug */,
-				FDD71FE51BBB360A00E076EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
