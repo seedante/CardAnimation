@@ -11,7 +11,7 @@ Features:
 
 **How to use it in your project**
 
-Drap class files in the "Classes" folder into your project, includes CardAnimationView.swift and ImageCardView.swift.
+Drop class files in the "Classes" folder into your project, includes CardAnimationView.swift and ImageCardView.swift.
 
 Classes:
 
@@ -89,7 +89,7 @@ From iOS8, transform and autolayout play nice. There is a blog for this: [Constr
 
 Transform doesn't affect autolayout, only constraints can affect autolayout.
 
-Transformes affect view's frame, but do nothing to view's center and bounds.
+Transform affect view's frame, but do nothing to view's center and bounds.
 
 **Make flip animation background not transparent**
 
