@@ -14,7 +14,7 @@ I rewrite it. Support reuse card view and pan gesture. You just need to provide 
 	class UICardContainerView : UIView {
 		var dataSource: CardContainerDataSource?
 		
-    	//If you want to custom these properties, configure them before asign dataSource, and don't change them once you custom them.
+    	//If you want to custom these properties, configure them before assign dataSource, and don't change them once you custom them.
     	//'needsCardCenterVertically' decide card is center vertically in container, or distance of bottom between card and contaienr is the height of card.
     	var needsCardCenterVertically: Bool = false 
     	var enableBrightnessControl: Bool = true
