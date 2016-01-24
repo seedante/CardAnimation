@@ -116,7 +116,7 @@ AutoLayout:
     
 #### Transform and AutoLayout
 
-From iOS8, transform and autolayout play nice. There is a blog for this: [Constraints & Transformations](http://revealapp.com/blog/constraints-and-transforms.html)
+From iOS 8, transform and autolayout play nice. There is a blog for this: [Constraints & Transformations](http://revealapp.com/blog/constraints-and-transforms.html)
 
 Transform doesn't affect autolayout, only constraints can affect autolayout.
 
