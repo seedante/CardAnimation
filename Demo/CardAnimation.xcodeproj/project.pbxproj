@@ -7,29 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D21FB6791BCED32B0021B734 /* ComponentExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FB6781BCED32B0021B734 /* ComponentExampleViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		D21FB67C1BCED4C20021B734 /* CardAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */; settings = {ASSET_TAGS = (); }; };
-		D21FC1301BD0730D004D033D /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FC12F1BD0730D004D033D /* ImageCardView.swift */; settings = {ASSET_TAGS = (); }; };
+		D21FB6791BCED32B0021B734 /* ComponentExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FB6781BCED32B0021B734 /* ComponentExampleViewController.swift */; };
+		D21FB67C1BCED4C20021B734 /* CardAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */; };
+		D21FC1301BD0730D004D033D /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FC12F1BD0730D004D033D /* ImageCardView.swift */; };
+		FDD46B721C4E871D00DFE7B6 /* UICardContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD46B711C4E871D00DFE7B6 /* UICardContainerView.swift */; };
 		FDD71FB91BBB360A00E076EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FB81BBB360A00E076EE /* AppDelegate.swift */; };
 		FDD71FBB1BBB360A00E076EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FBA1BBB360A00E076EE /* ViewController.swift */; };
 		FDD71FBE1BBB360A00E076EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD71FBC1BBB360A00E076EE /* Main.storyboard */; };
 		FDD71FC01BBB360A00E076EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDD71FBF1BBB360A00E076EE /* Assets.xcassets */; };
 		FDD71FC31BBB360A00E076EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD71FC11BBB360A00E076EE /* LaunchScreen.storyboard */; };
-		FDD720211BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
-		FDD720221BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
-		FDD720231BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
-		FDD720241BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
-		FDD720251BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
-		FDD720261BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
-		FDD720271BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
-		FDEDBBFD1BBFE9E1009654BD /* JLA.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFB1BBFE9E1009654BD /* JLA.jpeg */; settings = {ASSET_TAGS = (); }; };
-		FDEDBBFE1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */; settings = {ASSET_TAGS = (); }; };
+		FDD720211BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */; };
+		FDD720221BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */; };
+		FDD720231BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */; };
+		FDD720241BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */; };
+		FDD720251BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */; };
+		FDD720261BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */; };
+		FDD720271BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */; };
+		FDEDBBFD1BBFE9E1009654BD /* JLA.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFB1BBFE9E1009654BD /* JLA.jpeg */; };
+		FDEDBBFE1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D21FB6781BCED32B0021B734 /* ComponentExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentExampleViewController.swift; sourceTree = "<group>"; };
 		D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimationView.swift; sourceTree = "<group>"; };
 		D21FC12F1BD0730D004D033D /* ImageCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
+		FDD46B711C4E871D00DFE7B6 /* UICardContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UICardContainerView.swift; path = seedante/UICardContainerView.swift; sourceTree = "<group>"; };
 		FDD71FB51BBB360A00E076EE /* CardAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD71FB81BBB360A00E076EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDD71FBA1BBB360A00E076EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,14 +68,31 @@
 		D21FB67A1BCED47C0021B734 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FD6243661C51F58D006FFBCF /* Luis Sanchez Garcia */,
+				FD6243671C51F595006FFBCF /* seedante */,
+			);
+			name = Classes;
+			path = ../../Classes;
+			sourceTree = "<group>";
+		};
+		FD6243661C51F58D006FFBCF /* Luis Sanchez Garcia */ = {
+			isa = PBXGroup;
+			children = (
 				D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */,
 				D21FC12F1BD0730D004D033D /* ImageCardView.swift */,
 			);
-			name = Classes;
-			path = ../Classes;
+			path = "Luis Sanchez Garcia";
 			sourceTree = "<group>";
 		};
-		FD6DDDEC1BD64CEB005387E8 /* SamplePictures */ = {
+		FD6243671C51F595006FFBCF /* seedante */ = {
+			isa = PBXGroup;
+			children = (
+				FDD46B711C4E871D00DFE7B6 /* UICardContainerView.swift */,
+			);
+			name = seedante;
+			sourceTree = "<group>";
+		};
+		FD6DDDEC1BD64CEB005387E8 /* JAL */ = {
 			isa = PBXGroup;
 			children = (
 				FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */,
@@ -86,7 +105,7 @@
 				FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */,
 				FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */,
 			);
-			path = SamplePictures;
+			path = JAL;
 			sourceTree = "<group>";
 		};
 		FDD71FAC1BBB360A00E076EE = {
@@ -111,7 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				D21FB67A1BCED47C0021B734 /* Classes */,
-				FD6DDDEC1BD64CEB005387E8 /* SamplePictures */,
+				FD6DDDEC1BD64CEB005387E8 /* JAL */,
 				FDD71FB81BBB360A00E076EE /* AppDelegate.swift */,
 				FDD71FBA1BBB360A00E076EE /* ViewController.swift */,
 				D21FB6781BCED32B0021B734 /* ComponentExampleViewController.swift */,
@@ -220,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDD46B721C4E871D00DFE7B6 /* UICardContainerView.swift in Sources */,
 				FDD71FBB1BBB360A00E076EE /* ViewController.swift in Sources */,
 				D21FB67C1BCED4C20021B734 /* CardAnimationView.swift in Sources */,
 				FDD71FB91BBB360A00E076EE /* AppDelegate.swift in Sources */,
