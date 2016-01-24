@@ -2,16 +2,45 @@
 [Design from Dribble](https://dribbble.com/shots/1265487-First-shot-in-Chapps-Animation). And a [blog](http://www.jianshu.com/p/286222d4edf8) for this, only chinese.
 ![Design from Dribble](https://d13yacurqjgara.cloudfront.net/users/32399/screenshots/1265487/attachments/173545/secret-project-animation_2x.gif)
 
-Thanks for [@luxorules](https://github.com/luxorules/CardAnimation/tree/Component)'s great work. Now you can use this animation in your project easily.
+## API
 
-Features:
-- Custom card View size. (New added by @luxorules)
-- Custom card view, not only image view. (New added by @luxorules)
-- Support pan gesture.
+I rewrite it. Support reuse card view and pan gesture. You just need to provide number of cards and relative image.
 
-**How to use it in your project**
+	protocol CardContainerDataSource {
+    	func numberOfCardsForCardContainerView(cardContainerView: UICardContainerView) -> Int
+    	func cardContainerView(cardContainerView: UICardContainerView, imageForCardAtIndex: Int) -> UIImage?
+	}
 
-Drag class files in the "Classes" folder into your project, includes CardAnimationView.swift and ImageCardView.swift.
+	class UICardContainerView : UIView {
+		var dataSource: CardContainerDataSource?
+		
+    	//If you want to custom these properties, configure them before asign dataSource, and don't change them once you custom them.
+    	//'needsCardCenterVertically' decide card is center vertically in container, or distance of bottom between card and contaienr is the height of card.
+    	var needsCardCenterVertically: Bool = false 
+    	var enableBrightnessControl: Bool = true
+    	var maxVisibleCardCount: Int = 10
+    	var defaultCardSize: CGSize = CGSize(width: 400, height: 300)
+    	var needsBorder: Bool = true
+ 		var headCardBorderWidth: CGFloat = 5
+
+    	func slideDown()
+    	func slideUp()
+    	func reloadData()
+    	func insertCardAtIndex(toIndex: Int)
+    	func deleteCardAtIndex(toIndex: Int)
+    	//Call this method in viewDidLayoutSubviews()
+    	func respondsToSizeChange()
+	}
+
+Example:
+	
+	let cardContainerView = UICardContainerView(frame: aFrame)
+	aSuperView.addSubview(cardContainerView)
+	cardContainerView.dataSource = id<CardContainerDataSource>
+	
+Done.
+
+[@luxorules](https://github.com/luxorules/CardAnimation/tree/Component) packaged there code before, support pan gesture, card size and custom card view, not only image view. So there are two solutions for choice now. @luxorules's solution:
 
 Classes:
 
@@ -21,18 +50,15 @@ Classes:
 
 You can custom animation behavior by set the below properties.
 
-//Animation time for a single card animation.
-
-`public var animationsSpeed = 0.2`
-    
-//Defines the card size that will be used. (width, height)
-
-`public var cardSize : (width:CGFloat, height:CGFloat)` 
+	//Animation time for a single card animation.
+	public var animationsSpeed = 0.2
+	//Defines the card size that will be used. (width, height)
+	public var cardSize : (width:CGFloat, height:CGFloat)
 
 CardAnimationView needs a data source delegate to display the content, like UICollectionView.
 
-`public weak var dataSourceDelegate : CardAnimationViewDataSource?`
-
+	public weak var dataSourceDelegate : CardAnimationViewDataSource?
+	
     protocol CardAnimationViewDataSource : class {
         func numberOfVisibleCards() -> Int
         func numberOfCards() -> Int
@@ -58,10 +84,15 @@ How to reuse a card view? There is an example in `ComponentExampleViewController
         retView!.imageView.image = UIImage.init(named: JusticeLeagueLogos.logoArray[number].rawValue)
         return retView!
     }
+## How to use?
 
-**Techniques in the animation:** 
+You can find two solutions in 'Classes' folder. Drag them in your project.
 
-**Change Anchor Point of CALayer**
+ 
+
+## Technical Q&A
+
+#### Change Anchor Point of CALayer
 
 like: (0.5, 0.5) ->(0.5, 1)
 
@@ -83,7 +114,7 @@ AutoLayout:
     //Like what you do with frame, you need to compensate for additional translation.
     centerYConstraint.constant = subView.bounds.size.height/2 + oldConstraintConstant
     
-**Transform and AutoLayout**
+#### Transform and AutoLayout
 
 From iOS8, transform and autolayout play nice. There is a blog for this: [Constraints & Transformations](http://revealapp.com/blog/constraints-and-transforms.html)
 
@@ -91,28 +122,17 @@ Transform doesn't affect autolayout, only constraints can affect autolayout.
 
 Transform affects view's frame, but do nothing to view's center and bounds.
 
-**Make flip animation background not transparent**
+#### Flip animation with non-transparent background 
 
 Use a subview, and change the container view's background color to what color you want.
 
 When the container view is vertical to screen, make the subview hidden, and after the container view back, make subview visible.
 
-**Rotation Animation Bug in action method**
+#### Rotation Animation Bug in action method
 
     let flipTransform = CATransform3DRotate(CATransform3DIdentity, CGFloat(-M_PI), 1, 0, 0)
     UIView.animateWithDuration(0.3, {
       view.layer.transform = flipTransform
     })
     
-The animation will not execute and the view just change if you execute above code in an action method, like clip a button.
-You could use 'CGFloat(-M_PI) * 0.99' to fix this.
-
-Or, use UIView key frame animation, this transform works fine in key frame animation.
-
-**To-Do List**
-
-~~1.reuse card view~~
-
-2.reorder card view
-
-3.delete and add card view with pan gesture
+The animation will not execute and the view just change if you execute above code in an action method, like clip a button. UIView keyFrame animation works fine.

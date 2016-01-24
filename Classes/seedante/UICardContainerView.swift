@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CardContainerDataSource{
+public protocol CardContainerDataSource{
     func numberOfCardsForCardContainerView(cardContainerView: UICardContainerView) -> Int
     func cardContainerView(cardContainerView: UICardContainerView, imageForCardAtIndex: Int) -> UIImage?
 }
@@ -82,7 +82,7 @@ private class UICardView: UIView {
 }
 
 
-class UICardContainerView: UIView {
+public class UICardContainerView: UIView {
     
     //MARK: Property to Configure
     //All properties must be configured before 'dataSource' is asigned, and don't change after asigned.
@@ -90,6 +90,8 @@ class UICardContainerView: UIView {
     var enableBrightnessControl: Bool = true
     var maxVisibleCardCount: Int = 10
     var defaultCardSize = CGSize(width: 400, height: 300)
+    var needsBorder: Bool = true
+    var headCardBorderWidth: CGFloat = 5
     
     var dataSource: CardContainerDataSource?{
         didSet{
@@ -102,14 +104,16 @@ class UICardContainerView: UIView {
     //MARK: Init Method
     override init(frame: CGRect) {
         super.init(frame: frame)
-        clipsToBounds = false
+        clipsToBounds = true
+        translatesAutoresizingMaskIntoConstraints = false
         panGesture.addTarget(self, action: "panGestureAction:")
         addGestureRecognizer(panGesture)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         clipsToBounds = true
+        translatesAutoresizingMaskIntoConstraints = false
         panGesture.addTarget(self, action: "panGestureAction:")
         addGestureRecognizer(panGesture)
     }
@@ -136,15 +140,21 @@ class UICardContainerView: UIView {
         flipDownTransform3D.m34 = -1.0 / 2000.0
         flipDownTransform3D = CATransform3DRotate(flipDownTransform3D, CGFloat(-M_PI), 1, 0, 0)
         
+        let duration: NSTimeInterval = 0.5
+        //The animation of  borderWidth change in keyFrame animation can't work, so place it in dispatch_after
+        //本来 layer 的 borderWidth 是个可以动画的属性，但是在 UIView Animation 却不工作，没办法，只能用这种方式了
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC) / 2.0))
+        dispatch_after(delayTime, dispatch_get_main_queue(), {
+            headCard.layer.borderWidth = 0
+        })
+        
         UIView.animateKeyframesWithDuration(0.5, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
             UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1, animations: {
                 headCard.layer.transform = flipDownTransform3D
             })
-            
             UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.01, animations: {
                 headCard.hiddenContent()
             })
-            
             UIView.addKeyframeWithRelativeStartTime(0.9, relativeDuration: 0.1, animations: {
                headCard.alpha = 0
             })
@@ -173,7 +183,15 @@ class UICardContainerView: UIView {
         let image = self.dataSource!.cardContainerView(self, imageForCardAtIndex: self.currentHeadCardIndex - 1)
         previousHeadCard?.setImage(image)
         
-        UIView.animateKeyframesWithDuration(0.5, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
+        //The animation of borderWidth change in keyFrame animation can't work, so place it in dispatch_after
+        let duration: NSTimeInterval = 0.5
+        previousHeadCard?.layer.borderWidth = 0
+        let delayTime1 = dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC) / 2.0))
+        dispatch_after(delayTime1, dispatch_get_main_queue(), {
+            self.previousHeadCard?.layer.borderWidth = self.headCardBorderWidth
+        })
+        
+        UIView.animateKeyframesWithDuration(duration, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
             UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.5, animations: {
                 self.previousHeadCard?.alpha = 1
             })
@@ -184,10 +202,15 @@ class UICardContainerView: UIView {
                 self.previousHeadCard?.restoreContent()
             })
             }, completion: nil)
-        //There are some problems if the follow code in completion blovk.
-        self.currentHeadCardIndex -= 1
-        self.visibleCardQueue.insert(previousHeadCard!, atIndex: 0)
-        self.layoutVisibleCardViews()
+        
+        //There are some problems if the follow code in completion blovk, so...
+        let delayTime2 = dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime2, dispatch_get_main_queue(), {
+            self.currentHeadCardIndex -= 1
+            self.visibleCardQueue.insert(self.previousHeadCard!, atIndex: 0)
+            self.layoutVisibleCardViews()
+        })
+
     }
     
     func reloadData(){
@@ -277,7 +300,7 @@ class UICardContainerView: UIView {
     
     private func generateNewCardView() -> UICardView{
         let newCardView = UICardView(frame: CGRect(origin: CGPointZero, size: defaultCardSize))
-        
+        newCardView.layer.borderColor = UIColor.whiteColor().CGColor
         addSubview(newCardView)
         addConstraint(NSLayoutConstraint(item: newCardView, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0))
         
@@ -329,6 +352,7 @@ class UICardContainerView: UIView {
     
     private func resetCardViewtoReuse(cardView: UICardView){
         adjustConstraintOfCardView(cardView, withTargetIndex: 0)
+        cardView.layer.borderWidth = 0
         cardView.layer.zPosition = CGFloat(101)
         cardView.hiddenContent()
         
@@ -341,6 +365,12 @@ class UICardContainerView: UIView {
     /*Adjust CardView's constraint to right location*/
     private func adjustConstraintOfCardView(cardView: UICardView, withTargetIndex index: Int){
         cardView.layer.zPosition = CGFloat(100 - index)
+        if needsBorder{
+            cardView.layer.borderWidth = calculateBorderWidthForIndex(index, initialBorderWidth: headCardBorderWidth)
+        }else{
+            cardView.layer.borderWidth = 0
+        }
+
         if enableBrightnessControl{
             cardView.adjustAlpha(CGFloat(index) / CGFloat(5))
         }
@@ -460,8 +490,12 @@ class UICardContainerView: UIView {
                     headCard?.layer.transform = flipTransform3D
                     if percent >= 0.5{
                         headCard?.hiddenContent()
+                        headCard?.layer.borderWidth = 0
                     }else{
                         headCard?.restoreContent()
+                        if needsBorder{
+                            headCard?.layer.borderWidth = headCardBorderWidth
+                        }
                     }
                 case 1.0...CGFloat(MAXFLOAT):
                     flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI), 1, 0, 0)
@@ -475,8 +509,12 @@ class UICardContainerView: UIView {
                     previousHeadCard?.layer.transform = flipTransform3D
                     if percent <= -0.5{
                         previousHeadCard?.restoreContent()
+                        if needsBorder{
+                            previousHeadCard?.layer.borderWidth = headCardBorderWidth
+                        }
                     }else{
                         previousHeadCard?.hiddenContent()
+                        previousHeadCard?.layer.borderWidth = 0
                     }
                 default: break
                 }
@@ -502,12 +540,19 @@ class UICardContainerView: UIView {
                     })
                 }else{
                     headCard?.restoreContent()
+                    if needsBorder{
+                        headCard?.layer.borderWidth = headCardBorderWidth
+                    }
                     UIView.animateWithDuration(0.2, animations: {
                         headCard?.layer.transform = CATransform3DIdentity
                     })
                 }
             }else{
                 if percent <= -0.5{
+                    if needsBorder{
+                        previousHeadCard?.layer.borderWidth = headCardBorderWidth
+                    }
+
                     UIView.animateWithDuration(0.2, animations: {
                         self.previousHeadCard?.layer.transform = CATransform3DIdentity
                         }, completion: {_ in

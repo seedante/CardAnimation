@@ -42,21 +42,23 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3k-qd-ZGT">
-                                <rect key="frame" x="522" y="285" width="40" height="30"/>
+                                <rect key="frame" x="499" y="279" width="63" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Insert"/>
                                 <connections>
                                     <action selector="insertACard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kes-kn-yvi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGa-Eq-3CB">
-                                <rect key="frame" x="20" y="285" width="45" height="30"/>
+                                <rect key="frame" x="20" y="279" width="72" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Delete"/>
                                 <connections>
                                     <action selector="deleteACard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2We-2u-TF2"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="q3k-qd-ZGT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="5no-FK-Tay"/>
                             <constraint firstAttribute="leadingMargin" secondItem="CGa-Eq-3CB" secondAttribute="leading" id="IUq-59-mFL"/>
