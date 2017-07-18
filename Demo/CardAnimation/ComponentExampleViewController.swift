@@ -26,16 +26,16 @@ class ComponentExampleViewController: UIViewController {
     
 
     // MARK: - Actions
-    @IBAction func onUpPushed(sender: UIButton) {
-        cardsView.flipUp()
+    @IBAction func onUpPushed(_ sender: UIButton) {
+        let _ = cardsView.flipUp()
     }
 
-    @IBAction func onDownPushed(sender: UIButton) {
-        cardsView.flipDown()
+    @IBAction func onDownPushed(_ sender: UIButton) {
+        let _ = cardsView.flipDown()
     }
     
-    @IBAction func onClosePushed(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func onClosePushed(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }
@@ -69,7 +69,7 @@ extension ComponentExampleViewController : CardAnimationViewDataSource {
         return 8
     }
     
-    func cardNumber(number: Int, reusedView: BaseCardView?) -> BaseCardView {
+    func cardNumber(_ number: Int, reusedView: BaseCardView?) -> BaseCardView {
         var retView : ImageCardView? = reusedView as? ImageCardView
         print(" 🃏 Requested card number \(number)")
         if retView == nil {
