@@ -10,11 +10,11 @@ import UIKit
 
 protocol SDECardSource{
     var cardCount: Int {get set}
-    func cardImageAtIndex(index:Int) -> UIImage?
+    func cardImageAtIndex(_ index:Int) -> UIImage?
 }
 
 enum panScrollDirection{
-    case Up, Down
+    case up, down
 }
 
 enum JusticeLeagueHeroLogo: String{
@@ -41,39 +41,39 @@ class ViewController: UIViewController, CardContainerDataSource {
         
         cardContainerView.clipsToBounds = false
         view.addSubview(cardContainerView)
-        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .Width, relatedBy: .Equal, toItem: self.view, attribute: .Width, multiplier: 3/4, constant: 0))
-        cardContainerView.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .Height, relatedBy: .Equal, toItem: cardContainerView, attribute: .Width, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 3/4, constant: 0))
+        cardContainerView.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .height, relatedBy: .equal, toItem: cardContainerView, attribute: .width, multiplier: 1, constant: 0))
         view.layoutIfNeeded()
         
         cardContainerView.dataSource = self
     }
 
     //MARK: Card Container Data Source
-    func numberOfCardsForCardContainerView(cardContainerView: UICardContainerView) -> Int{
+    func numberOfCardsForCardContainerView(_ cardContainerView: UICardContainerView) -> Int{
         return logoArray.count
     }
-    func cardContainerView(cardContainerView: UICardContainerView, imageForCardAtIndex index: Int) -> UIImage?{
+    func cardContainerView(_ cardContainerView: UICardContainerView, imageForCardAtIndex index: Int) -> UIImage?{
         return index < logoArray.count ? UIImage(named: logoArray[index].rawValue)! : nil
     }
 
     //MARK: Action Method
-    @IBAction func flipUp(sender: AnyObject) {
+    @IBAction func flipUp(_ sender: AnyObject) {
         cardContainerView.slideUp()
     }
 
-    @IBAction func flipDown(sender: AnyObject) {
+    @IBAction func flipDown(_ sender: AnyObject) {
         cardContainerView.slideDown()
     }
 
-    @IBAction func insertACard(sender: AnyObject) {
-        logoArray.insert(.Batman, atIndex: 1)
+    @IBAction func insertACard(_ sender: AnyObject) {
+        logoArray.insert(.Batman, at: 1)
         cardContainerView.insertCardAtIndex(1)
     }
 
-    @IBAction func deleteACard(sender: AnyObject) {
-        logoArray.removeAtIndex(1)
+    @IBAction func deleteACard(_ sender: AnyObject) {
+        logoArray.remove(at: 1)
         cardContainerView.deleteCardAtIndex(1)
     }
     

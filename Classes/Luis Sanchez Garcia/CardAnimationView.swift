@@ -9,12 +9,12 @@
 import UIKit
 
 protocol CardView {
-    func contentVisible(visible:Bool)
+    func contentVisible(_ visible:Bool)
     func prepareForReuse()
 }
 
-public class BaseCardView: UIView, CardView {
-    func contentVisible(visible:Bool) { }
+open class BaseCardView: UIView, CardView {
+    func contentVisible(_ visible:Bool) { }
     func prepareForReuse() { }
 }
 
@@ -27,15 +27,15 @@ public protocol CardAnimationViewDataSource : class {
     - parameter reusedView: the component may provide you with an unused view.
     - returns: correctly configured card view.
     */
-    func cardNumber(number:Int, reusedView:BaseCardView?) -> BaseCardView
+    func cardNumber(_ number:Int, reusedView:BaseCardView?) -> BaseCardView
 }
 
 /// View to display a list of cards featuring a flipping up and down animation effect.
-public class CardAnimationView: UIView {
+open class CardAnimationView: UIView {
 
     // MARK: Public properties
     /// Data source delegate, class won't work until it's set.
-    public weak var dataSourceDelegate : CardAnimationViewDataSource? {
+    open weak var dataSourceDelegate : CardAnimationViewDataSource? {
         didSet { // Only start to work if delegate is set
             if dataSourceDelegate != nil {
                 configure()
@@ -44,10 +44,10 @@ public class CardAnimationView: UIView {
     }
     
     /// Animation speed for the cards animations.
-    public var animationsSpeed = 0.2
+    open var animationsSpeed = 0.2
     
     /// Defines the card size that will be used. (width, height)
-    public var cardSize : (width:CGFloat, height:CGFloat) {
+    open var cardSize : (width:CGFloat, height:CGFloat) {
         didSet { // Only reset when delegate is set
             if dataSourceDelegate != nil {
                 configure()
@@ -56,43 +56,43 @@ public class CardAnimationView: UIView {
     }
     
     // MARK: Private properties
-    private struct Constants {
+    fileprivate struct Constants {
         struct CardDefaultSize {
             static let width : CGFloat = 400.0
             static let height : CGFloat = 300.0
         }
     }
     
-    private var cardArray : [BaseCardView]! = []
-    private var poolCardArray : [BaseCardView]! = []
-    private lazy var gestureRecognizer : UIPanGestureRecognizer = {
-        return UIPanGestureRecognizer(target: self, action: "scrollOnView:")
+    fileprivate var cardArray : [BaseCardView]! = []
+    fileprivate var poolCardArray : [BaseCardView]! = []
+    fileprivate lazy var gestureRecognizer : UIPanGestureRecognizer = {
+        return UIPanGestureRecognizer(target: self, action: #selector(CardAnimationView.scrollOnView(_:)))
     }()
     
-    private struct PrivateConstants {
+    fileprivate struct PrivateConstants {
         static let maxVisibleCardCount = 8
         static let cardCount = 8
     }
     
 
-    private var cardCount = PrivateConstants.cardCount
-    private var maxVisibleCardCount = PrivateConstants.maxVisibleCardCount
-    private var gestureDirection:panScrollDirection = .Up
-    private var gestureTempCard: BaseCardView?
+    fileprivate var cardCount = PrivateConstants.cardCount
+    fileprivate var maxVisibleCardCount = PrivateConstants.maxVisibleCardCount
+    fileprivate var gestureDirection:panScrollDirection = .up
+    fileprivate var gestureTempCard: BaseCardView?
     
-    private var currentIndex = 0
+    fileprivate var currentIndex = 0
 
-    private lazy var flipUpTransform3D : CATransform3D = {
+    fileprivate lazy var flipUpTransform3D : CATransform3D = {
         var transform = CATransform3DIdentity
         transform.m34 = -1.0 / 1000.0
         transform = CATransform3DRotate(transform, 0, 1, 0, 0)
         return transform
     }()
     
-    private lazy var flipDownTransform3D : CATransform3D = {
+    fileprivate lazy var flipDownTransform3D : CATransform3D = {
         var transform = CATransform3DIdentity
         transform.m34 = -1.0 / 1000.0
-        transform = CATransform3DRotate(transform, CGFloat(-M_PI), 1, 0, 0)
+        transform = CATransform3DRotate(transform, CGFloat(-Double.pi), 1, 0, 0)
         return transform
     }()
 
@@ -117,14 +117,14 @@ public class CardAnimationView: UIView {
     }
     
     // MARK: Config
-    private func configure() {
+    fileprivate func configure() {
         configureConstants()
         generateCards()
         addGestureRecognizer(gestureRecognizer)
         self.relayoutSubViewsAnimated(false)
     }
     
-    private func configureConstants() {
+    fileprivate func configureConstants() {
         maxVisibleCardCount = self.dataSourceDelegate?.numberOfVisibleCards() ?? PrivateConstants.maxVisibleCardCount
         cardCount = self.dataSourceDelegate?.numberOfCards() ?? PrivateConstants.cardCount
     }
@@ -132,7 +132,7 @@ public class CardAnimationView: UIView {
     // MARK: Public
     
     /// Reloads the cards of the animated cards view.
-    public func reloadData() {
+    open func reloadData() {
         configure()
     }
 
@@ -141,25 +141,25 @@ public class CardAnimationView: UIView {
     
     - returns: if the action was performed or not (out of bounds)
     */
-    public func flipUp() -> Bool {
+    open func flipUp() -> Bool {
         guard currentIndex > 0 else {
             return false
         }
 
-        currentIndex--
+        currentIndex -= 1
 
         let newView = addNewCardViewWithIndex(currentIndex)
         newView.layer.transform = flipDownTransform3D
 
         let shouldRemoveLast = cardArray.count > maxVisibleCardCount
 
-        UIView.animateKeyframesWithDuration(animationsSpeed, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
+        UIView.animateKeyframes(withDuration: animationsSpeed, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
 
-            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
                 newView.layer.transform = self.flipUpTransform3D
             })
 
-            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.01, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.01, animations: {
                 newView.contentVisible(true)
             })
 
@@ -174,26 +174,26 @@ public class CardAnimationView: UIView {
     
     - returns: if the action was performed or not (out of bounds)
     */
-    public func flipDown() -> Bool {
+    open func flipDown() -> Bool {
         guard currentIndex < cardCount else {
             return false
         }
 
-        currentIndex++
+        currentIndex += 1
 
         let frontView = cardArray.removeFirst()
         let lastIndex = currentIndex + cardArray.count
         if lastIndex < cardCount {
-            addNewCardViewWithIndex(lastIndex, insertOnRear: true)
+            let _ = addNewCardViewWithIndex(lastIndex, insertOnRear: true)
         }
 
-        UIView.animateKeyframesWithDuration(animationsSpeed*1.5, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
+        UIView.animateKeyframes(withDuration: animationsSpeed*1.5, delay: 0, options: UIViewKeyframeAnimationOptions(), animations: {
 
-            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
                 frontView.layer.transform = self.flipDownTransform3D
             })
 
-            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.01, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.01, animations: {
                 frontView.contentVisible(false)
             })
 
@@ -209,28 +209,28 @@ public class CardAnimationView: UIView {
 
 // MARK: Pan gesture
 extension CardAnimationView {
-    @objc private func scrollOnView(gesture: UIPanGestureRecognizer) {
-        let velocity = gesture.velocityInView(self)
-        let percent = gesture.translationInView(self).y/150
+    @objc fileprivate func scrollOnView(_ gesture: UIPanGestureRecognizer) {
+        let velocity = gesture.velocity(in: self)
+        let percent = gesture.translation(in: self).y/150
         var flipTransform3D = CATransform3DIdentity
         flipTransform3D.m34 = -1.0 / 1000.0
         
         switch gesture.state{
-        case .Began:
+        case .began:
             
-            gestureDirection = velocity.y > 0 ? .Down : .Up
+            gestureDirection = velocity.y > 0 ? .down : .up
             
-        case .Changed:
-            if gestureDirection == .Down{ // Flip down
+        case .changed:
+            if gestureDirection == .down{ // Flip down
                 guard currentIndex < cardCount else {
-                    gesture.enabled = false // Cancel gesture
+                    gesture.isEnabled = false // Cancel gesture
                     return
                 }
                 
                 let frontView = cardArray[0]
                 switch percent{
                 case 0.0..<1.0:
-                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI) * percent, 1, 0, 0)
+                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-Double.pi) * percent, 1, 0, 0)
                     frontView.layer.transform = flipTransform3D
                     if percent >= 0.5{
                         frontView.contentVisible(false)
@@ -238,7 +238,7 @@ extension CardAnimationView {
                         frontView.contentVisible(true)
                     }
                 case 1.0...CGFloat(MAXFLOAT):
-                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI), 1, 0, 0)
+                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-Double.pi), 1, 0, 0)
                     frontView.layer.transform = flipTransform3D
                 default:
                     print(percent)
@@ -246,7 +246,7 @@ extension CardAnimationView {
                 
             } else { // Flip up
                 guard currentIndex > 0 else {
-                    gesture.enabled = false // Cancel gesture
+                    gesture.isEnabled = false // Cancel gesture
                     return
                 }
                 
@@ -265,28 +265,28 @@ extension CardAnimationView {
                     }else{
                         gestureTempCard!.contentVisible(false)
                     }
-                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI) * (percent+1.0), 1, 0, 0)
+                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(-Double.pi) * (percent+1.0), 1, 0, 0)
                     gestureTempCard!.layer.transform = flipTransform3D
                 default:
                     print(percent)
                 }
             }
             
-        case .Ended:
+        case .ended:
             
             switch gestureDirection{
-            case .Down:
+            case .down:
                 if percent >= 0.5{
-                    currentIndex++
+                    currentIndex += 1
                     
                     let frontView = cardArray.removeFirst()
                     let lastIndex = currentIndex + cardArray.count
                     if lastIndex < cardCount {
-                        addNewCardViewWithIndex(lastIndex, insertOnRear: true)
+                        let _ = addNewCardViewWithIndex(lastIndex, insertOnRear: true)
                     }
                     
-                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(M_PI), 1, 0, 0)
-                    UIView.animateWithDuration(0.3, animations: {
+                    flipTransform3D = CATransform3DRotate(flipTransform3D, CGFloat(Double.pi), 1, 0, 0)
+                    UIView.animate(withDuration: 0.3, animations: {
                         frontView.layer.transform = flipTransform3D
                         }, completion: {
                             _ in
@@ -297,21 +297,21 @@ extension CardAnimationView {
                     })
                 }else{
                     let frontView = cardArray[0]
-                    UIView.animateWithDuration(0.2, animations: {
+                    UIView.animate(withDuration: 0.2, animations: {
                         frontView.layer.transform = CATransform3DIdentity
                     })
                     
                 }
                 
-            case .Up:
+            case .up:
                 guard currentIndex > 0 else {
                     return
                 }
                 
                 if percent <= -0.5{
-                    currentIndex--
+                    currentIndex -= 1
                     let shouldRemoveLast = cardArray.count > maxVisibleCardCount
-                    UIView.animateWithDuration(0.2, animations: {
+                    UIView.animate(withDuration: 0.2, animations: {
                         self.gestureTempCard!.layer.transform = CATransform3DIdentity
                         }, completion: {
                             _ in
@@ -319,8 +319,8 @@ extension CardAnimationView {
                             self.gestureTempCard = nil
                     })
                 }else{
-                    UIView.animateWithDuration(0.2, animations: {
-                        self.gestureTempCard!.layer.transform = CATransform3DRotate(flipTransform3D, CGFloat(-M_PI), 1, 0, 0)
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.gestureTempCard!.layer.transform = CATransform3DRotate(flipTransform3D, CGFloat(-Double.pi), 1, 0, 0)
                         }, completion: {
                             _ in
                             self.poolCardArray.append(self.gestureTempCard!)
@@ -330,8 +330,8 @@ extension CardAnimationView {
                     })
                 }
             }
-        case .Cancelled: // When cancel reenable gesture
-            gesture.enabled = true
+        case .cancelled: // When cancel reenable gesture
+            gesture.isEnabled = true
         default:
             print("DEFAULT: DO NOTHING")
         }
@@ -340,7 +340,7 @@ extension CardAnimationView {
 
 // MARK: Card Generation
 extension CardAnimationView {
-    private func generateCards() {
+    fileprivate func generateCards() {
         // Clear previous configuration
         if cardArray.count > 0 {
             for view in cardArray {
@@ -357,7 +357,7 @@ extension CardAnimationView {
         poolCardArray = []
     }
     
-    private func addNewCardViewWithIndex(index:Int, insertOnRear rear:Bool = false) -> BaseCardView {
+    fileprivate func addNewCardViewWithIndex(_ index:Int, insertOnRear rear:Bool = false) -> BaseCardView {
         let newIndex = rear ? subviews.count : 0
         var newView : BaseCardView?
         // Reuse cards
@@ -367,15 +367,15 @@ extension CardAnimationView {
         } else {
             newView = generateNewCardViewWithIndex(index)
         }
-        rear ? insertSubview(newView!, atIndex: newIndex) : addSubview(newView!)
-        rear ? cardArray.append(newView!) : cardArray.insert(newView!, atIndex: newIndex)
+        rear ? insertSubview(newView!, at: newIndex) : addSubview(newView!)
+        rear ? cardArray.append(newView!) : cardArray.insert(newView!, at: newIndex)
         applyConstraintsToView(newView!)
         relayoutSubView(newView!, relativeIndex: newIndex, animated: false)
         newView!.alpha = rear ? 0.0 : 1.0
         return newView!
     }
     
-    private func generateNewCardViewWithIndex(index:Int, reusingCardView cardView:BaseCardView? = nil) -> BaseCardView {
+    fileprivate func generateNewCardViewWithIndex(_ index:Int, reusingCardView cardView:BaseCardView? = nil) -> BaseCardView {
         // Reset card
         if cardView != nil {
             cardView!.layer.transform = flipUpTransform3D
@@ -387,14 +387,14 @@ extension CardAnimationView {
         return view
     }
     
-    private func applyConstraintsToView(view:UIView) {
+    fileprivate func applyConstraintsToView(_ view:UIView) {
         view.addConstraints([
-            NSLayoutConstraint(item: view, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: CGFloat(1.0), constant:  cardSize.width),
-            NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: CGFloat(1.0), constant: cardSize.height),
+            NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: CGFloat(1.0), constant:  cardSize.width),
+            NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: CGFloat(1.0), constant: cardSize.height),
             ])
         view.superview!.addConstraints([
-            NSLayoutConstraint(item: view, attribute: .CenterX, relatedBy: .Equal, toItem: view.superview, attribute: .CenterX, multiplier: CGFloat(1.0), constant: 0),
-            NSLayoutConstraint(item: view, attribute: .CenterY, relatedBy: .Equal, toItem: view.superview, attribute: .CenterY, multiplier: CGFloat(1.0), constant: 0),
+            NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: view.superview, attribute: .centerX, multiplier: CGFloat(1.0), constant: 0),
+            NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: view.superview, attribute: .centerY, multiplier: CGFloat(1.0), constant: 0),
             ])
     }
 }
@@ -403,26 +403,26 @@ extension CardAnimationView {
 // MARK: Handle Layout
 extension CardAnimationView {
 
-    private func relayoutSubView(subView:BaseCardView, relativeIndex:Int, animated:Bool = true, delay: NSTimeInterval = 0, fadeAndDelete delete: Bool = false) {
+    fileprivate func relayoutSubView(_ subView:BaseCardView, relativeIndex:Int, animated:Bool = true, delay: TimeInterval = 0, fadeAndDelete delete: Bool = false) {
         let width = cardSize.width
         let height = cardSize.height
-        subView.layer.anchorPoint = CGPointMake(0.5, 1)
+        subView.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
         subView.layer.zPosition = CGFloat(1000 - relativeIndex)
 
         let sizeScale = calculateWidthScaleForIndex(relativeIndex)
         
-        let filterWidthSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Width && $0.secondItem == nil})
+        let filterWidthSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .width && $0.secondItem == nil})
         if filterWidthSubViewConstraints.count > 0{
             let widthConstraint = filterWidthSubViewConstraints[0]
             widthConstraint.constant = sizeScale * width
         }
-        let filterHeightSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .Height && $0.secondItem == nil})
+        let filterHeightSubViewConstraints = subView.constraints.filter({$0.firstAttribute == .height && $0.secondItem == nil})
         if filterHeightSubViewConstraints.count > 0{
             let heightConstraint = filterHeightSubViewConstraints[0]
             heightConstraint.constant = sizeScale * height
         }
         
-        let filteredViewConstraints = self.constraints.filter({$0.firstItem as? UIView == subView && $0.secondItem as? UIView == self && $0.firstAttribute == .CenterY})
+        let filteredViewConstraints = self.constraints.filter({$0.firstItem as? UIView == subView && $0.secondItem as? UIView == self && $0.firstAttribute == .centerY})
         if filteredViewConstraints.count > 0{
             let centerYConstraint = filteredViewConstraints[0]
             let subViewHeight = calculateWidthScaleForIndex(relativeIndex) * height
@@ -430,7 +430,7 @@ extension CardAnimationView {
             centerYConstraint.constant = subViewHeight/2 - YOffset
         }
         
-        UIView.animateWithDuration(animated ? animationsSpeed : 0, delay: delay, options: .BeginFromCurrentState, animations: {
+        UIView.animate(withDuration: animated ? animationsSpeed : 0, delay: delay, options: .beginFromCurrentState, animations: {
             subView.alpha = delete ? 0 : self.calculateAlphaForIndex(relativeIndex)
             self.layoutIfNeeded()
             }, completion: { _ in
@@ -441,8 +441,8 @@ extension CardAnimationView {
         })
     }
     
-    private func relayoutSubViewsAnimated(animated:Bool, removeLast remove:Bool = false){
-        for (index, view) in cardArray.enumerate() {
+    fileprivate func relayoutSubViewsAnimated(_ animated:Bool, removeLast remove:Bool = false){
+        for (index, view) in cardArray.enumerated() {
             let shouldDelete = remove && index == cardArray.count-1
             let delay = animated ? 0.1 * Double(index) : 0
             relayoutSubView(view, relativeIndex: index, delay: delay, fadeAndDelete: shouldDelete)
@@ -454,7 +454,7 @@ extension CardAnimationView {
     
     //MARK: Helper Methods
     //f(x) = k * x + m
-    private func calculateFactorOfFunction(x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat) -> (CGFloat, CGFloat){
+    fileprivate func calculateFactorOfFunction(_ x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat) -> (CGFloat, CGFloat){
         
         let k = (y1-y2)/(x1-x2)
         let m = (x1*y2 - x2*y1)/(x1-x2)
@@ -462,18 +462,18 @@ extension CardAnimationView {
         return (k, m)
     }
     
-    private func calculateResult(argument x: Int, k: CGFloat, m: CGFloat) -> CGFloat{
+    fileprivate func calculateResult(argument x: Int, k: CGFloat, m: CGFloat) -> CGFloat{
         return k * CGFloat(x) + m
     }
     
-    private func calcuteResultWith(x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat, argument: Int) -> CGFloat{
+    fileprivate func calcuteResultWith(_ x1: CGFloat, x2: CGFloat, y1: CGFloat, y2: CGFloat, argument: Int) -> CGFloat{
         let (k, m) = calculateFactorOfFunction(x1, x2: x2, y1: y1, y2: y2)
         return calculateResult(argument: argument, k: k, m: m)
     }
     
     //I set the gap between 0Card and 1st Card is 35, gap between the last two card is 15. These value on iPhone is a little big, you could make it less.
     //设定头两个卡片的距离为35，最后两张卡片之间的举例为15。不设定成等距才符合视觉效果。
-    private func calculusYOffsetForIndex(indexInQueue: Int) -> CGFloat{
+    fileprivate func calculusYOffsetForIndex(_ indexInQueue: Int) -> CGFloat{
         if indexInQueue < 1{
             return CGFloat(0)
         }
@@ -490,7 +490,7 @@ extension CardAnimationView {
         return sum
     }
     
-    private func calculateWidthScaleForIndex(indexInQueue: Int) -> CGFloat{
+    fileprivate func calculateWidthScaleForIndex(_ indexInQueue: Int) -> CGFloat{
         let widthBaseScale:CGFloat = 0.5
         
         var factor: CGFloat = 1
@@ -505,7 +505,7 @@ extension CardAnimationView {
     
     //Zoom out card one by one.
     //为符合视觉以及营造景深效果，卡片依次缩小
-    private func calculateScaleFactorForIndex(indexInQueue: Int) -> CGFloat{
+    fileprivate func calculateScaleFactorForIndex(_ indexInQueue: Int) -> CGFloat{
         if indexInQueue < 1{
             return CGFloat(1)
         }
@@ -518,7 +518,7 @@ extension CardAnimationView {
         return scale
     }
     
-    private func calculateAlphaForIndex(indexInQueue: Int) -> CGFloat{
+    fileprivate func calculateAlphaForIndex(_ indexInQueue: Int) -> CGFloat{
         if indexInQueue < 1{
             return CGFloat(1)
         }

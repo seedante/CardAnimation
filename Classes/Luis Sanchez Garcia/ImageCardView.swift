@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ImageCardView: BaseCardView {
+open class ImageCardView: BaseCardView {
     var imageView:UIImageView!
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,22 +20,22 @@ public class ImageCardView: BaseCardView {
         configure()
     }
     
-    private func configure() {
-        backgroundColor = UIColor.darkGrayColor()
+    fileprivate func configure() {
+        backgroundColor = UIColor.darkGray
         imageView = UIImageView(frame: frame)
-        imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        imageView.backgroundColor = UIColor.lightGrayColor()
+        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        imageView.backgroundColor = UIColor.lightGray
         imageView.clipsToBounds = true
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         addSubview(imageView)
     }
 
     //hidden property can't be animationable, I recommand using alpha.
-    override func contentVisible(visible:Bool) {
+    override func contentVisible(_ visible:Bool) {
         imageView.alpha = visible ? 1.0 : 0.0
     }
     
     override func prepareForReuse() {
-        imageView.hidden = false
+        imageView.isHidden = false
     }
 }
