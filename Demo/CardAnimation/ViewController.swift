@@ -3,18 +3,29 @@
 //  CardAnimation
 //
 //  Created by seedante on 15/9/30.
-//  Copyright © 2015年 seedante. All rights reserved.
+//  Copyright © 2016年 seedante
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 //
 
 import UIKit
 
 protocol SDECardSource{
     var cardCount: Int {get set}
-    func cardImageAtIndex(index:Int) -> UIImage?
+    func cardImageAtIndex(_ index:Int) -> UIImage?
 }
 
 enum panScrollDirection{
-    case Up, Down
+    case up, down
 }
 
 enum JusticeLeagueHeroLogo: String{
@@ -41,39 +52,39 @@ class ViewController: UIViewController, CardContainerDataSource {
         
         cardContainerView.clipsToBounds = false
         view.addSubview(cardContainerView)
-        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .Width, relatedBy: .Equal, toItem: self.view, attribute: .Width, multiplier: 3/4, constant: 0))
-        cardContainerView.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .Height, relatedBy: .Equal, toItem: cardContainerView, attribute: .Width, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 3/4, constant: 0))
+        cardContainerView.addConstraint(NSLayoutConstraint(item: cardContainerView, attribute: .height, relatedBy: .equal, toItem: cardContainerView, attribute: .width, multiplier: 1, constant: 0))
         view.layoutIfNeeded()
         
         cardContainerView.dataSource = self
     }
 
     //MARK: Card Container Data Source
-    func numberOfCardsForCardContainerView(cardContainerView: UICardContainerView) -> Int{
+    func numberOfCardsForCardContainerView(_ cardContainerView: UICardContainerView) -> Int{
         return logoArray.count
     }
-    func cardContainerView(cardContainerView: UICardContainerView, imageForCardAtIndex index: Int) -> UIImage?{
+    func cardContainerView(_ cardContainerView: UICardContainerView, imageForCardAtIndex index: Int) -> UIImage?{
         return index < logoArray.count ? UIImage(named: logoArray[index].rawValue)! : nil
     }
 
     //MARK: Action Method
-    @IBAction func flipUp(sender: AnyObject) {
+    @IBAction func flipUp(_ sender: AnyObject) {
         cardContainerView.slideUp()
     }
 
-    @IBAction func flipDown(sender: AnyObject) {
+    @IBAction func flipDown(_ sender: AnyObject) {
         cardContainerView.slideDown()
     }
 
-    @IBAction func insertACard(sender: AnyObject) {
-        logoArray.insert(.Batman, atIndex: 1)
+    @IBAction func insertACard(_ sender: AnyObject) {
+        logoArray.insert(.Batman, at: 1)
         cardContainerView.insertCardAtIndex(1)
     }
 
-    @IBAction func deleteACard(sender: AnyObject) {
-        logoArray.removeAtIndex(1)
+    @IBAction func deleteACard(_ sender: AnyObject) {
+        logoArray.remove(at: 1)
         cardContainerView.deleteCardAtIndex(1)
     }
     
