@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D21FB6791BCED32B0021B734 /* ComponentExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FB6781BCED32B0021B734 /* ComponentExampleViewController.swift */; };
-		D21FB67C1BCED4C20021B734 /* CardAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */; };
-		D21FC1301BD0730D004D033D /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21FC12F1BD0730D004D033D /* ImageCardView.swift */; };
-		FDD46B721C4E871D00DFE7B6 /* UICardContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD46B711C4E871D00DFE7B6 /* UICardContainerView.swift */; };
+		FD09199620023EF500730FEE /* superman_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FD09199520023EF500730FEE /* superman_logo_by_kalangozilla.jpg */; };
+		FD09199A200245BF00730FEE /* JL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FD091999200245BF00730FEE /* JL.jpg */; };
+		FDB573292005FD060062C3A6 /* CardAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB573272005FD050062C3A6 /* CardAnimationView.swift */; };
+		FDB5732A2005FD060062C3A6 /* CardContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB573282005FD050062C3A6 /* CardContainerView.swift */; };
 		FDD71FB91BBB360A00E076EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FB81BBB360A00E076EE /* AppDelegate.swift */; };
 		FDD71FBB1BBB360A00E076EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD71FBA1BBB360A00E076EE /* ViewController.swift */; };
 		FDD71FBE1BBB360A00E076EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD71FBC1BBB360A00E076EE /* Main.storyboard */; };
@@ -20,18 +21,17 @@
 		FDD720221BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */; };
 		FDD720231BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */; };
 		FDD720241BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */; };
-		FDD720251BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */; };
 		FDD720261BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */; };
 		FDD720271BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */; };
-		FDEDBBFD1BBFE9E1009654BD /* JLA.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFB1BBFE9E1009654BD /* JLA.jpeg */; };
 		FDEDBBFE1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D21FB6781BCED32B0021B734 /* ComponentExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentExampleViewController.swift; sourceTree = "<group>"; };
-		D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimationView.swift; sourceTree = "<group>"; };
-		D21FC12F1BD0730D004D033D /* ImageCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
-		FDD46B711C4E871D00DFE7B6 /* UICardContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UICardContainerView.swift; path = seedante/UICardContainerView.swift; sourceTree = "<group>"; };
+		FD09199520023EF500730FEE /* superman_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = superman_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
+		FD091999200245BF00730FEE /* JL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = JL.jpg; sourceTree = "<group>"; };
+		FDB573272005FD050062C3A6 /* CardAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimationView.swift; sourceTree = "<group>"; };
+		FDB573282005FD050062C3A6 /* CardContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardContainerView.swift; sourceTree = "<group>"; };
 		FDD71FB51BBB360A00E076EE /* CardAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD71FB81BBB360A00E076EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDD71FBA1BBB360A00E076EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -41,16 +41,12 @@
 		FDD71FC41BBB360A00E076EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDD71FCD1BBB360A00E076EE /* CardAnimationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnimationTests.swift; sourceTree = "<group>"; };
 		FDD71FCF1BBB360A00E076EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FDD71FD81BBB360A00E076EE /* CardAnimationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnimationUITests.swift; sourceTree = "<group>"; };
-		FDD71FDA1BBB360A00E076EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = aquaman_young_justice_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 		FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = batman_tim_burton_style_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 		FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = classic_captain_marvel_jr_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 		FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = green_lantern_corps_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
-		FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = superman_kingdom_come_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 		FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = flash_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 		FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wonder_woman_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
-		FDEDBBFB1BBFE9E1009654BD /* JLA.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = JLA.jpeg; sourceTree = "<group>"; };
 		FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = batman_begins_poster_style_logo_by_kalangozilla.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,44 +64,27 @@
 		D21FB67A1BCED47C0021B734 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				FD6243661C51F58D006FFBCF /* Luis Sanchez Garcia */,
-				FD6243671C51F595006FFBCF /* seedante */,
+				FDB573272005FD050062C3A6 /* CardAnimationView.swift */,
+				FDB573282005FD050062C3A6 /* CardContainerView.swift */,
 			);
 			name = Classes;
 			path = ../../Classes;
 			sourceTree = "<group>";
 		};
-		FD6243661C51F58D006FFBCF /* Luis Sanchez Garcia */ = {
+		FD6DDDEC1BD64CEB005387E8 /* JL */ = {
 			isa = PBXGroup;
 			children = (
-				D21FB67B1BCED4C20021B734 /* CardAnimationView.swift */,
-				D21FC12F1BD0730D004D033D /* ImageCardView.swift */,
-			);
-			path = "Luis Sanchez Garcia";
-			sourceTree = "<group>";
-		};
-		FD6243671C51F595006FFBCF /* seedante */ = {
-			isa = PBXGroup;
-			children = (
-				FDD46B711C4E871D00DFE7B6 /* UICardContainerView.swift */,
-			);
-			name = seedante;
-			sourceTree = "<group>";
-		};
-		FD6DDDEC1BD64CEB005387E8 /* JAL */ = {
-			isa = PBXGroup;
-			children = (
+				FD091999200245BF00730FEE /* JL.jpg */,
 				FDD7201A1BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg */,
+				FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */,
 				FDD7201B1BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg */,
 				FDD7201C1BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg */,
-				FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */,
-				FDEDBBFB1BBFE9E1009654BD /* JLA.jpeg */,
-				FDEDBBFC1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg */,
-				FDD7201E1BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg */,
 				FDD7201F1BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg */,
+				FDD7201D1BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg */,
+				FD09199520023EF500730FEE /* superman_logo_by_kalangozilla.jpg */,
 				FDD720201BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg */,
 			);
-			path = JAL;
+			path = JL;
 			sourceTree = "<group>";
 		};
 		FDD71FAC1BBB360A00E076EE = {
@@ -113,7 +92,6 @@
 			children = (
 				FDD71FB71BBB360A00E076EE /* CardAnimation */,
 				FDD71FCC1BBB360A00E076EE /* CardAnimationTests */,
-				FDD71FD71BBB360A00E076EE /* CardAnimationUITests */,
 				FDD71FB61BBB360A00E076EE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				D21FB67A1BCED47C0021B734 /* Classes */,
-				FD6DDDEC1BD64CEB005387E8 /* JAL */,
+				FD6DDDEC1BD64CEB005387E8 /* JL */,
 				FDD71FB81BBB360A00E076EE /* AppDelegate.swift */,
 				FDD71FBA1BBB360A00E076EE /* ViewController.swift */,
 				D21FB6781BCED32B0021B734 /* ComponentExampleViewController.swift */,
@@ -149,15 +127,6 @@
 				FDD71FCF1BBB360A00E076EE /* Info.plist */,
 			);
 			path = CardAnimationTests;
-			sourceTree = "<group>";
-		};
-		FDD71FD71BBB360A00E076EE /* CardAnimationUITests */ = {
-			isa = PBXGroup;
-			children = (
-				FDD71FD81BBB360A00E076EE /* CardAnimationUITests.swift */,
-				FDD71FDA1BBB360A00E076EE /* Info.plist */,
-			);
-			path = CardAnimationUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,7 +155,7 @@
 		FDD71FAD1BBB360A00E076EE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = seedante;
 				TargetAttributes = {
 					FDD71FB41BBB360A00E076EE = {
@@ -218,18 +187,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD09199620023EF500730FEE /* superman_logo_by_kalangozilla.jpg in Resources */,
 				FDEDBBFE1BBFE9E1009654BD /* batman_begins_poster_style_logo_by_kalangozilla.jpg in Resources */,
 				FDD720231BBBF36700E076EE /* classic_captain_marvel_jr_logo_by_kalangozilla.jpg in Resources */,
 				FDD71FC31BBB360A00E076EE /* LaunchScreen.storyboard in Resources */,
-				FDD720251BBBF36700E076EE /* superman_kingdom_come_logo_by_kalangozilla.jpg in Resources */,
 				FDD720271BBBF36700E076EE /* wonder_woman_logo_by_kalangozilla.jpg in Resources */,
-				FDEDBBFD1BBFE9E1009654BD /* JLA.jpeg in Resources */,
 				FDD720211BBBF36700E076EE /* aquaman_young_justice_logo_by_kalangozilla.jpg in Resources */,
 				FDD71FC01BBB360A00E076EE /* Assets.xcassets in Resources */,
 				FDD720241BBBF36700E076EE /* green_lantern_corps_logo_by_kalangozilla.jpg in Resources */,
 				FDD720221BBBF36700E076EE /* batman_tim_burton_style_logo_by_kalangozilla.jpg in Resources */,
 				FDD71FBE1BBB360A00E076EE /* Main.storyboard in Resources */,
 				FDD720261BBBF36700E076EE /* flash_logo_by_kalangozilla.jpg in Resources */,
+				FD09199A200245BF00730FEE /* JL.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,12 +209,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDD46B721C4E871D00DFE7B6 /* UICardContainerView.swift in Sources */,
 				FDD71FBB1BBB360A00E076EE /* ViewController.swift in Sources */,
-				D21FB67C1BCED4C20021B734 /* CardAnimationView.swift in Sources */,
 				FDD71FB91BBB360A00E076EE /* AppDelegate.swift in Sources */,
+				FDB5732A2005FD060062C3A6 /* CardContainerView.swift in Sources */,
 				D21FB6791BCED32B0021B734 /* ComponentExampleViewController.swift in Sources */,
-				D21FC1301BD0730D004D033D /* ImageCardView.swift in Sources */,
+				FDB573292005FD060062C3A6 /* CardAnimationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,14 +247,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -314,6 +288,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -326,14 +301,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -354,6 +335,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -368,7 +350,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = seedante.CardAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -381,7 +363,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = seedante.CardAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

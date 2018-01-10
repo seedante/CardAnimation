@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CardAnimation  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="CardAnimation  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">CardAnimation Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/seedante/CardAnimation/"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fseedante%2Egithub%2Eio%2FCardAnimation%2Fdocsets%2FCardAnimation%2Exml"><img src="img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">CardAnimation Reference</a>
+        <img id="carat" src="img/carat.png" />
+        CardAnimation  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/CardContainerView.html">CardContainerView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/CardContainerDataSource.html">CardContainerDataSource</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='cardanimation' class='heading'>CardAnimation</h1>
+
+<p><a href="https://dribbble.com/shots/1265487-First-shot-in-Chapps-Animation">Design from Dribble</a>.
+<img src="https://d13yacurqjgara.cloudfront.net/users/32399/screenshots/1265487/attachments/173545/secret-project-animation_2x.gif" alt="Design from Dribble"></p>
+
+<p><a href="http://www.jianshu.com/p/286222d4edf8">实现思路在这里</a>。</p>
+<h2 id='two-solutions' class='heading'>Two Solutions</h2>
+
+<p>At the begin, I didn&rsquo;t encapsulate code, <a href="https://github.com/luxorules/CardAnimation/tree/Component">@luxorules</a> refactor code into class and improve it to support not only image, then I encapsulate my code
+into class. So, there are two choices.</p>
+<h4 id='cardcontainerview-by-seedante' class='heading'>CardContainerView by seedante</h4>
+
+<p>Here is <a href="https://seedante.github.io/CardAnimation/Classes/CardContainerView.html">CardContainerView API reference</a>. <a href="https://github.com/seedante/CardAnimation/blob/master/Classes/CardContainerView.swift">CardContainerView</a> supports custom card size, pan gesture. </p>
+
+<p>Example:</p>
+<pre class="highlight plaintext"><code>let cardContainerView = CardContainerView(frame: aFrame)// with defalut card size.
+cardContainerView.dataSource = id&lt;CardContainerDataSource&gt;
+</code></pre>
+
+<p>Done.</p>
+<pre class="highlight plaintext"><code>public protocol CardContainerDataSource: class{
+    func numberOfCards(for cardContainerView: UICardContainerView) -&gt; Int
+    func cardContainerView(_ cardContainerView: UICardContainerView, imageForCardAt index: Int) -&gt; UIImage?
+}
+</code></pre>
+<h4 id='cardanimationview-by-luxorules' class='heading'>CardAnimationView by @luxorules</h4>
+
+<p><a href="https://github.com/seedante/CardAnimation/blob/master/Classes/CardAnimationView.swift">CardAnimationView</a> supports custom card size, pan gesture. </p>
+
+<p>Usage is simple also:</p>
+<pre class="highlight plaintext"><code>let cardAnimationView = CardAnimationView.init(frame: aFrame)// with defalut card size.
+cardAnimationView.dataSourceDelegate = id&lt;CardAnimationViewDataSource&gt;
+</code></pre>
+
+<p>It adds a little complexity to exchange for: custom card view(not only image).</p>
+<pre class="highlight plaintext"><code>protocol CardAnimationViewDataSource : class {
+    func numberOfVisibleCards() -&gt; Int
+    func numberOfCards() -&gt; Int
+    // Return view displayed in the CardAnimationView. If reusedView is not nil,
+    // you could configure and return it to reuse it.
+    func cardNumber(number:Int, reusedView:BaseCardView?) -&gt; BaseCardView
+}
+</code></pre>
+
+<p>Classes:</p>
+
+<ul>
+<li>CardAnimationView: UIView, the view to display a list of card view.</li>
+<li>BasedCardView: UIView, all custom card view must be inherited from this class.</li>
+<li>ImageCardView: BasedCardView, child class of BasedCardView, if you just want to use image, use this class.</li>
+</ul>
+<h2 id='requirements' class='heading'>Requirements</h2>
+
+<ul>
+<li>iOS 8.0/Swift 4.0</li>
+</ul>
+<h2 id='installation' class='heading'>Installation</h2>
+
+<p>Two solutions are both single file. They are in <code>Classes</code> folder. Just need to import file into your project.</p>
+<h2 id='other' class='heading'>Other</h2>
+
+<p>The project is released under the <a href="https://github.com/seedante/CardAnimation/blob/master/LICENSE">MIT LICENSE</a>. And relative technical points are moved to <a href="https://github.com/seedante/CardAnimation/wiki/CardAnimation-Technical-Point">wiki</a>.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external">seedante</a>. All rights reserved. (Last updated: 2018-01-10)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

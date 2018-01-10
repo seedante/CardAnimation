@@ -3,18 +3,25 @@
 //  CardAnimation
 //
 //  Created by Luis Sanchez Garcia on 14/10/15.
-//  Copyright © 2016年 seedante
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+//  Copyright © 2016 seedante
 //
-//    http://www.apache.org/licenses/LICENSE-2.0
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 //
 
 import UIKit
@@ -53,18 +60,17 @@ class ComponentExampleViewController: UIViewController {
 
 enum JusticeLeagueLogos: String {
     case WonderWoman = "wonder_woman_logo_by_kalangozilla.jpg"
-    case Superman = "superman_kingdom_come_logo_by_kalangozilla.jpg"
+    case Superman = "superman_logo_by_kalangozilla.jpg"
     case Batman = "batman_begins_poster_style_logo_by_kalangozilla.jpg"
     case GreenLantern = "green_lantern_corps_logo_by_kalangozilla.jpg"
     case Flash = "flash_logo_by_kalangozilla.jpg"
     case Aquaman = "aquaman_young_justice_logo_by_kalangozilla.jpg"
     case CaptainMarvel = "classic_captain_marvel_jr_logo_by_kalangozilla.jpg"
-    //can't find Cybord's Logo.
-    case AllMembers = "JLA.jpeg"
+    case JL = "JL.jpg"
     
     static var logoArray : [JusticeLeagueLogos]  {
         get {
-            return [.Superman, .WonderWoman, .Batman, .GreenLantern, .Flash, .Aquaman, .CaptainMarvel, .AllMembers]
+            return [.Superman, .WonderWoman, .Batman, .GreenLantern, .Flash, .Aquaman, .CaptainMarvel, .JL]
         }
     }
 }
