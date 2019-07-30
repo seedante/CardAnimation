@@ -112,13 +112,6 @@ open class CardAnimationView: UIView {
     }
     
     // MARK: Private properties
-    fileprivate struct Constants {
-        struct CardDefaultSize {
-            static let width : CGFloat = 400.0
-            static let height : CGFloat = 300.0
-        }
-    }
-    
     fileprivate var cardArray : [BaseCardView]! = []
     fileprivate var poolCardArray : [BaseCardView]! = []
     fileprivate lazy var gestureRecognizer : UIPanGestureRecognizer = {

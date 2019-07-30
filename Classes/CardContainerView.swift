@@ -43,6 +43,12 @@ public protocol CardContainerDataSource: class{
     func cardContainerView(_ cardContainerView: CardContainerView, imageForCardAt index: Int) -> UIImage?
 }
 
+public struct Constants {
+	struct CardDefaultSize {
+		static let width : CGFloat = 400.0
+		static let height : CGFloat = 300.0
+	}
+}
 
 private class _CardView: UIView {
     private let backView = UIView()
@@ -80,11 +86,11 @@ private class _CardView: UIView {
     }
     
     convenience init(){
-        self.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 400, height: 300)))
+        self.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: Constants.CardDefaultSize.width, height: Constants.CardDefaultSize.height)))
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        self.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 400, height: 300)))
+        self.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: Constants.CardDefaultSize.width, height: Constants.CardDefaultSize.height)))
     }
     
     func restoreTransform3D(){
@@ -136,7 +142,7 @@ open class CardContainerView: UIView {
     public var needsBorder: Bool = true
     /// The size of the first card you see. If you change this value, call `layoutCardsIfNeeded()` to resize cards.
     /// The default value is (400, 300).
-    public var cardSize = CGSize(width: 400, height: 300)
+    public var cardSize = CGSize(width: Constants.CardDefaultSize.width, height: Constants.CardDefaultSize.height)
     /// Color of card's back. If it's nil, card back is black. The default value is nil.
     public var cardBackColor: UIColor?
     /// The border width of the first card you see. The default value is 5.
@@ -187,7 +193,7 @@ open class CardContainerView: UIView {
     ///
     /// - parameter frame: The frame rectangle for the view.
     /// - parameter cardSize: The card size. The default value is (400, 300)
-    public init(frame: CGRect, cardSize: CGSize = CGSize(width: 400, height: 300)) {
+    public init(frame: CGRect, cardSize: CGSize) {
         self.cardSize = cardSize
         super.init(frame: frame)
         clipsToBounds = true
@@ -294,7 +300,7 @@ open class CardContainerView: UIView {
         }
     }
         
-    /// Insert a cark at specified location. You must update data source before calling this method.
+    /// Insert a card at specified location. You must update data source before calling this method.
     /// And you must call this method after updating data source.
     ///
     /// If location is not visible, no animation.
