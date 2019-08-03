@@ -720,7 +720,10 @@ open class CardContainerView: UIView {
         let offset = calcuteResultWith(x1: 1, x2: maxVisibleCardCount, y1: maxYOffsetBetweenCards, y2: minYOffsetBetweenCards, argument: indexInQueue)
         yOffsets.append(offset)
         
-        return yOffsets[..<indexInQueue].reduce(0, +)
+        if yOffsets.count >= indexInQueue{
+            return yOffsets[..<indexInQueue].reduce(0, +)
+        }
+        return CGFloat(0)
     }
 
     private func calculateAlphaForIndex(_ indexInQueue: Int) -> CGFloat{
