@@ -43,11 +43,10 @@ public protocol CardContainerDataSource: class{
     func cardContainerView(_ cardContainerView: CardContainerView, imageForCardAt index: Int) -> UIImage?
 }
 
-public struct Constants {
-	struct CardDefaultSize {
-		static let width : CGFloat = 400.0
-		static let height : CGFloat = 300.0
-	}
+struct CardDefaults {
+	static let width : CGFloat = 400.0
+	static let height : CGFloat = 300.0
+	static let maxVisible: Int = 10
 }
 
 private class _CardView: UIView {
@@ -86,11 +85,11 @@ private class _CardView: UIView {
     }
     
     convenience init(){
-        self.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: Constants.CardDefaultSize.width, height: Constants.CardDefaultSize.height)))
+        self.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: CardDefaults.width, height: CardDefaults.height)))
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        self.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: Constants.CardDefaultSize.width, height: Constants.CardDefaultSize.height)))
+        self.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: CardDefaults.width, height: CardDefaults.height)))
     }
     
     func restoreTransform3D(){
@@ -137,12 +136,12 @@ open class CardContainerView: UIView {
     /// A Boolean value deciding whether control brightness on different cards. The default value is true.
     public var enableBrightnessControl: Bool = true
     /// The max number of visible cards in the view. The default value is 10.
-    public var maxVisibleCardCount: Int = 10
+    public var maxVisibleCardCount: Int = CardDefaults.maxVisible
     /// A Boolean value deciding whether provide a border on every card view. The default value is true.
     public var needsBorder: Bool = true
     /// The size of the first card you see. If you change this value, call `layoutCardsIfNeeded()` to resize cards.
     /// The default value is (400, 300).
-    public var cardSize = CGSize(width: Constants.CardDefaultSize.width, height: Constants.CardDefaultSize.height)
+    public var cardSize = CGSize(width: CardDefaults.width, height: CardDefaults.height)
     /// Color of card's back. If it's nil, card back is black. The default value is nil.
     public var cardBackColor: UIColor?
     /// The border width of the first card you see. The default value is 5.

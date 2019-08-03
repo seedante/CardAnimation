@@ -119,13 +119,12 @@ open class CardAnimationView: UIView {
     }()
     
     fileprivate struct PrivateConstants {
-        static let maxVisibleCardCount = 8
         static let cardCount = 8
     }
     
 
     fileprivate var cardCount = PrivateConstants.cardCount
-    fileprivate var maxVisibleCardCount = PrivateConstants.maxVisibleCardCount
+    fileprivate var maxVisibleCardCount = CardDefaults.maxVisible
     fileprivate var gestureDirection:PanScrollDirection = .up
     fileprivate var gestureTempCard: BaseCardView?
     
@@ -152,7 +151,7 @@ open class CardAnimationView: UIView {
         - parameter frame: adssad
     */
     override init(frame: CGRect) {
-        cardSize = (Constants.CardDefaultSize.width, Constants.CardDefaultSize.height)
+        cardSize = (CardDefaults.width, CardDefaults.height)
         super.init(frame: frame)
     }
     
@@ -161,7 +160,7 @@ open class CardAnimationView: UIView {
         - parameter coder: An unarchiver object.
     */
     required public init?(coder aDecoder: NSCoder) {
-        cardSize = (Constants.CardDefaultSize.width, Constants.CardDefaultSize.height)
+        cardSize = (CardDefaults.width, CardDefaults.height)
         super.init(coder: aDecoder)
     }
     
@@ -174,7 +173,7 @@ open class CardAnimationView: UIView {
     }
     
     fileprivate func configureConstants() {
-        maxVisibleCardCount = self.dataSourceDelegate?.numberOfVisibleCards() ?? PrivateConstants.maxVisibleCardCount
+        maxVisibleCardCount = self.dataSourceDelegate?.numberOfVisibleCards() ?? CardDefaults.maxVisible
         cardCount = self.dataSourceDelegate?.numberOfCards() ?? PrivateConstants.cardCount
     }
     
