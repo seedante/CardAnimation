@@ -1,7 +1,7 @@
 # CardAnimation
 
 [Design from Dribble](https://dribbble.com/shots/1265487-First-shot-in-Chapps-Animation).
-![Design from Dribble](https://d13yacurqjgara.cloudfront.net/users/32399/screenshots/1265487/attachments/173545/secret-project-animation_2x.gif)
+![Design from Dribble](https://upload-images.jianshu.io/upload_images/37334-a93069b40b9a83d6.gif?imageMogr2/auto-orient/strip|imageView2/2/w/800)
 
 [实现思路在这里](http://www.jianshu.com/p/286222d4edf8)。
 
